@@ -1,0 +1,16 @@
+/* #new-side{
+    display: none  !important;
+} */
+
+
+/* ------------Sidebar code-------------- */
+
+/* App.css */
+.nav-link-active {
+    background-color: red !important; /* Background color for active link */
+    color: #007bff !important; /* Text color for active link */
+    font-weight: bold !important; /* Bold text for active link */
+    border-radius: 25px !important; /* Optional: Rounded corners for active link */
+    padding: 8px 16px; /* Optional: Padding for active link */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+  }
