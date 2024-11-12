@@ -9,7 +9,7 @@ const DashboardProfile = () => {
     const profileData = useSelector(state => state.User.userProfile)
 
     useEffect(() => {
-        dispatch(getProfile(profileDetails._id))
+        dispatch(getProfile(profileDetails?._id))
     },[])
 
   return (
