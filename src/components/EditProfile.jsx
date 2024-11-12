@@ -34,8 +34,8 @@ const EditProfile = () => {
   });
 
   useEffect(() => {
-    dispatch(getProfile(profileDetails._id));
-  }, [dispatch, profileDetails._id]);
+    dispatch(getProfile(profileDetails?._id));
+  }, [dispatch, profileDetails?._id]);
 
   // Update formData once userData is fetched
   useEffect(() => {
