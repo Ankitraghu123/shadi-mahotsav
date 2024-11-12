@@ -102,7 +102,7 @@ const EditProfile = () => {
                           className="form-control"
                           placeholder="Enter your full name"
                           name="name"
-                          value={formData.name}
+                          value={formData?.name}
                           onChange={handleChange}
                         />
                       </div>
@@ -114,7 +114,7 @@ const EditProfile = () => {
                           id="email"
                           placeholder="Enter email"
                           name="email"
-                          value={formData.email}
+                          value={formData?.email}
                         />
                       </div>
                       <div className="form-group">
@@ -125,7 +125,7 @@ const EditProfile = () => {
                           id="phone"
                           placeholder="Enter phone number"
                           name="phone"
-                          value={formData.phone}
+                          value={formData?.phone}
                         />
                       </div>
                       <div className="form-group">
@@ -133,7 +133,7 @@ const EditProfile = () => {
                         <select
                           className="form-select"
                           name="gender"
-                          value={formData.gender}
+                          value={formData?.gender}
                           onChange={handleChange}
                         >
                           <option>Male</option>
@@ -156,7 +156,7 @@ const EditProfile = () => {
                             className="form-control"
                             name="city"
                             placeholder="Enter your city"
-                            value={formData.city}
+                            value={formData?.city}
                             onChange={handleChange}
                           />
                         </div>
@@ -167,7 +167,7 @@ const EditProfile = () => {
                             className="form-control"
                             name="state"
                             placeholder="Enter your state"
-                            value={formData.state}
+                            value={formData?.state}
                             onChange={handleChange}
                           />
                         </div>
@@ -180,7 +180,7 @@ const EditProfile = () => {
                             className="form-control"
                             name="country"
                             placeholder="Enter your country"
-                            value={formData.country}
+                            value={formData?.country}
                             onChange={handleChange}
                           />
                         </div>
@@ -189,7 +189,7 @@ const EditProfile = () => {
                           <select
                             className="form-select"
                             name="religion"
-                            value={formData.religion}
+                            value={formData?.religion}
                             onChange={handleChange}
                           >
                             <option>Christianity</option>
@@ -208,7 +208,7 @@ const EditProfile = () => {
                             className="form-control"
                             name="zodiacSign"
                             placeholder="Enter your zodiac sign"
-                            value={formData.zodiacSign}
+                            value={formData?.zodiacSign}
                             onChange={handleChange}
                           />
                         </div>
@@ -218,7 +218,7 @@ const EditProfile = () => {
                             type="date"
                             className="form-control"
                             name="dob"
-                            value={formData.dob}
+                            value={formData?.dob}
                             onChange={handleChange}
                           />
                         </div>
@@ -231,7 +231,7 @@ const EditProfile = () => {
                             className="form-control"
                             name="height"
                             placeholder="Enter your height"
-                            value={formData.height}
+                            value={formData?.height}
                             onChange={handleChange}
                           />
                         </div>
@@ -242,7 +242,7 @@ const EditProfile = () => {
                             className="form-control"
                             name="weight"
                             placeholder="Enter your weight"
-                            value={formData.weight}
+                            value={formData?.weight}
                             onChange={handleChange}
                           />
                         </div>
@@ -255,7 +255,7 @@ const EditProfile = () => {
                             className="form-control"
                             name="fatherName"
                             placeholder="Enter your father's name"
-                            value={formData.fatherName}
+                            value={formData?.fatherName}
                             onChange={handleChange}
                           />
                         </div>
@@ -266,7 +266,7 @@ const EditProfile = () => {
                             className="form-control"
                             name="motherName"
                             placeholder="Enter your mother's name"
-                            value={formData.motherName}
+                            value={formData?.motherName}
                             onChange={handleChange}
                           />
                         </div>
@@ -278,7 +278,7 @@ const EditProfile = () => {
                           className="form-control"
                           name="address"
                           placeholder="Enter your address"
-                          value={formData.address}
+                          value={formData?.address}
                           onChange={handleChange}
                         />
                       </div>
@@ -294,7 +294,7 @@ const EditProfile = () => {
                         <select
                           className="form-select"
                           name="jobType"
-                          value={formData.jobType}
+                          value={formData?.jobType}
                           onChange={handleChange}
                         >
                           <option>Business</option>
@@ -310,7 +310,7 @@ const EditProfile = () => {
                           className="form-control"
                           name="companyName"
                           placeholder="Enter your company name"
-                          value={formData.companyName}
+                          value={formData?.companyName}
                           onChange={handleChange}
                         />
                       </div>
@@ -322,7 +322,7 @@ const EditProfile = () => {
                             className="form-control"
                             name="salary"
                             placeholder="Enter your salary"
-                            value={formData.salary}
+                            value={formData?.salary}
                             onChange={handleChange}
                           />
                         </div>
@@ -333,7 +333,7 @@ const EditProfile = () => {
                             className="form-control"
                             name="totalExperience"
                             placeholder="Enter your experience"
-                            value={formData.totalExperience}
+                            value={formData?.totalExperience}
                             onChange={handleChange}
                           />
                         </div>
@@ -345,7 +345,7 @@ const EditProfile = () => {
                           className="form-control"
                           name="degree"
                           placeholder="Enter your degree"
-                          value={formData.degree}
+                          value={formData?.degree}
                           onChange={handleChange}
                         />
                       </div>
@@ -356,7 +356,7 @@ const EditProfile = () => {
                           className="form-control"
                           name="school"
                           placeholder="Enter your school name"
-                          value={formData.school}
+                          value={formData?.school}
                           onChange={handleChange}
                         />
                       </div>
@@ -367,7 +367,7 @@ const EditProfile = () => {
                           className="form-control"
                           name="college"
                           placeholder="Enter your college name"
-                          value={formData.college}
+                          value={formData?.college}
                           onChange={handleChange}
                         />
                       </div>
