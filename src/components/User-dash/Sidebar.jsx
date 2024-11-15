@@ -1,28 +1,16 @@
-// src/components/DashboardLayout.jsx
-import React, { useEffect, useState } from "react";
-import { NavLink, Routes, Route, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { deleteProfilePicture, editProfilePicture, getCurrentUser, getProfile } from '../../Features/User/UserSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { MdDelete, MdEdit } from "react-icons/md";
-import DashboardProfile from "./User-dash/Profile";
-import ChatList from "./User-dash/ChatList";
-import Interests from "./User-dash/Interests";
-import PlanDetails from "./User-dash/PlanDetails";
-import Setting from "./User-dash/Setting";
-import MainDash from "./User-dash/MainDash";
-import ChatPage from "./User-dash/ChatPage";
-import profiles from '../images/profiles/12.jpg'; // Import images
-import { useDispatch, useSelector } from "react-redux";
-import { deleteProfilePicture, editProfilePicture, getCurrentUser } from "../Features/User/UserSlice";
-import Sidebar from "./User-dash/Sidebar";
-import {toast} from 'react-toastify'
-import { Button } from "react-bootstrap";
+import { NavLink } from 'react-bootstrap';
 
-const DashboardLayout = () => {
-  const profileDetails = JSON.parse(localStorage.getItem('userData'));
+
+const Sidebar = () => {
+   const profileDetails = JSON.parse(localStorage.getItem('userData'));
   const dispatch = useDispatch();
   const [imagePreview, setImagePreview] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [file, setFile] = useState(null);
-  const navigate = useNavigate()
   const {editedProfilePicture, deletedProfilePicture} = useSelector(state => state.User)
 
   useEffect(() => {
@@ -40,12 +28,6 @@ const DashboardLayout = () => {
     setImagePreview(previewUrl);
   };
 
-  const LogoutHandler = () => {
-    localStorage.clear();
-    toast.success('User Logged Out')
-    setTimeout(() => navigate('/'), 100);
-  }
-
   const handleSaveImage = () => {
     if (file) {
       console.log(file)
@@ -61,11 +43,7 @@ const DashboardLayout = () => {
   };
 
   return (
-    <section id="new-side" className="db">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-4 col-lg-3">
-          <div className="db-nav overflow-hidden ">
+    <div className="db-nav">
               <div className="db-nav-pro">
                 <img
                   src={imagePreview || profileData?.profilePicture}
@@ -93,8 +71,8 @@ const DashboardLayout = () => {
                       accept="image/*"
                       onChange={handleImageChange}
                     />
-                    <Button style={{marginRight:'5px',marginTop:'5px'}} onClick={handleSaveImage}>Save</Button>
-                    <Button style={{marginTop:'5px'}}  onClick={() => setIsEditing(false)}>Cancel</Button>
+                    <button onClick={handleSaveImage}>Save</button>
+                    <button onClick={() => setIsEditing(false)}>Cancel</button>
                   </div>
                 )}
               </div>
@@ -140,17 +118,17 @@ const DashboardLayout = () => {
                       Plan
                     </NavLink>
                   </li>
-                  {/* <li>
+                  <li>
                     <NavLink
                       to="/dashboard/user-setting"
                       className={({ isActive }) => (isActive ? "active-link" : "")}
                     >
                       Settings
                     </NavLink>
-                  </li> */}
+                  </li>
                   <li>
                     <NavLink
-                      onClick={LogoutHandler}
+                      to="/dashboard/logout"
                       className={({ isActive }) => (isActive ? "active-link" : "")}
                     >
                       Logout
@@ -159,22 +137,7 @@ const DashboardLayout = () => {
                 </ul>
               </div>
             </div>
-          </div>
-          <div className="col-md-12 col-lg-9">
-            <Routes>
-              <Route path="main" element={<MainDash />} />
-              <Route path="user-profile" element={<DashboardProfile />} />
-              <Route path="user-interests" element={<Interests />} />
-              <Route path="chat" element={<ChatList />} />
-              <Route path="chat/:id" element={<ChatPage />} />
-              <Route path="plane" element={<PlanDetails />} />
-              {/* <Route path="user-setting" element={<Setting />} /> */}
-            </Routes>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+  )
+}
 
-export default DashboardLayout;
+export default Sidebar

@@ -20,7 +20,7 @@ const Home = () => {
   return (
     <div>
         <BannerAndSearchSlider/>
-        <QuickAccess/>
+        {/* <QuickAccess/> */}
         <TrustedBrands />
         {/* <MySwiperComponent /> */}
         <BannerAndFeatures />

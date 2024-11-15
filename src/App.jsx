@@ -28,6 +28,10 @@ import MySwiperComponent from './components/Home/MySwiperComponent';
 import ChatPage from './components/User-dash/ChatPage';
 import NavScrollExample from './components/layouts/Nav1';
 import Footer from './components/layouts/Footer';
+import PrivateRoute from './PrivateRoute';
+import SearchResultsPage from './components/Home/SearchResultPage';
+import AdminDashboard from './Admin/AdminDashboard';
+import AdminLogin from './Admin/AdminLogin';
 
 
 
@@ -48,15 +52,20 @@ function App() {
       <Route path="/login" element={<Login/>}  />
       <Route path="/register" element={<Register/>}  />
       <Route path="/edit" element={<EditProfile/>}  />
-      <Route path="/dashboard/*" element={<DashboardLayout />} />
+      <Route path="/dashboard/*" element={<PrivateRoute><DashboardLayout /></PrivateRoute>} />
       {/* <Route path="/chat" element={<ChatPage />} /> */}
+      <Route path="/search-results" element={<SearchResultsPage />} />
       <Route path="/route"element={<Routing/>}  />
       <Route path="/profile"element={<Profile/>}  />
-      <Route path="/profile-detail"element={<ProfileDetail/>}  />
+      <Route path="/profile-detail/:id"element={<ProfileDetail/>}  />
       <Route path="/pricing"element={<PricingPlans/>}  />
       <Route path="/gallery"element={<Gallery/>}  />
-      <Route path="/profile-edit"element={<ProfileEdit/>}  />
+      <Route path="/profile-edit"element={<PrivateRoute><ProfileEdit/></PrivateRoute>}  />
       <Route path="/swiper"element={<MySwiperComponent/>}  />
+
+
+      <Route path="/admin-dashboard/*" element={<AdminDashboard/>}  />
+      <Route path="/admin-dashboard/Login" element={<AdminLogin />} />
 
 
 

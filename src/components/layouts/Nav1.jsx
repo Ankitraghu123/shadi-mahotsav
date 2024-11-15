@@ -1,14 +1,30 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
+import { useEffect, useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';  // Add useLocation import
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUser } from '../../Features/User/UserSlice'; // Make sure this action fetches the user profile after login
+import { isLoggedIn } from '../../utils/config';
 import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Container from 'react-bootstrap/Container';
 
 function NavScrollExample() {
+  const dispatch = useDispatch();
+  const profileDetails = JSON.parse(localStorage.getItem("userData"));
+  const profileData = useSelector((state) => state.User?.currentUser);
   const [expanded, setExpanded] = useState(false);
+  const location = useLocation(); // Get the current location
+
+  useEffect(() => {
+    if (profileDetails?._id) {
+      dispatch(getCurrentUser(profileDetails?._id)); // Fetch user data after login
+    }
+  }, [dispatch]);
+
+  // Scroll to top whenever the route changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]); // The location change will trigger scrolling to the top
 
   const handleNavLinkClick = () => {
     setExpanded(false);
@@ -17,9 +33,9 @@ function NavScrollExample() {
   return (
     <Navbar expand="lg" expanded={expanded} fixed="top" className="Nabvar">
       <Container fluid className="container">
-        <Navbar.Brand as={NavLink} to="/" onClick={handleNavLinkClick}>
+        <Link to="/" onClick={handleNavLinkClick}>
           Shadi <span id="logo">Mahotsav</span>
-        </Navbar.Brand>
+        </Link>
         <Navbar.Toggle
           aria-controls="navbarScroll"
           onClick={() => setExpanded(expanded ? false : true)}
@@ -55,28 +71,8 @@ function NavScrollExample() {
             >
               Plans
             </Nav.Link>
-            <Nav.Link
-              as={NavLink}
-              to="/register"
-              className="nav-link"
-              onClick={handleNavLinkClick}
-            >
-              Register
-            </Nav.Link>
 
             <NavDropdown title="All pages" id="navbarScrollingDropdown">
-              <NavDropdown.Item as={NavLink} to="/login" onClick={handleNavLinkClick}>
-                Login
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/register" onClick={handleNavLinkClick}>
-                Register
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/edit" onClick={handleNavLinkClick}>
-                Edit Profile
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
               <NavDropdown.Item as={NavLink} to="/gallery" onClick={handleNavLinkClick}>
                 Gallery
               </NavDropdown.Item>
@@ -84,41 +80,18 @@ function NavScrollExample() {
               <NavDropdown.Item as={NavLink} to="/profile" onClick={handleNavLinkClick}>
                 All Profile
               </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/profile-detail" onClick={handleNavLinkClick}>
-                Profile Detail
-              </NavDropdown.Item>
             </NavDropdown>
 
-            <NavDropdown title="Dashboard" id="navbarScrollingDropdown">
-              <NavDropdown.Item as={NavLink} to="/dashboard/main" onClick={handleNavLinkClick}>
+            {isLoggedIn() && (
+              <Nav.Link
+                as={NavLink}
+                to="/dashboard/main"
+                className="nav-link"
+                onClick={handleNavLinkClick}
+              >
                 Dashboard
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/dashboard/user-profile" onClick={handleNavLinkClick}>
-                My Profile
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/profile-edit" onClick={handleNavLinkClick}>
-                Edit Profile
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/dashboard/user-interests" onClick={handleNavLinkClick}>
-                Interest
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/dashboard/chat" onClick={handleNavLinkClick}>
-                Chat Lists
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/dashboard/plane" onClick={handleNavLinkClick}>
-                My Plan Details
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/dashboard/user-setting" onClick={handleNavLinkClick}>
-                Setting
-              </NavDropdown.Item>
-            </NavDropdown>
+              </Nav.Link>
+            )}
 
             <Nav.Link
               as={NavLink}
@@ -130,15 +103,22 @@ function NavScrollExample() {
             </Nav.Link>
           </Nav>
 
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
+          {isLoggedIn() ? (
+            <Link to='/dashboard/user-profile' className='d-flex align-items-center'>
+              <img
+                width='50px'
+                height='50px'
+                className='rounded-circle'
+                src={profileData?.profilePicture || '/default-avatar.png'}
+                alt="Profile"
+              />
+              <p className='ms-2' id='mb0'>{profileData?.name}</p>
+            </Link>
+          ) : (
+            <Link to="/login" onClick={handleNavLinkClick}>
+              Login
+            </Link>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

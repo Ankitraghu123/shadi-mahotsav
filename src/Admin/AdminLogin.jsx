@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../Features/User/UserSlice';
-import { toast } from 'react-toastify';
+// import './Login.css'; // Import your CSS for styling
 import Login1 from '../images/login-couple.png';
-
-const Login = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+import { Link } from 'react-router-dom';
+const AdminLogin = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -22,19 +17,10 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const resultAction = await dispatch(loginUser(formData));
-      if (loginUser.fulfilled.match(resultAction)) {
-        toast.success('Login successful! Welcome aboard.');
-        navigate('/dashboard/user-profile');
-      } else {
-        throw new Error('Login failed');
-      }
-    } catch (error) {
-      toast.error('Login failed. Please try again.');
-    }
+    // Add your form submission logic here
+    console.log(formData);
   };
 
   return (
@@ -55,9 +41,9 @@ const Login = () => {
               <div className="rhs">
                 <div>
                   <div className="form-tit">
-                    <h4>Start for free</h4>
-                    <h1>Sign in to Matrimony</h1>
-                    <p>Not a member? <Link to="/register">Sign up now</Link></p>
+                    <h1>ADMIN LOGIN</h1>
+                    <h5>Sign in to Matrimony</h5>
+                    {/* <p>Not a member? <Link to="/register">Sign up now</Link></p> */}
                   </div>
                   <div className="form-login">
                     <form onSubmit={handleSubmit}>
@@ -87,10 +73,24 @@ const Login = () => {
                           required
                         />
                       </div>
-                      <button type="submit" className="btn btn-primary">Sign in</button>
-                      <div className="form-tit">
-                        <p className='mt-3'>Not a member? <Link to="/register" className='login-path'>Sign up now</Link></p>
+
+                      <div className="form-group form-check">
+                        <label className="form-check-label">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            name="rememberMe"
+                            checked={formData.rememberMe}
+                            onChange={handleChange}
+                          /> Remember me
+                        </label>
                       </div>
+                      <button type="submit" className="btn btn-primary">Sign in</button>
+
+                      <div className="form-tit">
+
+                    <p className='mt-3'>Not a member? <Link to="/register" className='login-path'>Sign up now</Link></p>
+                  </div>
                     </form>
                   </div>
                 </div>
@@ -103,4 +103,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;

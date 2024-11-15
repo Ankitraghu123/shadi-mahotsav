@@ -1,17 +1,66 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import img1 from '../../images/profiles/men1.jpg';
 import img2 from '../../images/profiles/men2.jpg';
 import img3 from '../../images/profiles/men3.jpg';
 import img4 from '../../images/profiles/men4.jpg';
 import img5 from '../../images/profiles/men5.jpg';
+import { useDispatch, useSelector } from 'react-redux';
+import { acceptRequest, allConnections, allReceivedRequest, allSendedRequest, rejectRequest } from '../../Features/User/UserSlice';
+import { Link } from 'react-router-dom';
 
 const Interests = () => {
+  const profileDetails = JSON.parse(localStorage.getItem('userData'));
   const [activeTab, setActiveTab] = useState('home');
+  const dispatch = useDispatch()
+  const receivedRequests = useSelector(state => state.User.receivedRequests?.receivedRequests)
+  const sendedRequests = useSelector(state => state.User.sendedRequests?.sendedRequests)
+  const connections = useSelector(state => state.User.allConnections?.connections)
+
+  const {requestAccepted,requestRejected} = useSelector(state => state.User)
+  useEffect(() => {
+    dispatch(allReceivedRequest(profileDetails._id))
+    dispatch(allSendedRequest(profileDetails._id))
+    dispatch(allConnections(profileDetails._id))
+  },[requestAccepted,requestRejected])
 
   // Function to change the active tab
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
+
+  const  convertToNormalFormat = (isoDate)=> {
+    const date = new Date(isoDate);  // Convert the ISO string to a Date object
+
+    // Format the date into a more readable format (e.g., "January 12, 2004")
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+
+const acceptRequestHandler = (senderId)=> {
+  dispatch(acceptRequest({senderId,receiverId:profileDetails._id}))
+}
+
+const denyRequestHandler = (senderId)=> {
+  dispatch(rejectRequest({senderId,receiverId:profileDetails._id}))
+}
+
+
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+
+// Format the date using toLocaleString with specific options
+const formattedDate = date.toLocaleString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+});
+
+return formattedDate
+  }
 
   return (
     <section>
@@ -50,7 +99,7 @@ const Interests = () => {
                             className={`nav-link ${activeTab === 'menu1' ? 'active bg-danger' : ''}`}
                             onClick={() => handleTabChange('menu1')}
                           >
-                            Accept Requests
+                            Sended Requests
                           </button>
                         </li>
                         <li className="nav-item">
@@ -58,7 +107,7 @@ const Interests = () => {
                             className={`nav-link ${activeTab === 'menu2' ? 'active bg-danger' : ''}`}
                             onClick={() => handleTabChange('menu2')}
                           >
-                            Deny Requests
+                            Accepted Requests
                           </button>
                         </li>
                       </ul>
@@ -67,28 +116,28 @@ const Interests = () => {
                         <div id="home" className={`container tab-pane ${activeTab === 'home' ? 'active' : 'fade'}`}><br />
                           <div className="db-inte-prof-list">
                             <ul>
-                              {[img1, img2, img3, img4].map((img, index) => (
+                              {receivedRequests?.map((user, index) => (
                                 <li key={index + 1}>
                                   <div className="db-int-pro-1">
-                                    <img src={img} alt={`Profile ${index + 1}`} />
-                                    <span className="badge bg-primary user-pla-pat">Platinum user</span>
+                                    <img src={user?.profilePicture} alt={`Profile ${index + 1}`} />
+                                    {/* <span className="badge bg-primary user-pla-pat">Platinum user</span> */}
                                   </div>
                                   <div className="db-int-pro-2">
-                                    <h5>John Smith</h5>
+                                    <h5>{user?.name}</h5>
                                     <ol className="poi">
-                                      <li>City: <strong>Illinois</strong></li>
-                                      <li>Age: <strong>21</strong></li>
-                                      <li>Height: <strong>5.7</strong></li>
-                                      <li>Job: <strong>Working</strong></li>
+                                      <li>City: <strong>{user?.city}</strong></li>
+                                      <li>Dob: <strong>{convertToNormalFormat(user?.dob)}</strong></li>
+                                      <li>Height: <strong>{user?.height}</strong></li>
+                                      <li>Job: <strong>{user.jobType}</strong></li>
                                     </ol>
                                     <ol className="poi poi-date">
-                                      <li>Request on: 10:30 AM, 18 August 2024</li>
+                                      <li>Request on: {formatDate(user?.createdAt)}</li>
                                     </ol>
-                                    <a href="profile-details.html" className="cta-5" target="_blank" rel="noopener noreferrer">View full profile</a>
+                                    <Link className="cta-5" to={`/profile-detail/${user?._id}`}>View full profile</Link>
                                   </div>
                                   <div className="db-int-pro-3">
-                                    <button type="button" className="btn btn-success btn-sm">Accept</button>
-                                    <button type="button" className="btn btn-outline-danger btn-sm">Deny</button>
+                                    <button type="button" className="btn btn-success btn-sm" onClick={() => acceptRequestHandler(user?._id)}>Accept</button>
+                                    <button type="button" className="btn btn-outline-danger btn-sm" onClick={() => denyRequestHandler(user?._id)}>Deny</button>
                                   </div>
                                 </li>
                               ))}
@@ -99,28 +148,30 @@ const Interests = () => {
                         <div id="menu1" className={`container tab-pane ${activeTab === 'menu1' ? 'active' : 'fade'}`}><br />
                           <div className="db-inte-prof-list">
                             <ul>
-                              <li>
+                              {
+                                sendedRequests?.map((user) => (
+                                  
+                                  <li>
                                 <div className="db-int-pro-1">
-                                  <img src={img5} alt="Profile 5" />
+                                  <img src={user?.profilePicture} alt="Profile 5" />
                                 </div>
                                 <div className="db-int-pro-2">
-                                  <h5>John Smith</h5>
+                                  <h5>{user?.name}</h5>
                                   <ol className="poi">
-                                    <li>City: <strong>Illinois</strong></li>
-                                    <li>Age: <strong>21</strong></li>
-                                    <li>Height: <strong>5.7</strong></li>
-                                    <li>Job: <strong>Working</strong></li>
+                                    <li>City: <strong>{user?.city}</strong></li>
+                                    <li>Age: <strong>{convertToNormalFormat(user?.dob)}</strong></li>
+                                    <li>Height: <strong>{user?.height}</strong></li>
+                                    <li>Job: <strong>{user?.jobType}</strong></li>
                                   </ol>
                                   <ol className="poi poi-date">
-                                    <li>Request on: 10:30 AM, 18 August 2024</li>
-                                    <li>Accept on: 3:00 PM, 21 August 2024</li>
+                                    <li>{formatDate(user?.createdAt)}</li>
                                   </ol>
-                                  <a href="profile-details.html" className="cta-5" target="_blank" rel="noopener noreferrer">View full profile</a>
+                                  <Link className="cta-5" to={`/profile-detail/${user?._id}`}>View full profile</Link>
                                 </div>
-                                <div className="db-int-pro-3">
-                                  <button type="button" className="btn btn-outline-danger btn-sm">Deny</button>
-                                </div>
+                                
                               </li>
+                                ))
+                              }
                             </ul>
                           </div>
                         </div>
@@ -128,28 +179,32 @@ const Interests = () => {
                         <div id="menu2" className={`container tab-pane ${activeTab === 'menu2' ? 'active' : 'fade'}`}><br />
                           <div className="db-inte-prof-list">
                             <ul>
-                              <li>
+                             {
+                              connections?.map((user) => (
+                                <li>
                                 <div className="db-int-pro-1">
-                                  <img src={img1} alt="Profile 1" />
+                                  <img src={user?.profilePicture} alt="Profile 1" />
                                 </div>
                                 <div className="db-int-pro-2">
-                                  <h5>John Smith</h5>
+                                  <h5>{user?.name}</h5>
                                   <ol className="poi">
-                                    <li>City: <strong>Illinois</strong></li>
-                                    <li>Age: <strong>21</strong></li>
-                                    <li>Height: <strong>5.7</strong></li>
-                                    <li>Job: <strong>Working</strong></li>
+                                    <li>City: <strong>{user?.city}</strong></li>
+                                    <li>Age: <strong>{convertToNormalFormat(user?.dob)}</strong></li>
+                                    <li>Height: <strong>{user?.height}</strong></li>
+                                    <li>Job: <strong>{user?.jobType}</strong></li>
                                   </ol>
                                   <ol className="poi poi-date">
-                                    <li>Request on: 10:30 AM, 18 August 2024</li>
-                                    <li>Deny on: 3:00 PM, 21 August 2024</li>
+                                    <li>{formatDate(user?.createdAt)}</li>
                                   </ol>
-                                  <a href="profile-details.html" className="cta-5" target="_blank" rel="noopener noreferrer">View full profile</a>
+                                  <Link className="cta-5" to={`/profile-detail/${user?._id}`}>View full profile</Link>
+                                 
                                 </div>
                                 <div className="db-int-pro-3">
-                                  <button type="button" className="btn btn-success btn-sm">Accept</button>
-                                </div>
+                                    <button type="button" className="btn btn-outline-danger btn-sm" onClick={() => denyRequestHandler(user?._id)}>Deny</button>
+                                  </div>
                               </li>
+                              ))
+                             }
                             </ul>
                           </div>
                         </div>

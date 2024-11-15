@@ -1,24 +1,24 @@
 import React from 'react';
 
 // Import images directly
-import image1 from '../images/gallery/1.jpg';
-import image2 from '../images/gallery/9.jpg';
-import image3 from '../images/gallery/3.jpg';
-import image4 from '../images/gallery/4.jpg';
-import image5 from '../images/gallery/5.jpg';
-import image6 from '../images/gallery/6.jpg';
-import image7 from '../images/gallery/7.jpg';
-import image8 from '../images/gallery/8.jpg';
-import image9 from '../images/couples/1.jpg';
-import image10 from '../images/couples/11.jpg';
-import image11 from '../images/couples/2.jpg';
-import image12 from '../images/couples/3.jpg';
-import image13 from '../images/couples/4.jpg';
-import image14 from '../images/couples/5.jpg';
-import image15 from '../images/couples/6.jpg';
-import image16 from '../images/couples/7.jpg';
-import image17 from '../images/couples/8.jpg';
-import image18 from '../images/couples/9.jpg';
+import image1 from '../images/gallery/galler1.jpeg';
+import image2 from '../images/gallery/gallery2.jpg';
+import image3 from '../images/gallery/gallery3.jpeg';
+import image4 from '../images/gallery/gallery4.webp';
+import image5 from '../images/gallery/gallery5.jpeg';
+import image6 from '../images/gallery/gallery6.jpeg';
+import image7 from '../images/gallery/gallery7.jpeg';
+import image8 from '../images/gallery/gallery8.jpeg';
+import image9 from '../images/gallery/gallery9.jpeg';
+import image11 from '../images/gallery/gallery11.jpeg';
+import image12 from '../images/gallery/gallery12.jpeg';
+import image13 from '../images/gallery/gallery13.jpg';
+import image14 from '../images/gallery/gallery14.jpg';
+import image15 from '../images/gallery/gallery15.jpg';
+import image16 from '../images/gallery/gallery16.jpeg';
+import image17 from '../images/gallery/gallery17.jpg';
+import image18 from '../images/gallery/gallery18.jpeg';
+import image19 from '../images/gallery/gallery19.jpeg';
 
 const Gallery = () => {
   const images = [
@@ -31,7 +31,7 @@ const Gallery = () => {
     { src: image7, size: 'gal-siz-2' },
     { src: image8, size: 'gal-siz-1' },
     { src: image9, size: 'gal-siz-2' },
-    { src: image10, size: 'gal-siz-1' },
+    { src: image19, size: 'gal-siz-1' },
     { src: image11, size: 'gal-siz-1' },
     { src: image12, size: 'gal-siz-2' },
     { src: image13, size: 'gal-siz-2' },

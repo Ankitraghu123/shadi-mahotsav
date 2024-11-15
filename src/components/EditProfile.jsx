@@ -12,7 +12,7 @@ const EditProfile = () => {
     name: '',
     email: '',
     mobileNumber: '',
-    gender: 'Male',
+    gender: 'male',
     city: '',
     state: '',
     country: '',
@@ -44,7 +44,7 @@ const EditProfile = () => {
         name: userData.name || '',
         email: userData.email || '',
         mobileNumber: userData.mobileNumber || '',
-        gender: userData.gender || 'Male',
+        gender: userData.gender || 'male',
         city: userData.city || '',
         state: userData.state || '',
         country: userData.country || '',
@@ -63,6 +63,7 @@ const EditProfile = () => {
         degree: userData.degree || '',
         school: userData.school || '',
         college: userData.college || '',
+        about: userData.about || '',
       });
     }
   }, [userData]);
@@ -115,6 +116,8 @@ const EditProfile = () => {
                           placeholder="Enter email"
                           name="email"
                           value={formData?.email}
+                          onChange={handleChange}
+
                         />
                       </div>
                       <div className="form-group">
@@ -126,6 +129,8 @@ const EditProfile = () => {
                           placeholder="Enter phone number"
                           name="phone"
                           value={formData?.phone}
+                          onChange={handleChange}
+
                         />
                       </div>
                       <div className="form-group">
@@ -136,8 +141,8 @@ const EditProfile = () => {
                           value={formData?.gender}
                           onChange={handleChange}
                         >
-                          <option>Male</option>
-                          <option>Female</option>
+                          <option value='male'>Male</option>
+                          <option value='female'>Female</option>
                         </select>
                       </div>
                     </div>
@@ -279,6 +284,18 @@ const EditProfile = () => {
                           name="address"
                           placeholder="Enter your address"
                           value={formData?.address}
+                          onChange={handleChange}
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label className="lb">About:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="about"
+                          placeholder="Enter About Yourself"
+                          value={formData?.about}
                           onChange={handleChange}
                         />
                       </div>

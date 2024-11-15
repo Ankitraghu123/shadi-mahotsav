@@ -11,12 +11,61 @@ import Profile5 from '../../images/profiles/5.jpg';
 import Profile7 from '../../images/profiles/profile-large.jpg';
 import Profile8 from '../../images/icon/pro-city.png';
 import Profile9 from '../../images/icon/pro-age.png';
+import { getCurrentUser, getProfile, sendRequest } from '../../Features/User/UserSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+import MySwiperComponent from '../Home/MySwiperComponent';
+import { Link } from 'react-router-dom';
 // import Profile10 from '../../images/icon/pro-height.png';
 // import Profile11 from '../../images/icon/pro-job.png';
 const ProfileDetail = () => {
+  const profileDetails = JSON.parse(localStorage.getItem('userData'));
+    const {id} = useParams()
+    const dispatch = useDispatch()
+    const profileData = useSelector(state => state.User.userProfile)
+    const currentUser = useSelector(state => state.User.currentUser)
     useEffect(() => {
-        // If needed, any additional initialization can go here
+        dispatch(getProfile(id))
+        dispatch(getCurrentUser(profileDetails._id))
     }, []);
+    const isConnected = () => {
+        return currentUser?.connections?.includes(id);
+    };
+    const hasSentRequest = profileData?.requestReceived?.includes(profileDetails._id) || profileData?.connections?.includes(profileDetails._id)
+
+    function convertToNormalFormat(isoDate) {
+        const date = new Date(isoDate);  // Convert the ISO string to a Date object
+    
+        // Format the date into a more readable format (e.g., "January 12, 2004")
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    }
+
+    const sendRequestHandler =async () => {
+        try {
+            await dispatch(sendRequest({ senderId: profileDetails._id, receiverId: id }))
+            toast.success("Request sent successfully!");
+        } catch (error) {
+            toast.error("Failed to send request.");
+        }
+    }
+
+    const calculateAge = (birthDate) => {
+        const currentDate = new Date();  // Get the current date
+        const birthDateObj = new Date(birthDate);  // Convert the birthdate string to a Date object
+        
+        let age = currentDate.getFullYear() - birthDateObj.getFullYear();  // Calculate the difference in years
+        const monthDiff = currentDate.getMonth() - birthDateObj.getMonth();  // Calculate the month difference
+      
+        // If the current month is before the birth month or it's the same month but the current day is before the birth day, subtract 1 from age
+        if (monthDiff < 0 || (monthDiff === 0 && currentDate.getDate() < birthDateObj.getDate())) {
+          age--;
+        }
+      
+        return age;
+      }
 
     // Slider settings
     const settings = {
@@ -53,45 +102,43 @@ const ProfileDetail = () => {
                         <div className="profile">
                             <div className="pg-pro-big-im">
                                 <div className="s1">
-                                    <img src={Profile7} loading="lazy" className="pro" alt="" />
+                                    <img src={profileData?.profilePicture} loading="lazy" className="pro" alt="" />
                                 </div>
                                 <div className="s3">
-                                    <a href="#!" className="cta fol cta-chat">Chat now</a>
-                                    <span className="cta cta-sendint" data-toggle="modal" data-target="#sendInter">Send interest</span>
+                                    <Link to={`/dashboard/chat/${id}`} className="cta fol cta-chat">Chat now</Link>
+                                    <button 
+                                className="cta cta-sendint" 
+                                onClick={sendRequestHandler} 
+                                disabled={hasSentRequest} 
+                            >
+                                {hasSentRequest ? 'Request Sent' : 'Send interest'}
+                            </button>
+
                                 </div>
                             </div>
                         </div>
                         <div className="profi-pg profi-bio">
                             <div className="lhs">
                                 <div className="pro-pg-intro">
-                                    <h1>Angelina Jolie</h1>
-                                    <div className="pro-info-status">
-                                        <span className="stat-1"><b>100</b> viewers</span>
-                                        <span className="stat-2"><b>Available</b> online</span>
-                                    </div>
+                                    <h1>{profileData?.name}</h1>
                                     <ul>
                                         <li>
                                             <div>
                                                 <img src={Profile8} loading="lazy" alt="" />
-                                                <span>City: <strong>New York</strong></span>
+                                                <span>City: <strong>{profileData?.city}</strong></span>
                                             </div>
                                         </li>
                                         <li>
                                             <div>
                                                 <img src={Profile9} loading="lazy" alt="" />
-                                                <span>Age: <strong>21</strong></span>
+                                                <span>Dob: <strong>{convertToNormalFormat(profileData?.dob)}</strong></span>
                                             </div>
                                         </li>
+                                        
                                         <li>
                                             <div>
-                                                <img src='' loading="lazy" alt="" />
-                                                <span>Height: <strong>5.7</strong></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <img src='' loading="lazy" alt="" />
-                                                <span>Job: <strong>Working</strong></span>
+                                                <img src={Profile9} loading="lazy" alt="" />
+                                                <span>Job: <strong>{profileData?.jobType ? profileData?.jobType : 'NA'}</strong></span>
                                             </div>
                                         </li>
                                     </ul>
@@ -99,63 +146,43 @@ const ProfileDetail = () => {
 
                                 <div className="pr-bio-c pr-bio-abo">
                                     <h3>About</h3>
-                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout...</p>
-                                    <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.</p>
+                                    <p>{profileData?.about}</p>
                                 </div>
 
                                 <div className="pr-bio-c pr-bio-gal" id="gallery">
                                     <h3>Photo gallery</h3>
-                                    <div id="image-gallery">
-                                        <div className="pro-gal-imag">
-                                            <div className="img-wrapper">
-                                                <a href="#!"><img src="images/profiles/1.jpg" className="img-responsive" alt="" /></a>
-                                                <div className="img-overlay"><i className="fa fa-arrows-alt" aria-hidden="true"></i></div>
-                                            </div>
-                                        </div>
-                                        <div className="pro-gal-imag">
-                                            <div className="img-wrapper">
-                                                <a href="#!"><img src="images/profiles/6.jpg" className="img-responsive" alt="" /></a>
-                                                <div className="img-overlay"><i className="fa fa-arrows-alt" aria-hidden="true"></i></div>
-                                            </div>
-                                        </div>
-                                        <div className="pro-gal-imag">
-                                            <div className="img-wrapper">
-                                                <a href="#!"><img src="images/profiles/14.jpg" className="img-responsive" alt="" /></a>
-                                                <div className="img-overlay"><i className="fa fa-arrows-alt" aria-hidden="true"></i></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <MySwiperComponent profileData={profileData}/>
                                 </div>
 
-                                <div className="pr-bio-c pr-bio-conta">
+                                {isConnected() ? <div className="pr-bio-c pr-bio-conta">
                                     <h3>Contact info</h3>
                                     <ul>
-                                        <li><span><i className="fa fa-mobile" aria-hidden="true"></i><b>Phone:</b>+92 (8800) 68 - 8960</span></li>
-                                        <li><span><i className="fa fa-envelope-o" aria-hidden="true"></i><b>Email:</b>angelinajoliewed@gmail.com</span></li>
-                                        <li><span><i className="fa fa-map-marker" aria-hidden="true"></i><b>Address: </b>28800 Orchard Lake Road, Suite 180 Farmington Hills, U.S.A.</span></li>
+                                        <li><span><i className="fa fa-mobile" aria-hidden="true"></i><b>Phone:</b>{profileData?.mobileNumber}</span></li>
+                                        <li><span><i className="fa fa-envelope-o" aria-hidden="true"></i><b>Email:</b>{profileData?.email}</span></li>
+                                        <li><span><i className="fa fa-map-marker" aria-hidden="true"></i><b>Address: </b>{profileData?.address}</span></li>
                                     </ul>
-                                </div>
+                                </div> : null}
 
                                 <div className="pr-bio-c pr-bio-info">
                                     <h3>Personal information</h3>
                                     <ul>
-                                        <li><b>Name:</b> Angelina Jolie</li>
-                                        <li><b>Father's name:</b> John Smith</li>
-                                        <li><b>Family name:</b> Joney family</li>
-                                        <li><b>Age:</b> 24</li>
-                                        <li><b>Date of birth:</b> 03 Jan 1998</li>
-                                        <li><b>Height:</b> 167cm</li>
-                                        <li><b>Weight:</b> 65kg</li>
-                                        <li><b>Degree:</b> MSC Computer Science</li>
-                                        <li><b>Religion:</b> Any</li>
-                                        <li><b>Profession:</b> Working</li>
-                                        <li><b>Company:</b> Google</li>
-                                        <li><b>Position:</b> Web Developer</li>
-                                        <li><b>Salary:</b> $1000 p/m</li>
+                                        <li><b>Name:</b> {profileData?.name}</li>
+                                        <li><b>Father's name:</b> {profileData?.fatherName}h</li>
+                                        <li><b>Mother's name:</b> {profileData?.motherName}</li>
+                                        <li><b>Age:</b> {calculateAge(profileData?.dob)}</li>
+                                        <li><b>Date of birth:</b>{convertToNormalFormat(profileData?.dob)} </li>
+                                        <li><b>Gender</b>{profileData?.gender} </li>
+                                        <li><b>Height:</b> {profileData?.height}cm</li>
+                                        <li><b>Weight:</b> {profileData?.weight}kg</li>
+                                        <li><b>Degree:</b> {profileData?.education}</li>
+                                        <li><b>Religion:</b> {profileData?.religion}</li>
+                                        <li><b>Profession:</b> {profileData?.jobType}</li>
+                                        <li><b>Company:</b> {profileData?.companyName}</li>
+                                        <li><b>Salary:</b> {profileData?.salary}</li>
                                     </ul>
                                 </div>
 
-                                <div className="pr-bio-c pr-bio-hob">
+                                {/* <div className="pr-bio-c pr-bio-hob">
                                     <h3>Hobbies</h3>
                                     <ul>
                                         <li><span>Modelling</span></li>
@@ -168,9 +195,9 @@ const ProfileDetail = () => {
                                         <li><span>Cooking</span></li>
                                         <li><span>Yoga</span></li>
                                     </ul>
-                                </div>
+                                </div> */}
 
-                                <div className="pr-bio-c menu-pop-soci pr-bio-soc">
+                                {/* <div className="pr-bio-c menu-pop-soci pr-bio-soc">
                                     <h3>Social media</h3>
                                     <ul>
                                         <li><a href="#!"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
@@ -180,10 +207,10 @@ const ProfileDetail = () => {
                                         <li><a href="#!"><i className="fa fa-youtube-play" aria-hidden="true"></i></a></li>
                                         <li><a href="#!"><i className="fa fa-instagram" aria-hidden="true"></i></a></li>
                                     </ul>
-                                </div>
+                                </div> */}
                             </div>
 
-                            <div className="rhs">
+                            {/* <div className="rhs">
                                 <div className="prof-rhs-help">
                                     <div className="help-inner">
                                         <h3>Help & Support</h3>
@@ -254,7 +281,7 @@ const ProfileDetail = () => {
                                         </div>
                                     </div>
                                 </Slider>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
