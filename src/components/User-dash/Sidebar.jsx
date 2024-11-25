@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { deleteProfilePicture, editProfilePicture, getCurrentUser, getProfile } from '../../Features/User/UserSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdDelete, MdEdit } from "react-icons/md";
-import { NavLink } from 'react-bootstrap';
+import { NavLink, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 
 const Sidebar = () => {
@@ -51,18 +51,30 @@ const Sidebar = () => {
                   alt="Profile"
                 />
                 <div className="edit-options">
-                  <button
-                    onClick={() => setIsEditing(true)}
-                    className="edit-btn"
-                  >
-                    <MdEdit />
-                  </button>
-                  <button
-                    onClick={handleDeleteImage}
-                    className="delete-btn"
-                  >
-                    <MdDelete/>
-                  </button>
+                <OverlayTrigger
+        placement="top" // Tooltip placement
+        overlay={<Tooltip id="edit-tooltip">Edit</Tooltip>} // Tooltip text for Edit
+      >
+        <button
+          onClick={() => setIsEditing(true)}
+          className="edit-btn"
+        >
+          <MdEdit />
+        </button>
+      </OverlayTrigger>
+
+      {/* Delete Button with Tooltip */}
+      <OverlayTrigger
+        placement="top" // Tooltip placement
+        overlay={<Tooltip id="delete-tooltip">Delete</Tooltip>} // Tooltip text for Delete
+      >
+        <button
+          onClick={handleDeleteImage}
+          className="delete-btn"
+        >
+          <MdDelete />
+        </button>
+      </OverlayTrigger>
                 </div>
                 {isEditing && (
                   <div className="image-upload">

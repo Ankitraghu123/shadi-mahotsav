@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ring from '../../images/icon/rings.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUser } from '../../Features/User/UserSlice';
 
 const PlanDetails = () => {
+  const profileDetails = JSON.parse(localStorage.getItem('userData'));
+  const dispatch = useDispatch()
+
+  const currentUser = useSelector(state => state.User.currentUser)
+
+  useEffect(() => {
+    dispatch(getCurrentUser(profileDetails?._id))
+  },[])
+
+  function formatDate(date) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(date).toLocaleDateString('en-GB', options);
+  }
+
+
   return (
     <>
     <section>
@@ -20,10 +37,10 @@ const PlanDetails = () => {
                     </div>
                     <div className="db-plan-detil">
                       <ul>
-                        <li>Plan name: <strong>Standard</strong></li>
-                        <li>Validity: <strong>6 Months</strong></li>
-                        <li>Valid till <strong>24 June 2024</strong></li>
-                        <li><a href="#" className="cta-3">Upgrade now</a></li>
+                        <li>Plan name: <strong>{currentUser?.plans[0].plan.name}</strong></li>
+                        <li>Purchased On: <strong>{formatDate(currentUser?.plans[0].purchaseDate)}</strong></li>
+                        <li>Valid till <strong>{formatDate(currentUser?.plans[0].expiryDate)}</strong></li>
+                        {/* <li><a href="#" className="cta-3">Upgrade now</a></li> */}
                       </ul>
                     </div>
                   </div>

@@ -186,7 +186,7 @@ const ProfileEdit = () => {
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Height:</label>
+                                                    <label className="lb">Height(ft) :</label>
                                                     <input
                                                         type="text"
                                                         className="form-control"
@@ -196,7 +196,7 @@ const ProfileEdit = () => {
                                                     />
                                                 </div>
                                                 <div className="col-md-6 form-group">
-                                                    <label className="lb">Weight:</label>
+                                                    <label className="lb">Weight(kg):</label>
                                                     <input
                                                         type="text"
                                                         className="form-control"

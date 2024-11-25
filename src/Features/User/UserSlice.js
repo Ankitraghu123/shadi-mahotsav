@@ -161,6 +161,21 @@ export const GetUsersChattedWith = createAsyncThunk('user/get-user-chatted-with'
     }
 })
 
+export const sendEnquiry = createAsyncThunk('user/send',async(data,thunkApi)=>{
+    try{
+            return await UserService.sendEnquiry(data)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const getAllPlans = createAsyncThunk('user/all-plans',async(thunkApi)=>{
+    try{
+            return await UserService.getAllPlans()
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
 
 const initialState = {
     user:'',
@@ -475,6 +490,36 @@ export const UserSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.chatLists = null
+        })
+
+        .addCase(sendEnquiry.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(sendEnquiry.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.enquiry = action.payload
+        })
+        .addCase(sendEnquiry.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.enquiry = null
+        })
+
+        .addCase(getAllPlans.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(getAllPlans.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.allPlans = action.payload
+        })
+        .addCase(getAllPlans.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.allPlans = null
         })
 
     }

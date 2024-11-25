@@ -27,8 +27,14 @@ const AdminSidebar = () => {
             <NavLink to="/admin-dashboard/main" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={toggleSidebar}>
               <FaHome className="sidebar-icon" /> Dashboard
             </NavLink>
-            <NavLink to="/admin-dashboard/profile" className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`} onClick={toggleSidebar}>
+            {/* <NavLink to="/admin-dashboard/profile" className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`} onClick={toggleSidebar}>
               <FaUser className="sidebar-icon" /> Profile
+            </NavLink> */}
+            <NavLink to="/admin-dashboard/all-members" className={`nav-link ${location.pathname === '/all-members' ? 'active' : ''}`} onClick={toggleSidebar}>
+              <FaUser className="sidebar-icon" /> All Members
+            </NavLink>
+            <NavLink to="/admin-dashboard/all-enquiries" className={`nav-link ${location.pathname === '/all-enquiries' ? 'active' : ''}`} onClick={toggleSidebar}>
+              <FaUser className="sidebar-icon" /> All Enquiries
             </NavLink>
             <NavLink to="/admin-dashboard/settings" className={`nav-link ${location.pathname === '/settings' ? 'active' : ''}`} onClick={toggleSidebar}>
               <FaCog className="sidebar-icon" /> Settings
@@ -60,9 +66,24 @@ const AdminSidebar = () => {
                 <NavLink to="/admin-dashboard/main" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
                   <FaHome className="sidebar-icon" /> Dashboard
                 </NavLink>
-                <NavLink to="/admin-dashboard/profile" className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`}>
+                {/* <NavLink to="/admin-dashboard/profile" className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`}>
                   <FaUser className="sidebar-icon" /> Profile
-                </NavLink>
+                </NavLink> */}
+                 <NavLink to="/admin-dashboard/all-members" className={`nav-link ${location.pathname === '/all-members' ? 'active' : ''}`}>
+              <FaUser className="sidebar-icon" /> All Members
+            </NavLink>
+
+            <NavLink to="/admin-dashboard/members-by-date" className={`nav-link ${location.pathname === '/all-enquiries' ? 'active' : ''}`}>
+              <FaUser className="sidebar-icon" /> Members By Date
+            </NavLink>
+
+            <NavLink to="/admin-dashboard/add-member" className={`nav-link ${location.pathname === '/add-member' ? 'active' : ''}`}>
+              <FaUser className="sidebar-icon" /> Add Memeber
+            </NavLink>
+
+            <NavLink to="/admin-dashboard/all-enquiries" className={`nav-link ${location.pathname === '/all-enquiries' ? 'active' : ''}`}>
+              <FaUser className="sidebar-icon" /> All Enquiries
+            </NavLink>
                 <NavLink to="/admin-dashboard/settings" className={`nav-link ${location.pathname === '/settings' ? 'active' : ''}`}>
                   <FaCog className="sidebar-icon" /> Settings
                 </NavLink>

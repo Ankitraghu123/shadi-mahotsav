@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 // import './Login.css'; // Import your CSS for styling
 import Login1 from '../images/login-couple.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginAdmin } from '../Features/Admin/AdminSlice';
+import { toast } from 'react-toastify';
 const AdminLogin = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -17,10 +22,19 @@ const AdminLogin = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your form submission logic here
-    console.log(formData);
+    try {
+      const resultAction = await dispatch(loginAdmin(formData));
+      if (loginAdmin.fulfilled.match(resultAction)) {
+        toast.success('Login successful! Welcome aboard.');
+        navigate('/admin-dashboard');
+      } else {
+        throw new Error('Login failed');
+      }
+    } catch (error) {
+      toast.error('Login failed. Please try again.');
+    }
   };
 
   return (
@@ -73,24 +87,10 @@ const AdminLogin = () => {
                           required
                         />
                       </div>
-
-                      <div className="form-group form-check">
-                        <label className="form-check-label">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            name="rememberMe"
-                            checked={formData.rememberMe}
-                            onChange={handleChange}
-                          /> Remember me
-                        </label>
-                      </div>
                       <button type="submit" className="btn btn-primary">Sign in</button>
-
                       <div className="form-tit">
-
-                    <p className='mt-3'>Not a member? <Link to="/register" className='login-path'>Sign up now</Link></p>
-                  </div>
+                        <p className='mt-3'>Not a member? <Link to="/register" className='login-path'>Sign up now</Link></p>
+                      </div>
                     </form>
                   </div>
                 </div>

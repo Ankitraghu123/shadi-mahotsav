@@ -4,9 +4,10 @@ import React, { useEffect } from 'react'
 // import { FaTachometer, FaMale, FaHandshake, FaCommenting, FaMoney, FaCog, FaSignOut, FaHeart, FaEye, FaHandPointer, FaEllipsisH } from "react-icons/fa";
 import dash1 from '../../images/icon/plan.png'; // Import images
 import { useDispatch, useSelector } from 'react-redux';
-import { findMatchingProfiles, getProfile, getProfileCompletion } from '../../Features/User/UserSlice';
+import { findMatchingProfiles, getCurrentUser, getProfile, getProfileCompletion } from '../../Features/User/UserSlice';
 import { Link } from 'react-router-dom';
 import { MdEdit } from 'react-icons/md';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 // import DashboardLayout from '../Dashboard';
 
@@ -15,13 +16,18 @@ const MainDash = () => {
   const dispatch = useDispatch()
   const allMatchingProfiles = useSelector(state => state.User?.allMatchingProfiles?.matchingProfiles)
     const profileCompletionData = useSelector(state => state.User?.profileCompletion)
-    // const profileData = useSelector(state => state.User.userProfile)
+    const currentUser = useSelector(state => state.User.currentUser)
 
   useEffect(() => {
     dispatch(findMatchingProfiles(profileDetails._id))
     dispatch(getProfileCompletion(profileDetails?._id))
-    // dispatch(getProfile(profileDetails?._id))
+    dispatch(getCurrentUser(profileDetails?._id))
   },[])
+
+  function formatDate(date) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(date).toLocaleDateString('en-GB', options);
+  }
 
   const calculateAge = (birthDate) => {
     const currentDate = new Date();  // Get the current date
@@ -71,13 +77,18 @@ const MainDash = () => {
                   <div className="db-pro-stat">
                   <h6>Profile completion</h6>
                   <div className="dropdown">
-                    <Link
-                      type="button"
-                      className="btn btn-outline-secondary d-flex align-items-center justify-content-center"
-                      to={'/edit'}
-                    >
-                     <MdEdit />
-                    </Link>
+                  <OverlayTrigger
+                          placement="top" // Tooltip placement
+                          overlay={<Tooltip id="edit-tooltip">Edit</Tooltip>} // Tooltip content
+                        >
+                          <Link
+                            type="button"
+                            className="btn btn-outline-secondary d-flex align-items-center justify-content-center"
+                            to={'/edit'}
+                          >
+                            <MdEdit />
+                          </Link>
+                        </OverlayTrigger>
                     
                   </div>
                   <div className="db-pro-pgog">
@@ -104,27 +115,16 @@ const MainDash = () => {
                 <div className="col-md-12 col-lg-6 col-xl-4 db-sec-com">
                   <h2 className="db-tit">Plan details</h2>
                   <div className="db-pro-stat">
-                    <h6 className="tit-top-curv">Standard plan</h6>
-                    <div className="dropdown">
-                      <button type="button" className="btn btn-outline-secondary" data-bs-toggle="dropdown">
-                        <i className="fa fa-ellipsis-h" aria-hidden="true"></i>
-                      </button>
-                      <ul className="dropdown-menu">
-                        <li><a className="dropdown-item" href="#">Edit profile</a></li>
-                        <li><a className="dropdown-item" href="#">View profile</a></li>
-                        <li><a className="dropdown-item" href="#">Plan change</a></li>
-                        <li><a className="dropdown-item" href="#">Download invoice now</a></li>
-                      </ul>
-                    </div>
+                    <h6 className="tit-top-curv">{currentUser?.plans[0].plan.name}</h6> 
                     <div className="db-plan-card">
                       <img src={dash1} alt="" />
                     </div>
                     <div className="db-plan-detil">
                       <ul>
-                        <li>Plan name: <strong>Standard</strong></li>
-                        <li>Validity: <strong>6 Months</strong></li>
-                        <li>Valid till <strong>24 June 2024</strong></li>
-                        <li><a href="#" className="cta-3">Upgrade now</a></li>
+                        <li>Plan name: <strong>{currentUser?.plans[0].plan.name}</strong></li>
+                        <li>plan bought on: <strong>{formatDate(currentUser?.plans[0].purchaseDate)}</strong></li>
+                        <li>Valid till: <strong>{formatDate(currentUser?.plans[0].expiryDate)}</strong></li>
+                        {/* <li><a href="#" className="cta-3">Upgrade now</a></li> */}
                       </ul>
                     </div>
                   </div>

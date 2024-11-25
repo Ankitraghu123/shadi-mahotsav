@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-// import './ContactForm.css'; // Include your CSS styles here
 import axios from 'axios';
 import contact3 from '../../images/login-couple.png';
+import { useDispatch } from 'react-redux';
+import { sendEnquiry } from '../../Features/User/UserSlice';
+
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -10,7 +12,8 @@ const ContactForm = () => {
     message: '',
   });
   const [successMessage, setSuccessMessage] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState(null);
+  const dispatch = useDispatch()
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -21,10 +24,19 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://rn53themes.net/themes/matrimo/mail/mail-contact.php', formData);
-      setSuccessMessage(true);
+      // Dispatch the enquiry to Redux
+      await dispatch(sendEnquiry(formData));
+
+      // Show a success toast
+      toast.success('Your message was sent successfully!');
+
+      // Clear the form data after successful submission
       setFormData({ name: '', email: '', phone: '', message: '' });
+
     } catch (error) {
+      // Set an error message and show a failure toast
+      setErrorMessage('Error sending enquiry. Please try again later.');
+      toast.error('Error sending enquiry. Please try again later.');
       console.error('Error sending enquiry:', error);
     }
   };
@@ -55,6 +67,11 @@ const ContactForm = () => {
                       {successMessage && (
                         <div className="alert alert-success cmessage" role="alert">
                           Your message was sent successfully.
+                        </div>
+                      )}
+                      {errorMessage && (
+                        <div className="alert alert-danger cmessage" role="alert">
+                          {errorMessage}
                         </div>
                       )}
                       <div className="form-group">

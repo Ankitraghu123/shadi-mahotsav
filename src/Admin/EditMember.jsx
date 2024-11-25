@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editProfile, getProfile } from '../Features/User/UserSlice';
+import { useParams } from 'react-router';
 
-const EditProfile = () => {
-  const profileDetails = JSON.parse(localStorage.getItem('userData'));
+const EditMember = () => {
+  const {id} = useParams()
   const userData = useSelector((state) => state.User?.userProfile);
   const { editedProfile } = useSelector((state) => state.User);
   const dispatch = useDispatch();
@@ -34,8 +35,8 @@ const EditProfile = () => {
   });
 
   useEffect(() => {
-    dispatch(getProfile(profileDetails?._id));
-  }, [dispatch, profileDetails?._id]);
+    dispatch(getProfile(id));
+  }, [dispatch,id]);
 
   // Update formData once userData is fetched
   useEffect(() => {
@@ -403,4 +404,4 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile;
+export default EditMember;

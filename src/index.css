@@ -340,6 +340,18 @@ background-color: #f8f9fa;
   display: none;
 }
 
+#btn{
+  box-shadow: 2px 2px 5px rgb(145, 145, 145);
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin-right: .3vmax;
+}
+
+#icon-size{
+  font-size: 20px !important;
+  padding: 0 !important;
+}
+
 /* .db-nav-pro img {
 border-radius: 50%;
 width: 80px;

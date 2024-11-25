@@ -16,6 +16,20 @@ const SearchResultsPage = () => {
   const [results, setResults] = useState([]);
   const allProfiles = useSelector((state) => state.User?.allProfiles || []);
 
+  const calculateAge = (birthDate) => {
+    const currentDate = new Date();  
+    const birthDateObj = new Date(birthDate);  
+    
+    let age = currentDate.getFullYear() - birthDateObj.getFullYear();  
+    const monthDiff = currentDate.getMonth() - birthDateObj.getMonth();  
+  
+    if (monthDiff < 0 || (monthDiff === 0 && currentDate.getDate() < birthDateObj.getDate())) {
+      age--;
+    }
+  
+    return age;
+  }
+
   useEffect(() => {
     // Fetch all profiles when component loads
     dispatch(getAllProfiles());
@@ -29,49 +43,54 @@ const SearchResultsPage = () => {
       religion: searchParams.get("religion"),
       jobType: searchParams.get("jobType"),
     };
+    const ageRange = filters.age ? filters.age.split(' ') : [];
+    const minAge = ageRange[0] ? parseInt(ageRange[0], 10) : null;
+    const maxAge = ageRange[2] ? parseInt(ageRange[2], 10) : null;
+    console.log(minAge)
+    console.log(maxAge)
+    const isValidAgeRange = minAge && maxAge && minAge <= maxAge;
 
-    // Filter profiles based on the selected parameters
     const filteredProfiles = allProfiles?.filter((profile) => {
+      const profileAge = calculateAge(profile.dob);
+  
       const matchesLookingFor = filters.lookingFor
         ? profile.gender === filters.lookingFor
         : true;
-      const matchesAge = filters.age
-        ? filters.age.includes(calculateAge(profile.dob)) // Adjust if age is a range or single value
-        : true;
+  
+        const matchesAge =
+        isValidAgeRange
+          ? profileAge >= minAge && profileAge <= maxAge
+          : true;
+  
       const matchesReligion = filters.religion
         ? profile.religion === filters.religion
         : true;
+  
       const matchesJobType = filters.jobType
         ? profile.jobType === filters.jobType
         : true;
-        const isNotCurrentUser = profileDetails?._id !== profile._id;
-
-      return matchesLookingFor && matchesAge && matchesReligion && matchesJobType &&  isNotCurrentUser;
+  
+      const isNotCurrentUser = profileDetails?._id !== profile._id;
+  
+      return (
+        matchesLookingFor &&
+        matchesAge &&
+        matchesReligion &&
+        matchesJobType &&
+        isNotCurrentUser
+      );
     });
 
     setResults(filteredProfiles);
   }, [location.search, allProfiles]);
 
-  const calculateAge = (birthDate) => {
-    const currentDate = new Date();  // Get the current date
-    const birthDateObj = new Date(birthDate);  // Convert the birthdate string to a Date object
-    
-    let age = currentDate.getFullYear() - birthDateObj.getFullYear();  // Calculate the difference in years
-    const monthDiff = currentDate.getMonth() - birthDateObj.getMonth();  // Calculate the month difference
-  
-    // If the current month is before the birth month or it's the same month but the current day is before the birth day, subtract 1 from age
-    if (monthDiff < 0 || (monthDiff === 0 && currentDate.getDate() < birthDateObj.getDate())) {
-      age--;
-    }
-  
-    return age;
-  }
+ 
 
   return (
     <div>
       <h2>Search Results</h2>
       <div className="all-list-sh">
-      <ul>
+      <ul >
         {results.length > 0 ? (
           results.map((user) => (
             <Link key={user._id} to={`/profile-detail/${user._id}`}>
@@ -100,7 +119,7 @@ const SearchResultsPage = () => {
                                         </Link>
           ))
         ) : (
-          <p className="text-align-center">No results found for the selected filters.</p>
+          <p style={{width:'100%', display:'flex', justifyContent:'center',alignItems:'center',height:'100px',marginBottom:'-100px',fontSize:'20px'}}>No results found for the selected filters...</p>
         )}
       </ul>
       </div>

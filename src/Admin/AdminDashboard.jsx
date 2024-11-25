@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import Sidebar from './layouts/Sidebar';
@@ -11,9 +11,21 @@ import Refferal from './Refferal';
 import Table from './Table';
 import UserForm from './UserForm';
 import MembershipDetailsForm from './MembershipDetailsForm';
+import AllMembers from './AllMembers';
+import AllEnquiries from './AllEnquiries';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetUsersWithActivePlans } from '../Features/Admin/AdminSlice';
+import { useSearchParams } from 'react-router-dom';
+import PaidMembers from './PaidMembersTable';
+import FreeMember from './FreeMember';
+import TodayJoinedMembers from './TodayJoinedMembers';
+import MemeberByDate from './MemebersByDate';
+import AddMember from './AddMemeber';
+import EditMember from './EditMember';
 
 // import from  './AdminDashboard.css'
 function AdminDashboard() {
+  
   return (
     <Container id="admin-dash" fluid className="p-0">
       <Row className="gx-0">
@@ -27,8 +39,16 @@ function AdminDashboard() {
             <Routes>
               <Route path="main" element={<Refferal />} />
               <Route path="profile" element={<Table />} />
+              <Route path="all-members" element={<AllMembers />} />
+              <Route path="all-enquiries" element={<AllEnquiries />} />
               <Route path="settings" element={<UserForm />} />
               <Route path="member" element={<MembershipDetailsForm />} />
+              <Route path="plan-member" element={<PaidMembers />} />
+              <Route path="free-member" element={<FreeMember />} />
+              <Route path="today-joined-members" element={<TodayJoinedMembers />} />
+              <Route path="members-by-date" element={<MemeberByDate />} />
+              <Route path="add-member" element={<AddMember />} />
+              <Route path="edit-member/:id" element={<EditMember />} />
             </Routes>
           </main>
           {/* <Footer /> */}

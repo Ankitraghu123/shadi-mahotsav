@@ -105,6 +105,16 @@ const GetUsersChattedWith = async(userId) => {
     return response.data
 }
 
-const UserService = {Register,Login,GetProfile,EditProfile,GetProfileCompletion,EditProfilePicture,SendRequest,AcceptRequest,RejectRequest,GetAllProfiles,AllReceivedRequest,AllSendedRequest,AllConnections,DeleteProfilePicture,FindMatchingProfiles,AddImageToGallery,EditImageInGallery,DeleteImageFromGallery,GetUsersChattedWith}
+const sendEnquiry = async(data) => {
+    const response = await axios.post(`${base_url}enquiry/send`,data)
+    return response.data
+}
+
+const getAllPlans = async() => {
+    const response = await axios.get(`${base_url}plan/get-all`)
+    return response.data
+}
+
+const UserService = {Register,Login,GetProfile,EditProfile,GetProfileCompletion,EditProfilePicture,SendRequest,AcceptRequest,RejectRequest,GetAllProfiles,AllReceivedRequest,AllSendedRequest,AllConnections,DeleteProfilePicture,FindMatchingProfiles,AddImageToGallery,EditImageInGallery,DeleteImageFromGallery,GetUsersChattedWith,sendEnquiry,getAllPlans}
 
 export default UserService

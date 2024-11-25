@@ -18,22 +18,23 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import MySwiperComponent from '../Home/MySwiperComponent';
 import { Link } from 'react-router-dom';
+import { isLoggedIn } from '../../utils/config';
 // import Profile10 from '../../images/icon/pro-height.png';
 // import Profile11 from '../../images/icon/pro-job.png';
 const ProfileDetail = () => {
   const profileDetails = JSON.parse(localStorage.getItem('userData'));
     const {id} = useParams()
     const dispatch = useDispatch()
-    const profileData = useSelector(state => state.User.userProfile)
-    const currentUser = useSelector(state => state.User.currentUser)
+    const profileData = useSelector(state => state.User?.userProfile)
+    const currentUser = useSelector(state => state.User?.currentUser)
     useEffect(() => {
         dispatch(getProfile(id))
-        dispatch(getCurrentUser(profileDetails._id))
+        dispatch(getCurrentUser(profileDetails?._id))
     }, []);
     const isConnected = () => {
         return currentUser?.connections?.includes(id);
     };
-    const hasSentRequest = profileData?.requestReceived?.includes(profileDetails._id) || profileData?.connections?.includes(profileDetails._id)
+    const hasSentRequest = profileData?.requestReceived?.includes(profileDetails?._id) || profileData?.connections?.includes(profileDetails?._id)
 
     function convertToNormalFormat(isoDate) {
         const date = new Date(isoDate);  // Convert the ISO string to a Date object
@@ -104,17 +105,19 @@ const ProfileDetail = () => {
                                 <div className="s1">
                                     <img src={profileData?.profilePicture} loading="lazy" className="pro" alt="" />
                                 </div>
-                                <div className="s3">
-                                    <Link to={`/dashboard/chat/${id}`} className="cta fol cta-chat">Chat now</Link>
-                                    <button 
-                                className="cta cta-sendint" 
-                                onClick={sendRequestHandler} 
-                                disabled={hasSentRequest} 
-                            >
-                                {hasSentRequest ? 'Request Sent' : 'Send interest'}
-                            </button>
+                               {
+                                isLoggedIn() ?  <div className="s3">
+                                <Link to={`/dashboard/chat/${id}`} className="cta fol cta-chat">Chat now</Link>
+                                <button 
+                            className="cta cta-sendint" 
+                            onClick={sendRequestHandler} 
+                            disabled={hasSentRequest} 
+                        >
+                            {hasSentRequest ? 'Request Sent' : 'Send interest'}
+                        </button>
 
-                                </div>
+                            </div> : null
+                               }
                             </div>
                         </div>
                         <div className="profi-pg profi-bio">
@@ -172,8 +175,8 @@ const ProfileDetail = () => {
                                         <li><b>Age:</b> {calculateAge(profileData?.dob)}</li>
                                         <li><b>Date of birth:</b>{convertToNormalFormat(profileData?.dob)} </li>
                                         <li><b>Gender</b>{profileData?.gender} </li>
-                                        <li><b>Height:</b> {profileData?.height}cm</li>
-                                        <li><b>Weight:</b> {profileData?.weight}kg</li>
+                                        <li><b>Height:</b> {profileData?.height} ft</li>
+                                        <li><b>Weight:</b> {profileData?.weight} kg</li>
                                         <li><b>Degree:</b> {profileData?.education}</li>
                                         <li><b>Religion:</b> {profileData?.religion}</li>
                                         <li><b>Profession:</b> {profileData?.jobType}</li>
