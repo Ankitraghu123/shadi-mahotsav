@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editProfile, getProfile } from '../Features/User/UserSlice';
+import { Country, State, City } from "country-state-city";
 
 const EditProfile = () => {
   const profileDetails = JSON.parse(localStorage.getItem('userData'));
@@ -31,7 +32,11 @@ const EditProfile = () => {
     degree: '',
     school: '',
     college: '',
+    maritalStatus:''
   });
+
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
 
   useEffect(() => {
     dispatch(getProfile(profileDetails?._id));
@@ -64,16 +69,27 @@ const EditProfile = () => {
         school: userData.school || '',
         college: userData.college || '',
         about: userData.about || '',
+        maritalStatus:userData.maritalStatus || ''
       });
     }
   }, [userData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    if (name === "country") {
+      setFormData({ ...formData, country: value, state: "", city: "" });
+      const selectedStates = State.getStatesOfCountry(value);
+      setStates(selectedStates);
+      setCities([]);
+    } else if (name === "state") {
+      setFormData({ ...formData, state: value, city: "" });
+      const selectedCities = City.getCitiesOfState(formData.country, value);
+      setCities(selectedCities);
+    } else if (name === "city") {
+      setFormData({ ...formData, city: value });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -154,41 +170,58 @@ const EditProfile = () => {
                         <h1>Advanced bio</h1>
                       </div>
                       <div className="row">
-                        <div className="col-md-6 form-group">
-                          <label className="lb">City:</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="city"
-                            placeholder="Enter your city"
-                            value={formData?.city}
-                            onChange={handleChange}
-                          />
-                        </div>
-                        <div className="col-md-6 form-group">
-                          <label className="lb">State:</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="state"
-                            placeholder="Enter your state"
-                            value={formData?.state}
-                            onChange={handleChange}
-                          />
-                        </div>
+                      <div className="col-md-6 form-group">
+                      <label className="lb">Country:</label>
+                      <select
+                        className="form-select"
+                        name="country"
+                        value={formData.country}
+                        onChange={handleChange}
+                      >
+                        <option value="">{formData.country}</option>
+                        {Country.getAllCountries().map((country) => (
+                          <option key={country.isoCode} value={country.isoCode}>
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="col-md-6 form-group">
+                      <label className="lb">State:</label>
+                      <select
+                        className="form-select"
+                        name="state"
+                        value={formData.state}
+                        onChange={handleChange}
+                        disabled={!states.length}
+                      >
+                        <option value="">{formData.state}</option>
+                        {states.map((state) => (
+                          <option key={state.isoCode} value={state.isoCode}>
+                            {state.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                       </div>
                       <div className="row">
-                        <div className="col-md-6 form-group">
-                          <label className="lb">Country:</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="country"
-                            placeholder="Enter your country"
-                            value={formData?.country}
-                            onChange={handleChange}
-                          />
-                        </div>
+                      <div className="col-md-6 form-group">
+                      <label className="lb">City:</label>
+                      <select
+                        className="form-select"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                        disabled={!cities.length}
+                      >
+                        <option value="">{formData.city}</option>
+                        {cities.map((city) => (
+                          <option key={city.name} value={city.name}>
+                            {city.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                         <div className="col-md-6 form-group">
                           <label className="lb">Religion:</label>
                           <select
@@ -197,11 +230,17 @@ const EditProfile = () => {
                             value={formData?.religion}
                             onChange={handleChange}
                           >
-                            <option>Christianity</option>
                             <option>Hindu</option>
-                            <option>Islam</option>
+                            <option>Christian</option>
+                            <option>Jain</option>
+                            <option>Buddhist</option>
                             <option>Sikh</option>
-                            <option>Nonreligious</option>
+                            <option>Jewish</option>
+                            <option>Parsi</option>
+                            <option>Muslim</option>
+                            <option>Spritual - non religious</option>
+                            <option>No Religion</option>
+                            <option>Other</option>
                           </select>
                         </div>
                       </div>
@@ -276,7 +315,8 @@ const EditProfile = () => {
                           />
                         </div>
                       </div>
-                      <div className="form-group">
+                      <div className="row">
+                      <div className="col-md-6 form-group">
                         <label className="lb">Address:</label>
                         <input
                           type="text"
@@ -287,6 +327,23 @@ const EditProfile = () => {
                           onChange={handleChange}
                         />
                       </div>
+
+                      <div className="col-md-6 form-group">
+                          <label className="lb">Marital Status:</label>
+                          <select
+                            className="form-select"
+                            name="maritalStatus"
+                            value={formData?.maritalStatus}
+                            onChange={handleChange}
+                          >
+                            <option>unMarried</option>
+                            <option>divorced</option>
+                            <option>widow</option>
+                            <option>other</option>
+                          </select>
+                        </div>
+                      </div>
+                      
 
                       <div className="form-group">
                         <label className="lb">About:</label>

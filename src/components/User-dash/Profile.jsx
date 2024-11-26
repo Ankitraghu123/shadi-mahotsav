@@ -162,13 +162,19 @@ const DashboardProfile = () => {
                       <div className="row mb-2">
                         <div className="col-4 font-weight-bold">Education:</div>
                         <div className="col-8">
-                          {profileData?.degree || "N/A"}
+                          {profileData?.education || "N/A"}
                         </div>
                       </div>
                       <div className="row mb-2">
                         <div className="col-4 font-weight-bold">Age:</div>
                         <div className="col-8">
                           {calculateAge(profileData?.dob) || "N/A"}
+                        </div>
+                      </div>
+                      <div className="row mb-2">
+                        <div className="col-4 font-weight-bold">Marital Status:</div>
+                        <div className="col-8">
+                          {profileData?.maritalStatus || "N/A"}
                         </div>
                       </div>
                     </div>

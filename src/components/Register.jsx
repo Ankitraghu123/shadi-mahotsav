@@ -5,9 +5,14 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../Features/User/UserSlice';
 import { toast } from 'react-toastify';
+import { Country, State, City } from "country-state-city";
 
 const Register = () => {
   const dispatch = useDispatch()
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+ 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,8 +26,56 @@ const Register = () => {
     state: '',
     education: '',
     dob: '',
+    maritalStatus:'',
     couponCode: '',
   });
+
+  const handleCountryChange = (e) => {
+    const countryIsoCode = e.target.value;
+    const countryName = Country.getAllCountries().find(
+      (country) => country.isoCode === countryIsoCode
+    )?.name || "";
+
+    setSelectedCountry(countryIsoCode);
+    setSelectedState(""); // Reset state
+    setSelectedCity(""); // Reset city
+
+    // Update the formData with the selected country
+    setFormData((prevData) => ({
+      ...prevData,
+      country: countryName,
+      state: "",
+      city: "",
+    }));
+  };
+
+  const handleStateChange = (e) => {
+    const stateIsoCode = e.target.value;
+    const stateName = State.getStatesOfCountry(selectedCountry).find(
+      (state) => state.isoCode === stateIsoCode
+    )?.name || "";
+
+    setSelectedState(stateIsoCode);
+    setSelectedCity(""); // Reset city
+
+    // Update the formData with the selected state
+    setFormData((prevData) => ({
+      ...prevData,
+      state: stateName,
+      city: "",
+    }));
+  };
+
+  const handleCityChange = (e) => {
+    const cityName = e.target.value;
+    setSelectedCity(cityName);
+
+    // Update the formData with the selected city
+    setFormData((prevData) => ({
+      ...prevData,
+      city: cityName,
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -151,55 +204,81 @@ const Register = () => {
                             required
                           >
                             <option value="">Select Religion</option>
-                            <option value="Christianity">Christianity</option>
                             <option value="Hindu">Hindu</option>
-                            <option value="Islam">Islam</option>
+                            <option value="Christian">Christian</option>
+                            <option value="Jain">Jain</option>
+                            <option value="Buddhist">Buddhist</option>
                             <option value="Sikh">Sikh</option>
-                            <option value="Nonreligious">Nonreligious</option>
+                            <option value="Jewish">Jewish</option>
+                            <option value="Parsi">Parsi</option>
+                            <option value="Muslim">Muslim</option>
+                            <option value="Spritual - non religious">Spritual- non religious</option>
+                            <option value="No Religion">No Religion</option>
+                            <option value="Other">Other</option>
                           </select>
                         </div>
                       </div>
 
                       <div className="row">
-                        <div className="form-group col-12 col-md-6">
-                          <label className="lb">Country:</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter country"
-                            name="country"
-                            value={formData.country}
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                        <div className="form-group col-12 col-md-6">
-                          <label className="lb">City:</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter city"
-                            name="city"
-                            value={formData.city}
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                      </div>
+        <div className="form-group col-12 col-md-6">
+          <label className="lb">Country:</label>
+          <select
+            className="form-control"
+            value={selectedCountry}
+            onChange={handleCountryChange}
+            name='country'
+          >
+            <option value="">Select Country</option>
+            {Country.getAllCountries().map((country) => (
+              <option key={country.isoCode} value={country.isoCode}>
+                {country.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-group col-12 col-md-6">
+          <label className="lb">State:</label>
+          <select
+            className="form-control"
+            value={selectedState}
+            onChange={handleStateChange}
+            disabled={!selectedCountry}
+            name='state'
+          >
+            <option value="">Select State</option>
+            {selectedCountry &&
+              State.getStatesOfCountry(selectedCountry).map((state) => (
+                <option key={state.isoCode} value={state.isoCode}>
+                  {state.name}
+                </option>
+              ))}
+          </select>
+        </div>
+      </div>
 
-                      <div className="row">
-                        <div className="form-group col-12 col-md-6">
-                          <label className="lb">State:</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter state"
-                            name="state"
-                            value={formData.state}
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
+      <div className="row">
+        <div className="form-group col-12 col-md-6">
+          <label className="lb">City:</label>
+          <select
+            className="form-control"
+            value={selectedCity}
+            onChange={handleCityChange}
+            disabled={!selectedState}
+            name='city'
+          >
+            <option value="">Select City</option>
+            {selectedState &&
+              City.getCitiesOfState(selectedCountry, selectedState).map(
+                (city) => (
+                  <option key={city.name} value={city.name}>
+                    {city.name}
+                  </option>
+                )
+              )}
+          </select>
+        </div>
+      
+                       
                         <div className="form-group col-12 col-md-6">
                           <label className="lb">Education:</label>
                           <select
@@ -236,6 +315,22 @@ const Register = () => {
                             onChange={handleChange}
                             required
                           />
+                        </div>
+                        <div className="form-group col-12 col-md-6">
+                          <label className="lb">Marital Status:</label>
+                          <select
+                            className="form-control"
+                            name="maritalStatus"
+                            value={formData.maritalStatus}
+                            onChange={handleChange}
+                            required
+                          >
+                            <option value="">Select Marital Status</option>
+                            <option value="unmarried">Un Married</option>
+                            <option value="widow">Widow</option>
+                            <option value="divorced">Divorced</option>
+                            <option value="other">Other</option>
+                          </select>
                         </div>
                         <div className="form-group col-12 col-md-6">
                           <label className="lb">Coupon Code:</label>
