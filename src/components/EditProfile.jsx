@@ -127,8 +127,8 @@ const EditProfile = () => {
                           className="form-control"
                           id="phone"
                           placeholder="Enter phone number"
-                          name="phone"
-                          value={formData?.phone}
+                          name="mobileNumber"
+                          value={formData?.mobileNumber}
                           onChange={handleChange}
 
                         />

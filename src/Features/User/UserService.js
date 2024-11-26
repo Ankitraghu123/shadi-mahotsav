@@ -96,7 +96,7 @@ const EditImageInGallery = async(data) => {
 }
 
 const DeleteImageFromGallery = async(data) => {
-    const response = await axios.delete(`${base_url}user/delete-image`,data)
+    const response = await axios.post(`${base_url}user/delete-image`,data)
     return response.data
 }
 

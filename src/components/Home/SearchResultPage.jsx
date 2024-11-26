@@ -87,8 +87,9 @@ const SearchResultsPage = () => {
  
 
   return (
-    <div>
-      <h2>Search Results</h2>
+    <div className="all-weddpro all-jobs all-serexp chosenini">
+                <div className="container" style={{marginTop:"50px"}}>
+
       <div className="all-list-sh">
       <ul >
         {results.length > 0 ? (
@@ -99,9 +100,6 @@ const SearchResultsPage = () => {
                                                     <a href="profile-details.html">
                                                         <img src={user.profilePicture} alt={user.name} />
                                                     </a>
-                                                    <div className="pro-ave" title="User currently available">
-                                                        <span className="pro-ave-yes"></span>
-                                                    </div>
                                                 </div>
                                                 <div className="pro-detail">
                                                     <h4><a href="profile-details.html">{user.name}</a></h4>
@@ -123,6 +121,8 @@ const SearchResultsPage = () => {
         )}
       </ul>
       </div>
+    </div>
+
     </div>
   );
 };

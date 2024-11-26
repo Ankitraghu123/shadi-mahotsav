@@ -7,6 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/esm/Button';
 
 function NavScrollExample() {
   const dispatch = useDispatch();
@@ -72,15 +73,23 @@ function NavScrollExample() {
               Plans
             </Nav.Link>
 
-            <NavDropdown title="All pages" id="navbarScrollingDropdown">
-              <NavDropdown.Item as={NavLink} to="/gallery" onClick={handleNavLinkClick}>
+            <Nav.Link
+                as={NavLink}
+                to="/gallery"
+                className="nav-link"
+                onClick={handleNavLinkClick}
+              >
                 Gallery
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/profile" onClick={handleNavLinkClick}>
+              </Nav.Link>
+
+              <Nav.Link
+                as={NavLink}
+                to="/profile"
+                className="nav-link"
+                onClick={handleNavLinkClick}
+              >
                 All Profile
-              </NavDropdown.Item>
-            </NavDropdown>
+              </Nav.Link>
 
             {isLoggedIn() && (
               <Nav.Link
@@ -115,9 +124,11 @@ function NavScrollExample() {
               <p className='ms-2' id='mb0'>{profileData?.name}</p>
             </Link>
           ) : (
-            <Link to="/login" onClick={handleNavLinkClick}>
-              Login
+           <Button className='px-4'>
+             <Link to="/login" onClick={handleNavLinkClick}  className="text-white text-decoration-none">
+              Login / Register
             </Link>
+           </Button>
           )}
         </Navbar.Collapse>
       </Container>

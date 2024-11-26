@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 // import './Footer.css'; // Import any necessary CSS here
 
 const Footer = () => {
@@ -15,35 +17,31 @@ const Footer = () => {
           <div className="row wed-foot-link wed-foot-link-1">
             <div className="col-md-4">
               <h4>Get In Touch</h4>
-              <p>Address: 3812 Lena Lane City Jackson Mississippi</p>
-              <p>Phone: <a href="tel:+917904462944">+92 (8800) 68 - 8960</a></p>
-              <p>Email: <a href="mailto:info@example.com">info@example.com</a></p>
+              <p>Address:</p>
+              <p>Phone: <a href="tel:+917904462944"></a></p>
+              <p>Email: <a href="mailto:info@example.com"></a></p>
             </div>
             <div className="col-md-4">
-              <h4>HELP & SUPPORT</h4>
+              <h4>Usefull Links</h4>
               <ul>
-                <li><a href="about-us.html">About company</a></li>
-                <li><a href="#!">Contact us</a></li>
-                <li><a href="#!">Feedback</a></li>
-                <li><a href="about-us.html#faq">FAQs</a></li>
-                <li><a href="about-us.html#testimonials">Testimonials</a></li>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/about">About</Link></li>
+                <li><Link to="/pricing">Plans</Link></li>
+                <li><Link to="/gallery">Gallery</Link></li>
+                <li><Link to="/contact">Contact Us</Link></li>
+                <li><Link to="/login">Login / Register</Link></li>
               </ul>
             </div>
             <div className="col-md-4 fot-soc">
               <h4>SOCIAL MEDIA</h4>
               <ul>
-                <li><a href="#!"><img src="images/social/1.png" alt="Social Media" loading="lazy" /></a></li>
-                <li><a href="#!"><img src="images/social/2.png" alt="Social Media" loading="lazy" /></a></li>
-                <li><a href="#!"><img src="images/social/3.png" alt="Social Media" loading="lazy" /></a></li>
-                <li><a href="#!"><img src="images/social/5.png" alt="Social Media" loading="lazy" /></a></li>
+                <li><Link to="#!"><FaInstagram className='
+                fs-4' /></Link></li>
+                <li><Link to="#!"><FaFacebook className='fs-4' /></Link></li>
+                <li><Link to="#!"><FaTwitter className='fs-4' /></Link></li>
+                <li><Link to="#!"><FaYoutube className='fs-4' /></Link></li>
               </ul>
             </div>
-          </div>
-          <div className="row foot-count">
-            <p>
-              Company name Site - Trusted by over thousands of Boys & Girls for successful marriage.
-              <a href="sign-up.html" className="btn btn-primary btn-sm">Join us today!</a>
-            </p>
           </div>
         </div>
       </section>
@@ -54,7 +52,7 @@ const Footer = () => {
           <div className="container">
             <div className="row">
               <p>
-                Copyright © <span id="cry">2023</span> <a href="#!" target="_blank" rel="noopener noreferrer">Company.com</a> All rights reserved.
+                Copyright <a href="#!" target="_blank" rel="noopener noreferrer">shadimahotsav.com</a> All rights reserved.
               </p>
             </div>
           </div>

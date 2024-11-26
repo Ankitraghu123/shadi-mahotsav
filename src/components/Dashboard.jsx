@@ -151,7 +151,6 @@ const DashboardLayout = () => {
                   <li>
                     <NavLink
                       onClick={LogoutHandler}
-                      className={({ isActive }) => (isActive ? "active-link" : "")}
                     >
                       Logout
                     </NavLink>

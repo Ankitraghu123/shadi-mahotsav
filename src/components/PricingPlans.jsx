@@ -79,7 +79,6 @@ const PricingPlans = () => {
                         <div className="row">
                             <span className="pri">Pricing</span>
                             <h1>Get Started <br /> Pick your Plan Now</h1>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                             <span className="nocre">No credit card required</span>
                         </div>
                     </div>

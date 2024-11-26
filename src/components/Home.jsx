@@ -9,6 +9,7 @@ import MomentsSection from './Home/MomentsSection'
 import RecentCouplesSection from './Home/RecentCouplesSection'
 import Team from './Home/Team'
 import FindYourMatchBanner from './Home/FindYourMatchBanner'
+import Testimonials from './About/Testimonials'
 // import MySwiperComponent from './Home/MySwiperComponent'
 // import BannerSection from './Home/BannerSection'
 // import MainBannerSection from './Home/BannerSection'
@@ -28,7 +29,8 @@ const Home = () => {
         <CountsSection />
         <MomentsSection />
         <RecentCouplesSection/>
-        <Team />
+       
+        {/* <Team /> */}
         <FindYourMatchBanner />
     </div>
   )

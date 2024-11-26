@@ -5,6 +5,9 @@ import { Modal, Button } from 'react-bootstrap';
 
 import {
   addImageToGallery,
+  DeleteImageFromGallery,
+  EditImageInGallery,
+  editProfilePicture,
   getProfile,
   getProfileCompletion,
 } from "../../Features/User/UserSlice";
@@ -28,12 +31,12 @@ const DashboardProfile = () => {
   );
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const { imageAddedToGallery } = useSelector((state) => state.User);
+  const { imageAddedToGallery,imageEditedInGallery,imageDeletedFromGallery } = useSelector((state) => state.User);
 
   useEffect(() => {
     dispatch(getProfile(profileDetails?._id));
     dispatch(getProfileCompletion(profileDetails?._id));
-  }, [imageAddedToGallery]);
+  }, [imageAddedToGallery,imageEditedInGallery,imageDeletedFromGallery]);
 
   // Format the date using toLocaleString with specific options
   const calculateAge = (birthDate) => {
@@ -78,11 +81,20 @@ const DashboardProfile = () => {
   };
 
   const handleSaveChanges = () => {
-    // Logic to update the image (e.g., make an API call to upload the new image and update the gallery)
-    console.log("Updated image:", newImage);
+    const formData = new FormData();
+    formData.append("image", newImage);
+    formData.append("userId", profileData?._id);
+    formData.append("fileId", selectedImage?.fileId);
+
+    // console.log(selectedImage.fileId)
+    dispatch(EditImageInGallery(formData))
+    // console.log("Updated image:", newImage);
     setShowModal(false);
   };
 
+    const handleDeleteClick = (image) => {
+      dispatch(DeleteImageFromGallery({userId:profileData?._id,fileId:image.fileId}))
+    }
   return (
     <section>
       <div className="db">
@@ -257,7 +269,7 @@ const DashboardProfile = () => {
           <SwiperSlide key={image.id}>
             <img src={image.url} alt="Profile Slide" height="200px" width="100%" />
             <button onClick={() => handleEditClick(image)}><MdEdit /></button>
-            {/* <button onClick={() => handleDeleteClick(image.id)}><MdDelete /></button> */}
+            <button onClick={() => handleDeleteClick(image)}><MdDelete /></button>
           </SwiperSlide>
         ))}
       </Swiper>

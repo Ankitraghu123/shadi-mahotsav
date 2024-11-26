@@ -141,9 +141,8 @@ const Sidebar = () => {
                   <li>
                     <NavLink
                       to="/dashboard/logout"
-                      className={({ isActive }) => (isActive ? "active-link" : "")}
                     >
-                      Logout
+                      Logouts
                     </NavLink>
                   </li>
                 </ul>
