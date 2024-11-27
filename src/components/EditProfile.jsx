@@ -62,7 +62,8 @@ const EditProfile = () => {
     anyDisease:"",
     diseaseName:"",
     bloodGroup:"",
-    physicalChallenges:""
+    physicalChallenges:"",
+    otherPhysicallyDisabled:""
   });
 
   const [states, setStates] = useState([]);
@@ -128,7 +129,8 @@ const EditProfile = () => {
         anyDisease: userData.anyDisease || "",
         diseaseName: userData.diseaseName || "",
         bloodGroup: userData.bloodGroup || "",
-        physicalChallenges: userData.physicalChallenges || ""
+        physicalChallenges: userData.physicalChallenges || "",
+        otherPhysicallyDisabled : userData.otherPhysicallyDisabled || ""
       });
       
     }
@@ -935,6 +937,19 @@ const EditProfile = () => {
                             <option value="Other">Other</option>
                           </select>
                         </div>
+                       {
+                        formData.physicalChallenges == 'Other' ?  <div className="col-md-6 form-group">
+                        <label className="lb">Other Physical Disablity</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="otherPhysicallyDisabled"
+                          placeholder="Enter Other Physical Disablity"
+                          value={formData.otherPhysicallyDisabled}
+                          onChange={handleChange}
+                        />
+                      </div> : ''
+                       }
                       </div>
                     </div>
 
