@@ -177,6 +177,12 @@ const DashboardProfile = () => {
                           {profileData?.maritalStatus || "N/A"}
                         </div>
                       </div>
+                      <div className="row mb-2">
+                        <div className="col-4 font-weight-bold">Profile For:</div>
+                        <div className="col-8">
+                          {profileData?.profileFor || "N/A"}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

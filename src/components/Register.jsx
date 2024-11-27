@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import './Register.css'; // Make sure to add appropriate styling
 import couple from '../images/login-couple.png'; // Import images
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../Features/User/UserSlice';
 import { toast } from 'react-toastify';
@@ -12,6 +12,8 @@ const Register = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const navigate = useNavigate()
  
   const [formData, setFormData] = useState({
     name: '',
@@ -28,6 +30,7 @@ const Register = () => {
     dob: '',
     maritalStatus:'',
     couponCode: '',
+    profileFor:''
   });
 
   const handleCountryChange = (e) => {
@@ -85,17 +88,39 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleShowTerms = (e) => {
     e.preventDefault();
+    setShowTermsModal(true); // Open the terms modal
+  };
+
+  const handleAcceptTerms = () => {
+    setShowTermsModal(false); // Close the modal
     dispatch(registerUser(formData))
-      .then((response) => {
+      .then(() => {
         toast.success('Registration successful! Welcome aboard.');
+        navigate('/dashboard/user-profile')
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error('Registration failed. Please try again.');
       });
-    console.log(formData);
-  };  
+  };
+
+  const handleRejectTerms = () => {
+    setShowTermsModal(false); // Close the modal
+    toast.error('You must accept the terms and conditions to register.');
+  };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(registerUser(formData))
+  //     .then((response) => {
+  //       toast.success('Registration successful! Welcome aboard.');
+  //     })
+  //     .catch((error) => {
+  //       toast.error('Registration failed. Please try again.');
+  //     });
+  //   console.log(formData);
+  // };  
 
   return (
     <section>
@@ -120,7 +145,7 @@ const Register = () => {
                     <p>Already a member? <Link to="/login">Login</Link></p>
                   </div>
                   <div className="form-login">
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleShowTerms}>
                       <div className="row">
                         <div className="form-group col-12 col-md-6">
                           <label className="lb">Name:</label>
@@ -333,6 +358,25 @@ const Register = () => {
                           </select>
                         </div>
                         <div className="form-group col-12 col-md-6">
+                          <label className="lb">This Profile is For:</label>
+                          <select
+                            className="form-control"
+                            name="profileFor"
+                            value={formData.profileFor}
+                            onChange={handleChange}
+                          >
+                            <option value="">This Profile is for</option>
+                            <option value="mySelf">My Self</option>
+                            <option value="mySon">My Son</option>
+                            <option value="myDaughter">My Daughter</option>
+                            <option value="myBrother">My Brother</option>
+                            <option value="mySister">My Sisiter</option>
+                            <option value="myFriend">My Friend</option>
+                            <option value="myRelative">My Relative</option>
+
+                          </select>
+                        </div>
+                        <div className="form-group col-12 col-md-6">
                           <label className="lb">Coupon Code:</label>
                           <input
                             type="text"
@@ -357,6 +401,28 @@ const Register = () => {
           </div>
         </div>
       </div>
+
+      {showTermsModal && (
+  <div className="modal-overlay">
+    <div className="modal-content" style={{ backgroundColor: '#fff', color: '#000', padding: '20px', borderRadius: '10px',width:'60%' }}>
+      <h3>Terms and Conditions</h3>
+      <p>Please read and accept our terms and conditions to proceed with registration.</p>
+      <div className="modal-actions">
+        <button
+          className="btn btn-success"
+          onClick={handleAcceptTerms}
+          style={{ marginRight: '10px' }}
+        >
+          Accept
+        </button>
+        <button className="btn btn-danger" onClick={handleRejectTerms}>
+          Reject
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </section>
   );
 };

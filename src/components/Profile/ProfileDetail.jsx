@@ -167,23 +167,80 @@ const ProfileDetail = () => {
                                 </div> : null}
 
                                 <div className="pr-bio-c pr-bio-info">
-                                    <h3>Personal information</h3>
-                                    <ul>
-                                        <li><b>Name:</b> {profileData?.name}</li>
-                                        <li><b>Father's name:</b> {profileData?.fatherName}h</li>
-                                        <li><b>Mother's name:</b> {profileData?.motherName}</li>
-                                        <li><b>Age:</b> {calculateAge(profileData?.dob)}</li>
-                                        <li><b>Date of birth:</b>{convertToNormalFormat(profileData?.dob)} </li>
-                                        <li><b>Gender</b>{profileData?.gender} </li>
-                                        <li><b>Height:</b> {profileData?.height} ft</li>
-                                        <li><b>Weight:</b> {profileData?.weight} kg</li>
-                                        <li><b>Degree:</b> {profileData?.education}</li>
-                                        <li><b>Religion:</b> {profileData?.religion}</li>
-                                        <li><b>Profession:</b> {profileData?.jobType}</li>
-                                        <li><b>Company:</b> {profileData?.companyName}</li>
-                                        <li><b>Salary:</b> {profileData?.salary}</li>
-                                    </ul>
-                                </div>
+  <h3>Personal Information</h3>
+  <ul>
+    <li><b>Name:</b> {profileData?.name}</li>
+    <li><b>Email:</b> {profileData?.email}</li>
+    <li><b>Mobile Number:</b> {profileData?.mobileNumber}</li>
+    <li><b>Gender:</b> {profileData?.gender}</li>
+    <li><b>Country:</b> {profileData?.country}</li>
+    <li><b>State:</b> {profileData?.state}</li>
+    <li><b>City:</b> {profileData?.city}</li>
+    <li><b>Religion:</b> {profileData?.religion}</li>
+    <li><b>Community:</b> {profileData?.community}</li>
+    <li><b>Sub-Community:</b> {profileData?.subCommunity}</li>
+    <li><b>Gotra:</b> {profileData?.gotra}</li>
+    <li><b>Caste:</b> {profileData?.caste}</li>
+    <li><b>Date of Birth:</b> {profileData?.dob}</li>
+    <li><b>Height:</b> {profileData?.height} ft</li>
+    <li><b>Weight:</b> {profileData?.weight} kg</li>
+    <li><b>Address:</b> {profileData?.address}</li>
+    <li><b>About:</b> {profileData?.about}</li>
+    <li><b>Hobbies:</b> {profileData?.hobbies}</li>
+    <li><b>Interests:</b> {profileData?.interests}</li>
+    <li><b>Marital Status:</b> {profileData?.maritalStatus}</li>
+    <li><b>Job Type:</b> {profileData?.jobType}</li>
+    <li><b>Company Name:</b> {profileData?.companyName}</li>
+    <li><b>Salary:</b> {profileData?.salary}</li>
+    <li><b>Total Experience:</b> {profileData?.totalExperience}</li>
+    <li><b>Degree:</b> {profileData?.degree}</li>
+    <li><b>School:</b> {profileData?.school}</li>
+    <li><b>College:</b> {profileData?.college}</li>
+    <li><b>Father's Name:</b> {profileData?.fatherName}</li>
+    <li><b>Mother's Name:</b> {profileData?.motherName}</li>
+    <li><b>Father's Occupation:</b> {profileData?.fathersOccupation}</li>
+    <li><b>Mother's Occupation:</b> {profileData?.mothersOccupation}</li>
+    <li><b>Number of Brothers:</b> {profileData?.numberOfBrothers}</li>
+    {profileData?.brother1Name && (
+      <>
+        <li><b>Brother 1 Name:</b> {profileData?.brother1Name}</li>
+        <li><b>Brother 1 Occupation:</b> {profileData?.brother1Occupation}</li>
+        <li><b>Brother 1 Marital Status:</b> {profileData?.brother1MaritalStatus}</li>
+      </>
+    )}
+    {profileData?.brother2Name && (
+      <>
+        <li><b>Brother 2 Name:</b> {profileData?.brother2Name}</li>
+        <li><b>Brother 2 Occupation:</b> {profileData?.brother2Occupation}</li>
+        <li><b>Brother 2 Marital Status:</b> {profileData?.brother2MaritalStatus}</li>
+      </>
+    )}
+    <li><b>Number of Sisters:</b> {profileData?.numberOfSisters}</li>
+    {profileData?.sister1Name && (
+      <>
+        <li><b>Sister 1 Name:</b> {profileData?.sister1Name}</li>
+        <li><b>Sister 1 Occupation:</b> {profileData?.sister1Occupation}</li>
+        <li><b>Sister 1 Marital Status:</b> {profileData?.sister1MaritalStatus}</li>
+      </>
+    )}
+    {profileData?.sister2Name && (
+      <>
+        <li><b>Sister 2 Name:</b> {profileData?.sister2Name}</li>
+        <li><b>Sister 2 Occupation:</b> {profileData?.sister2Occupation}</li>
+        <li><b>Sister 2 Marital Status:</b> {profileData?.sister2MaritalStatus}</li>
+      </>
+    )}
+    <li><b>Manglik:</b> {profileData?.manglik}</li>
+    <li><b>Zodiac Sign:</b> {profileData?.zodiacSign}</li>
+    <li><b>Time of Birth:</b> {profileData?.timeOfBirth}</li>
+    <li><b>City of Birth:</b> {profileData?.cityOfBirth}</li>
+    <li><b>Any Disease:</b> {profileData?.anyDisease}</li>
+    <li><b>Disease Name:</b> {profileData?.diseaseName}</li>
+    <li><b>Blood Group:</b> {profileData?.bloodGroup}</li>
+    <li><b>Physical Challenges:</b> {profileData?.physicalChallenges}</li>
+  </ul>
+</div>
+
 
                                 {/* <div className="pr-bio-c pr-bio-hob">
                                     <h3>Hobbies</h3>
