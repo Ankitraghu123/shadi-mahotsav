@@ -32,6 +32,8 @@ import PrivateRoute from './PrivateRoute';
 import SearchResultsPage from './components/Home/SearchResultPage';
 import AdminDashboard from './Admin/AdminDashboard';
 import AdminLogin from './Admin/AdminLogin';
+import TermsAndCondition from './components/TermsAndCondition';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 
 
@@ -61,6 +63,8 @@ function App() {
       <Route path="/pricing"element={<PricingPlans/>}  />
       <Route path="/gallery"element={<Gallery/>}  />
       <Route path="/profile-edit"element={<PrivateRoute><ProfileEdit/></PrivateRoute>}  />
+      <Route path="/terms-and-conditions"element={<TermsAndCondition/>}  />
+      <Route path="/privacy-policy"element={<PrivacyPolicy/>}  />
       <Route path="/swiper"element={<MySwiperComponent/>}  />
 
 

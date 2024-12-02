@@ -85,7 +85,7 @@ function NavScrollExample() {
               <Nav.Link
                 as={NavLink}
                 to="/profile"
-                className="nav-link"
+                  className="nav-link"
                 onClick={handleNavLinkClick}
               >
                 All Profile

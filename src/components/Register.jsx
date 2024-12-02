@@ -406,7 +406,7 @@ const Register = () => {
   <div className="modal-overlay">
     <div className="modal-content" style={{ backgroundColor: '#fff', color: '#000', padding: '20px', borderRadius: '10px',width:'60%' }}>
       <h3>Terms and Conditions</h3>
-      <p>Please read and accept our terms and conditions to proceed with registration.</p>
+      <p>Please read and accept our <Link id='blue' to={'/terms-and-conditions'}>Terms and Conditions</Link> & <Link id='blue' to={'/privacy-policy'}>Privacy Policy</Link> to proceed with registration.</p>
       <div className="modal-actions">
         <button
           className="btn btn-success"

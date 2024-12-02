@@ -408,6 +408,10 @@ color: #fff;
   width: 80%;
 }
 
+#blue{
+  color: #0D6EFD !important;
+}
+
 #fixed-height{
   max-height: 80vh;
 }
