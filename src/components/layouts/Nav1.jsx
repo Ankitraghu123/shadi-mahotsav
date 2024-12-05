@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';  // Add useLocation import
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser } from '../../Features/User/UserSlice'; // Make sure this action fetches the user profile after login
-import { isLoggedIn } from '../../utils/config';
+import { isFranchise, isLoggedIn } from '../../utils/config';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -123,6 +123,10 @@ function NavScrollExample() {
               />
               <p className='ms-2' id='mb0'>{profileData?.name}</p>
             </Link>
+          ) : isFranchise() ? (
+            <Link to='/frachise' className='d-flex align-items-center'>
+            <p className='ms-2' id='mb0'>Go To Franchise Pannel</p>
+          </Link>
           ) : (
            <Button className='px-4'>
              <Link to="/login" onClick={handleNavLinkClick}  className="text-white text-decoration-none">

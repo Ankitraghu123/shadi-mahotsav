@@ -13,7 +13,7 @@ const AdminSidebar = () => {
     <div>
       {/* Navbar for mobile view */}
       <Navbar bg="secondary" variant="dark" expand="lg" id="admin-dash" className="sticky-top">
-        <Navbar.Brand className="admin-logo" href="#home">
+        <Navbar.Brand className="admin-logo mt-3" href="#home">
           Admin <span>Dashboard</span>
         </Navbar.Brand>
         <Navbar.Toggle onClick={toggleSidebar} />
@@ -33,6 +33,9 @@ const AdminSidebar = () => {
             <NavLink to="/admin-dashboard/all-members" className={`nav-link ${location.pathname === '/all-members' ? 'active' : ''}`} onClick={toggleSidebar}>
               <FaUser className="sidebar-icon" /> All Members
             </NavLink>
+            <NavLink to="/admin-dashboard/all-franchises" className={`nav-link ${location.pathname === '/all-franchises' ? 'active' : ''}`} onClick={toggleSidebar}>
+              <FaUser className="sidebar-icon" /> All Franchises
+            </NavLink>
             <NavLink to="/admin-dashboard/all-enquiries" className={`nav-link ${location.pathname === '/all-enquiries' ? 'active' : ''}`} onClick={toggleSidebar}>
               <FaUser className="sidebar-icon" /> All Enquiries
             </NavLink>
@@ -43,6 +46,8 @@ const AdminSidebar = () => {
             <NavLink to="/admin-dashboard/member" className={`nav-link ${location.pathname === '/settings' ? 'active' : ''}`} onClick={toggleSidebar}>
               <FaCog className="sidebar-icon" /> Member Detail
             </NavLink>
+
+           
 
             <NavDropdown title="Manage Users" id="nav-dropdown" className="nav-link">
               <NavDropdown.Item href="/users/add">Add User</NavDropdown.Item>
@@ -71,6 +76,10 @@ const AdminSidebar = () => {
                 </NavLink> */}
                  <NavLink to="/admin-dashboard/all-members" className={`nav-link ${location.pathname === '/all-members' ? 'active' : ''}`}>
               <FaUser className="sidebar-icon" /> All Members
+            </NavLink>
+
+            <NavLink to="/admin-dashboard/all-franchises" className={`nav-link ${location.pathname === '/all-franchises' ? 'active' : ''}`}>
+              <FaUser className="sidebar-icon" /> All Franchises
             </NavLink>
 
             <NavLink to="/admin-dashboard/members-by-date" className={`nav-link ${location.pathname === '/all-enquiries' ? 'active' : ''}`}>

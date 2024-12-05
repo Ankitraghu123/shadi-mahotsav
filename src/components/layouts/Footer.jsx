@@ -29,6 +29,7 @@ const Footer = () => {
                 <li><Link to="/pricing">Plans</Link></li>
                 <li><Link to="/gallery">Gallery</Link></li>
                 <li><Link to="/contact">Contact Us</Link></li>
+                <li><Link to="/frachise/*">Franchise</Link></li>
                 <li><Link to="/login">Login / Register</Link></li>
                 <li><Link to="/terms-and-conditions">Terms & Conditions</Link></li>
                 <li><Link to="/privacy-policy">Privacy Policy</Link></li>

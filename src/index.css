@@ -1,5 +1,7 @@
 
-
+.card-header{
+  background-color: none !important;
+}
 
 /* .db{
   display: none;
@@ -44,6 +46,21 @@ padding: 10px 0;
 .logo img.ic-logo {
 width: 150px;
 }
+
+
+.navbar-logos{
+  font-size: 1.5rem !important;
+}
+
+.logoss{
+  color: #0D6EFD;
+}
+
+.navbar-center p{
+  color: white !important;
+}
+
+
 
 .desktop-menu ul {
 display: flex;
@@ -295,7 +312,7 @@ margin-top: 1vh !important;
 }
 
 #content-sidebar{
-margin-top: 5vh ;
+margin-top: 6vh ;
 }
 
 
@@ -459,4 +476,598 @@ height: 405px !important;
 
 .gal-im img.gal-siz-2 {
 height: 405px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------------------franchise css------------------- */
+
+
+/* Global Reset */
+* {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+tbody tr {
+  background-color: white !important;
+  color: black !important;
+}
+tbody tr td {
+  /* background-color: white !important; */
+  color: black !important;
+}
+
+.dash{
+  margin-top: 2vmax !important;
+}
+
+.logo{
+  color: rgb(45, 122, 199);
+  font-style: oblique
+}
+
+/* Navbar Container */
+.menu-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+#main-sidebar {
+  margin-top: 7.8vh;
+}
+
+
+
+
+
+.navbar {
+  /* background-image: url("https://national-paints.vercel.app/static/media/admin-background.5e6644918587dd6c222b.png"); */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: rgb(20, 19, 19);
+  color: white;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 30px;
+  align-items: center;
+  width: 100%;
+}
+
+/* Logo */
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Center: Welcome Text */
+.navbar-center {
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Navbar Right Section */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: white !important;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #ffd600;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+  position: relative;
+}
+
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: white;
+  color: #6200ea;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.profile-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #6200ea;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+  background-color: #6200ea;
+  color: white;
+}
+
+/* Mobile Menu Icon */
+.menu-icon {
+  font-size: 1.8rem;
+  display: none;
+  cursor: pointer;
+  color: white;
+
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-center {
+    display: none;
+  }
+
+  #main-sidebar {
+    margin-top: 10.8vh;
+  }
+
+
+  .menu-icon {
+    /* width: 30%; */
+    display: flex;
+    justify-content: flex-end;
+    display: block;
+  }
+
+  .navbar-right {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #3700b3;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    border-radius: 0 0 5px 5px;
+  }
+
+  .navbar-right.menu-open {
+    max-height: 300px;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .navbar-links a {
+    width: 100%;
+    padding: 10px 20px;
+    text-align: left;
+  }
+
+  .profile-dropdown {
+    margin: 10px 0;
+    /* width: 100%; */
+  }
+}
+
+#franchise-main{
+  /* height: 100vh; */
+  /* background-color: red !important; */
+  background-image: url("https://skillsikhar.com/user/img/login.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+}
+
+
+
+
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px; /* Sidebar width */
+  height: 100vh; /* Full height of the viewport */
+  background-color: #222; /* Sidebar background color */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  transition: transform 0.3s ease-in-out;
+}
+
+
+.sidebar.collapsed {
+  transform: translateX(-250px);
+}
+
+.toggle-btn {
+  /* display: none; */
+  background-color: #6200ea;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 40px;
+}
+
+.sidebar nav a {
+  display: block;
+  padding: 10px 20px;
+  font-size: 15px !important;
+  text-decoration: none;
+  color: black;
+  box-shadow: 2px 2px 5px black;
+  background-color: white;
+  margin-top: 0.7vmax !important;
+  width: 90%;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.sidebar nav a:hover {
+  color: white;
+  background-color: #33a1d5;
+}
+
+.main-content {
+  margin-left: 250px;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-250px);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .toggle-btn {
+    display: initial ;
+    display: block;
+  }
+}
+
+.right{
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+
+
+.dropdown {
+  margin-top: 10px;
+}
+
+.dropdown-menu {
+  /* display: none; */
+  flex-direction: column;
+  padding: 10px;
+  background-color: #495057;
+  border-radius: 5px;
+}
+
+.dropdown.open .dropdown-menu {
+  display: flex;
+}
+
+.dropdown-menu a {
+  padding: 5px 10px;
+  /* color: #fff; */
+  text-decoration: none;
+  margin: 3px 0;
+}
+
+.dropdown-menu a:hover {
+  background-color: #6c757d;
+  border-radius: 5px;
+}
+
+
+#margin-top{
+  margin-top: 10vh !important;
+}
+
+.das_prof span{
+  color: white;
+}
+.das_prof p{
+  color: #4FFC50;
+}
+
+
+@media  (max-width: 780px) {
+  #margin-top{
+    margin-top: 18vh !important;
+  }
+}
+
+.background{
+  height: auto !important;
+}
+
+
+
+
+.background col{
+  /* height: auto !important; */
+  background-color: #33a1d5 !important;
+}
+
+.front_area {
+  padding: 0px !important;
+}
+
+
+.our_courses_bg img {
+  border-radius: 15px !important;
+}
+
+
+
+/* Ensure FullCalendar is scrollable and fits smaller screens */
+.fc {
+  font-size: 0.85rem; /* Reduce font size for better mobile fit */
+}
+
+.fc-toolbar {
+  flex-wrap: wrap; /* Wrap toolbar on smaller screens */
+  justify-content: space-between; /* Ensure buttons don't overlap */
+}
+
+.fc-scrollgrid {
+  overflow-x: auto; /* Enable horizontal scrolling for grid */
+}
+
+#kyc-form label{
+  margin-top: .8vmax !important;
+  margin-bottom: 0 !important;
+}
+
+.pot {
+  background: #0d5ef4 !important;
+  border-radius: 10px;
+  color: white;
+}
+
+.seleco {
+  background: #0d5ef4 !important;
+  color: white;
+}
+
+.poe {
+  padding: 10px;
+}
+
+.error {
+  color: red;
+}
+
+
+
+/* General styling for the sidebar */
+.sidebar {
+  margin-top: 7.5vh;
+
+
+}
+
+
+.sidebar.open {
+  z-index: 234567;
+  margin-top: 9.5vh;
+  /* width: 17%; */
+  left: 0;
+}
+
+.sidebar-nav{
+  margin-top: 2vh;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.sidebar-nav a:hover {
+  background-color: #34495e;
+}
+
+.sidebar-nav a i {
+  margin-right: 10px;
+}
+
+
+
+
+.menu-button {
+  display: none !important;
+  position: fixed;
+  top: 75px;
+  right: 0px;
+  z-index: 1100;
+}
+
+.menu-button p{
+  padding: 9px;
+  margin-bottom: 0;
+  font-size: 1.1rem ;
+  font-weight: 500;
+}
+.menu-content{
+  margin-top: .7vmax;
+  margin-bottom: .7vmax;
+  gap: 10px;
+  justify-content: space-around;
+  display:flex;
+}
+
+
+@media(max-width: 780px) {
+  .menu-button {
+    display: initial !important;
+  }
+
+}
+
+.toggle-btn {
+  background: #34495e;
+  color: white;
+  border: none;
+  font-size: 20px;
+  /* padding: 10px 15px; */
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+}
+
+.toggle-btn:focus {
+  outline: none;
+}
+
+.backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 900;
+}
+
+.backdrop.visible {
+  display: block;
+}
+
+
+
+@media (min-width: 768px) {
+  .menu-button {
+    display: none;
+  }
+
+  .sidebar {
+    left: 0;
+  }
+
+  .backdrop {
+    display: none;
+  }
+}
+
+.objectss {
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+  padding: 15px;
+  height: 200px;
+  overflow: hidden;
+}
+
+#profile-text p{
+  color: white !important;
+}
+
+#profile-text span{
+  color: white !important;
+}
+
+
+
+#dropping{
+  display: flex;
+  justify-content: center;
+}
+
+
+.dropdown.open .dropdown-menu {
+  margin-top: 15px  !important;
+  margin-bottom: 15px !important;
+  /* height: 100% !important; */
+  width: 100% !important;
+}
+
+button, input, optgroup, select, textarea {
+  margin: auto;
+  padding: 10px;
+  margin: auto;
+  /* width: 90%; */
+  border-radius: 10px !important;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.card-header{
+  background: none !important;
+}
+
+
+.back_area{
+  padding: 0px !important;
 }

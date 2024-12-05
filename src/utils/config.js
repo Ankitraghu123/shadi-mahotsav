@@ -4,4 +4,12 @@ export const isLoggedIn = () => {
   
     return !!token || !!user;
   };
+
+  export const isFranchise = () => {
+    const token = localStorage.getItem('franchiseToken');  
+    const franchise = localStorage.getItem('franchiseData');  
+  
+    return !!token || !!franchise;
+  };
+  
   

@@ -22,10 +22,12 @@ import TodayJoinedMembers from './TodayJoinedMembers';
 import MemeberByDate from './MemebersByDate';
 import AddMember from './AddMemeber';
 import EditMember from './EditMember';
+import AllFranchise from './AllFranchise';
+import FranchiseDetail from './FranchiseDetail';
 
 // import from  './AdminDashboard.css'
 function AdminDashboard() {
-  
+
   return (
     <Container id="admin-dash" fluid className="p-0">
       <Row className="gx-0">
@@ -40,6 +42,8 @@ function AdminDashboard() {
               <Route path="main" element={<Refferal />} />
               <Route path="profile" element={<Table />} />
               <Route path="all-members" element={<AllMembers />} />
+              <Route path="all-franchises" element={<AllFranchise />} />
+              <Route path="franchise-detail/:id" element={<FranchiseDetail />} />
               <Route path="all-enquiries" element={<AllEnquiries />} />
               <Route path="settings" element={<UserForm />} />
               <Route path="member" element={<MembershipDetailsForm />} />

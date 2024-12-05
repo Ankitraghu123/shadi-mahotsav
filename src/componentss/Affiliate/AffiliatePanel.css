@@ -1,0 +1,51 @@
+.affiliate-panel {
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+
+  .stats-card {
+    background: linear-gradient(to right, #4e73df, #224abe);
+    color: #fff;
+    text-align: center;
+  }
+
+  .stats-card .card-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .graph-card, .referral-card, .recent-referrals, .leaderboard {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .no-data {
+    color: #888;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2rem;
+  }
+
+  .profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  .table th, .table td {
+    text-align: center;
+  }
+
+
+  .background{
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    /* padding: 30px 0px; */
+    background-image: url("https://skillsikhar.com/user/img/dash.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
