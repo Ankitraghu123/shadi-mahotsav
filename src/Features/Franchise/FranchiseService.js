@@ -57,7 +57,12 @@ const getAllFranchise = async () => {
 }
 
 
+const AddMember = async (data) => {
+    const response = await axios.post(`${base_url}user/register`,data)
+    return response.data
+}
 
-const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise}
+
+const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise,AddMember}
 
 export default FranchiseService

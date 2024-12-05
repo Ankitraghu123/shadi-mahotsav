@@ -84,6 +84,14 @@ export const getAllFranchise = createAsyncThunk('franchise/get-all-franchise',as
     }
 })
 
+export const addMember = createAsyncThunk('user/add-member',async(data,thunkApi)=>{
+    try{
+        return await FranchiseService.AddMember(data)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
 
 const initialState = {
     franchise:'',
@@ -248,6 +256,21 @@ export const FranchiseSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.franchiseDetail = null
+        })
+
+        .addCase(addMember.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(addMember.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.memeberAdded = action.payload
+        })
+        .addCase(addMember.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.memeberAdded = null
         })
 
     }
