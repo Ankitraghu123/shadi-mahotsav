@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // Import Link from React Router
 import { getCurrentFranchise } from "../Features/Franchise/FranchiseSlice";
 import { useSelector } from "react-redux";
+import logo from '../assets/download.png'
 // import "./Navbar.css"; // Assuming you have this CSS file
 
 const Navbar = () => {
@@ -14,8 +15,8 @@ const Navbar = () => {
         {/* Left: Logo */}
         <div className="navbar-left">
 
-          <h1 className="navbar-logos">
-            Shadi - <span className="logoss">Mahotsav</span>
+          <h1 className="navbar-logos ms-4">
+           <img width="100px" src={logo}/>
           </h1>
         </div>
 

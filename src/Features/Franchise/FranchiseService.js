@@ -5,7 +5,7 @@ import { base_url } from '../../utils/base_url'
 const Register = async (data) => {
     const response = await axios.post(`${base_url}franchise/register`,data)
     // localStorage.setItem('franchiseToken',response.data.token)
-    // localStorage.setItem('franchiseData', JSON.stringify(response.data.user));
+    // localStorage.setItem('franchiseData', JSON.stringify(response.data.franchise));
     return response.data
 }
 
@@ -62,7 +62,22 @@ const AddMember = async (data) => {
     return response.data
 }
 
+const requestPayout = async (data) => {
+    const response = await axios.post(`${base_url}franchise/request-payout`,data)
+    return response.data
+}
 
-const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise,AddMember}
+const getPayOutByFranchise = async (id) => {
+    const response = await axios.get(`${base_url}franchise/payouts/${id}`)
+    return response.data
+}
+
+const generateRegisterLink = async (data) => {
+    const response = await axios.post(`${base_url}franchise/generate-registration-link`,data)
+    return response.data
+}
+
+
+const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise,AddMember,requestPayout,getPayOutByFranchise,generateRegisterLink}
 
 export default FranchiseService

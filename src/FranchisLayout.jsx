@@ -24,12 +24,12 @@ import AddMember from './componentss/AddMemeber/AddMemeber';
 
 const FranchisLayout = () => {
   const singleFranchise = JSON.parse(localStorage.getItem("franchiseData"));
-  const {deletedProfilePicture,editedProfilePicture,editedFranchise,kycCreated} = useSelector(state => state.Franchise)
+  const {deletedProfilePicture,editedProfilePicture,editedFranchise,kycCreated,payoutRequested} = useSelector(state => state.Franchise)
 
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getCurrentFranchise(singleFranchise?.id))
-  },[deletedProfilePicture,editedProfilePicture,editedFranchise])
+  },[deletedProfilePicture,editedProfilePicture,editedFranchise,payoutRequested])
 
   return (
     <div id='franchise-main'>

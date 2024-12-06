@@ -47,6 +47,7 @@ const PricingPlans = () => {
                             orderId: data.order.id,
                             userId: currentUser?._id,
                             planId,
+                            amount:data.order.amount
                         }),
                     })
                     .then((res) => res.json())

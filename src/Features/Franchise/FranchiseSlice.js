@@ -92,6 +92,31 @@ export const addMember = createAsyncThunk('user/add-member',async(data,thunkApi)
     }
 })
 
+export const requestPayout = createAsyncThunk('franchise/request-payout',async(data,thunkApi)=>{
+    try{
+        return await FranchiseService.requestPayout(data)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const getPayOutByFranchise = createAsyncThunk('franchise/payout-by-franchise',async(id,thunkApi)=>{
+    try{
+        return await FranchiseService.getPayOutByFranchise(id)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const generateRegisterLink = createAsyncThunk('franchise/generate-register-link',async(data,thunkApi)=>{
+    try{
+        return await FranchiseService.generateRegisterLink(data)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+
 
 const initialState = {
     franchise:'',
@@ -271,6 +296,51 @@ export const FranchiseSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.memeberAdded = null
+        })
+
+        .addCase(requestPayout.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(requestPayout.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.payoutRequested = action.payload
+        })
+        .addCase(requestPayout.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.payoutRequested = null
+        })
+
+        .addCase(getPayOutByFranchise.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(getPayOutByFranchise.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.paoutsByFranchise = action.payload
+        })
+        .addCase(getPayOutByFranchise.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.paoutsByFranchise = null
+        })
+
+        .addCase(generateRegisterLink.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(generateRegisterLink.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.registerLink = action.payload
+        })
+        .addCase(generateRegisterLink.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.registerLink = null
         })
 
     }

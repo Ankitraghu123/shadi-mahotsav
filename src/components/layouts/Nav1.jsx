@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';  // Add useLocation import
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentUser } from '../../Features/User/UserSlice'; // Make sure this action fetches the user profile after login
+import { getCurrentUser } from '../../Features/User/UserSlice';
 import { isFranchise, isLoggedIn } from '../../utils/config';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/esm/Button';
+import logo from '../../assets/download.png';
 
 function NavScrollExample() {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function NavScrollExample() {
   // Scroll to top whenever the route changes
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location]); // The location change will trigger scrolling to the top
+  }, [location]);
 
   const handleNavLinkClick = () => {
     setExpanded(false);
@@ -35,7 +35,7 @@ function NavScrollExample() {
     <Navbar expand="lg" expanded={expanded} fixed="top" className="Nabvar">
       <Container fluid className="container">
         <Link to="/" onClick={handleNavLinkClick}>
-          Shadi <span id="logo">Mahotsav</span>
+          <img width="150px" src={logo} />
         </Link>
         <Navbar.Toggle
           aria-controls="navbarScroll"
@@ -53,6 +53,9 @@ function NavScrollExample() {
               to="/"
               className="nav-link"
               onClick={handleNavLinkClick}
+              style={({ isActive }) => ({
+                color: isActive ? 'yourColorHere' : '',
+              })}
             >
               Home
             </Nav.Link>
@@ -61,6 +64,9 @@ function NavScrollExample() {
               to="/about"
               className="nav-link"
               onClick={handleNavLinkClick}
+              style={({ isActive }) => ({
+                color: isActive ? 'yourColorHere' : '',
+              })}
             >
               About
             </Nav.Link>
@@ -69,27 +75,36 @@ function NavScrollExample() {
               to="/pricing"
               className="nav-link"
               onClick={handleNavLinkClick}
+              style={({ isActive }) => ({
+                color: isActive ? 'yourColorHere' : '',
+              })}
             >
               Plans
             </Nav.Link>
 
             <Nav.Link
-                as={NavLink}
-                to="/gallery"
-                className="nav-link"
-                onClick={handleNavLinkClick}
-              >
-                Gallery
-              </Nav.Link>
+              as={NavLink}
+              to="/gallery"
+              className="nav-link"
+              onClick={handleNavLinkClick}
+              style={({ isActive }) => ({
+                color: isActive ? 'yourColorHere' : '',
+              })}
+            >
+              Gallery
+            </Nav.Link>
 
-              <Nav.Link
-                as={NavLink}
-                to="/profile"
-                  className="nav-link"
-                onClick={handleNavLinkClick}
-              >
-                All Profile
-              </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/profile"
+              className="nav-link"
+              onClick={handleNavLinkClick}
+              style={({ isActive }) => ({
+                color: isActive ? 'yourColorHere' : '',
+              })}
+            >
+              All Profile
+            </Nav.Link>
 
             {isLoggedIn() && (
               <Nav.Link
@@ -97,6 +112,9 @@ function NavScrollExample() {
                 to="/dashboard/main"
                 className="nav-link"
                 onClick={handleNavLinkClick}
+                style={({ isActive }) => ({
+                  color: isActive ? 'yourColorHere' : '',
+                })}
               >
                 Dashboard
               </Nav.Link>
@@ -107,6 +125,9 @@ function NavScrollExample() {
               to="/contact"
               className="nav-link"
               onClick={handleNavLinkClick}
+              style={({ isActive }) => ({
+                color: isActive ? 'yourColorHere' : '',
+              })}
             >
               Contact
             </Nav.Link>
@@ -125,14 +146,14 @@ function NavScrollExample() {
             </Link>
           ) : isFranchise() ? (
             <Link to='/frachise' className='d-flex align-items-center'>
-            <p className='ms-2' id='mb0'>Go To Franchise Pannel</p>
-          </Link>
-          ) : (
-           <Button className='px-4'>
-             <Link to="/login" onClick={handleNavLinkClick}  className="text-white text-decoration-none">
-              Login / Register
+              <p className='ms-2' id='mb0'>Go To Franchise Pannel</p>
             </Link>
-           </Button>
+          ) : (
+            <Button className='px-4'>
+              <Link to="/login" onClick={handleNavLinkClick} className="text-white text-decoration-none">
+                Login / Register
+              </Link>
+            </Button>
           )}
         </Navbar.Collapse>
       </Container>

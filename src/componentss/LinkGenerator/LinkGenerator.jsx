@@ -1,59 +1,38 @@
 import React, { useState } from 'react';
-import { Button, Modal, Form, Row, Col, Container, Card } from 'react-bootstrap';
+import { Button, Form, Row, Col, Container, Card } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { generateRegisterLink } from '../../Features/Franchise/FranchiseSlice';
 
 const LinkGenerator = () => {
-  const [showModal, setShowModal] = useState(false);
+  const currentFranchise = useSelector((state) => state.Franchise?.currentFranchise?.franchise);
+  const registerLink = useSelector((state) => state.Franchise?.registerLink?.registrationLink);
+
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    type: ''
+    franchiseCode: currentFranchise?.code || '',
+    uplineId: '',
+    packageType: '',
   });
-  const [generatedPackageLink, setGeneratedPackageLink] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const validateForm = () => {
-    const { name, email, phone } = formData;
-    if (!name || !/^[a-zA-Z\s]{3,}$/.test(name)) {
-      alert('Invalid name');
-      return false;
-    }
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-      alert('Invalid email');
-      return false;
-    }
-    if (!phone || !/^\d{10}$/.test(phone)) {
-      alert('Invalid phone number');
-      return false;
-    }
-    return true;
+  const generateLink = async () => {
+    setLoading(true);
+    await dispatch(generateRegisterLink(formData));
+    setLoading(false);
   };
 
-  const generatePackageLink = () => {
-    const baseLink = "https://skillsikhar.com/package?type=";
-    if (formData.type) {
-      setGeneratedPackageLink(baseLink + formData.type);
-    } else {
-      alert('Please select a package type');
-    }
-  };
-
-  const copyToClipboard = (id) => {
+  const copyToClipboard = async (id) => {
     const copyText = document.getElementById(id);
-    copyText.select();
-    document.execCommand('copy');
-    alert('Copied to clipboard');
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validateForm()) {
-      alert('Form submitted successfully');
-      // Submit form logic here
+    try {
+      await navigator.clipboard.writeText(copyText.value);
+      alert('Copied to clipboard');
+    } catch (err) {
+      alert('Failed to copy');
     }
   };
 
@@ -68,95 +47,88 @@ const LinkGenerator = () => {
           />
         </Card.Header>
         <Card.Body>
-          <h4 className="text-center mb-4"><strong>Link Generator</strong></h4>
+          <h4 className="text-center mb-4"><strong>Register Link Generator</strong></h4>
           <Form>
-            {/* Referral Code */}
+            {/* Franchise Code (refId) */}
             <Row className="mb-3 align-items-center">
               <Col xs={12} md={9}>
-                <Form.Group controlId="referralCode">
-                  <Form.Label>My Referral Code:</Form.Label>
+                <Form.Group controlId="franchiseCode">
+                  <Form.Label>Franchise Code (refId):</Form.Label>
                   <Form.Control
                     type="text"
-                    value="Your Referral Code"
+                    value={formData.franchiseCode}
                     readOnly
-                    id="referral_code"
+                    id="franchiseCode"
                   />
                 </Form.Group>
               </Col>
               <Col xs={12} md={3} className="mt-3 mt-md-0">
-                <Button variant="outline-primary" onClick={() => copyToClipboard('referral_code')}>
+                <Button variant="outline-primary" onClick={() => copyToClipboard('franchiseCode')}>
                   Copy Code
                 </Button>
               </Col>
             </Row>
 
-            {/* Lead Generate Link */}
-            <Row className="mb-3 align-items-center">
-              <Col xs={12} md={9}>
-                <Form.Group controlId="leadCapture">
-                  <Form.Label>Lead Generate Link:</Form.Label>
+            {/* Upline ID */}
+            <Row className="mb-3">
+              <Col>
+                <Form.Group controlId="uplineId">
+                  <Form.Label>Upline ID:</Form.Label>
                   <Form.Control
                     type="text"
-                    value="https://skillsikhar.com/lead-capture?afCode=sample&ref_code=YourReferralCode"
-                    readOnly
-                    id="leadCapture"
+                    name="uplineId"
+                    value={formData.uplineId}
+                    onChange={handleInputChange}
+                    placeholder="Optional (defaults to Franchise Code)"
                   />
                 </Form.Group>
               </Col>
-              <Col xs={6} md={3} className="mt-3 mt-md-0">
-                <Button variant="outline-primary" onClick={() => copyToClipboard('leadCapture')}>
-                  Copy Link
-                </Button>
-              </Col>
-              <Col xs={6} md={3} className="mt-3 mt-md-0">
-                <Button variant="outline-secondary" onClick={() => setShowModal(true)}>
-                  Add Manual
-                </Button>
-              </Col>
             </Row>
 
-            {/* Package Link Selector */}
-            <Row className="mb-3 align-items-center">
-              <Col xs={12} md={9}>
-                <Form.Group controlId="share_video_url">
-                  <Form.Label>Link For Packages:</Form.Label>
+            {/* Package Type */}
+            <Row className="mb-3">
+              <Col>
+                <Form.Group controlId="packageType">
+                  <Form.Label>Package Type:</Form.Label>
                   <Form.Select
-                    name="type"
-                    onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
-                    value={formData.type}
-                    required
+                    name="packageType"
+                    value={formData.packageType}
+                    onChange={handleInputChange}
                   >
-                    <option value="">-- Select Type --</option>
-                    <option value="video_url_1">Presentation Video</option>
-                    <option value="video_url_2">Dynamic Package</option>
-                    <option value="video_url_3">Basic Package</option>
+                    <option value="">-- Select Package --</option>
+                    <option value="silver">Silver</option>
+                    <option value="gold">Gold</option>
                   </Form.Select>
                 </Form.Group>
               </Col>
-              <Col xs={12} md={3} className="mt-3 mt-md-0">
-                <Button variant="outline-success" onClick={generatePackageLink}>
-                  Generate Link
+            </Row>
+
+            {/* Generate Link Button */}
+            <Row>
+              <Col>
+                <Button variant="outline-success" onClick={generateLink} disabled={loading}>
+                  {loading ? 'Generating...' : 'Generate Registration Link'}
                 </Button>
               </Col>
             </Row>
 
-            {/* Generated Package Link */}
-            {generatedPackageLink && (
-              <Row className="mb-3 align-items-center">
+            {/* Generated Registration Link */}
+            {registerLink && (
+              <Row className="mt-4 align-items-center">
                 <Col xs={12} md={9}>
-                  <Form.Group controlId="generatedPackageLink">
-                    <Form.Label>Generated Package Link:</Form.Label>
+                  <Form.Group controlId="registerLink">
+                    <Form.Label>Generated Registration Link:</Form.Label>
                     <Form.Control
                       type="text"
-                      value={generatedPackageLink}
+                      value={registerLink}
                       readOnly
-                      id="generatedPackageLink"
+                      id="registerLink"
                     />
                   </Form.Group>
                 </Col>
                 <Col xs={12} md={3} className="mt-3 mt-md-0">
-                  <Button variant="outline-primary" onClick={() => copyToClipboard('generatedPackageLink')}>
-                    Copy Package Link
+                  <Button variant="outline-primary" onClick={() => copyToClipboard('registerLink')}>
+                    Copy Link
                   </Button>
                 </Col>
               </Row>
@@ -164,53 +136,6 @@ const LinkGenerator = () => {
           </Form>
         </Card.Body>
       </Card>
-
-      {/* Modal for Lead Capture */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Lead Capture Form</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="name">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-                placeholder="Enter Name"
-              />
-            </Form.Group>
-            <Form.Group controlId="email" className="mt-3">
-              <Form.Label>Email Address</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                placeholder="Enter Email"
-              />
-            </Form.Group>
-            <Form.Group controlId="phone" className="mt-3">
-              <Form.Label>Phone Number</Form.Label>
-              <Form.Control
-                type="text"
-                name="phone"
-                value={formData.phone}
-                onChange={handleInputChange}
-                required
-                placeholder="Enter Phone Number"
-              />
-            </Form.Group>
-            <Button variant="primary" type="submit" className="mt-4">
-              Save Changes
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
     </Container>
   );
 };

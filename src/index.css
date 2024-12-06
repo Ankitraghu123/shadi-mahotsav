@@ -177,8 +177,19 @@ margin: 58px 20px 50px 0 !important;
 }
 
 #naving{
-margin-left: 5vmax !important;
+margin-left: 13vmax !important;
 }
+
+.nav-link.active-link {
+  background-color: #007bff; /* Change this to your desired color */
+  color: white; /* Optional: Adjust text color for active link */
+}
+
+/* Optional: Prevent hover effect from overriding active background */
+.nav-link.active-link:hover {
+  background-color: #007bff !important; /* Ensure it stays active on hover */
+}
+
 
 
 /* App.css */
@@ -918,7 +929,7 @@ tbody tr td {
 }
 
 .sidebar-nav{
-  margin-top: 2vh;
+  margin-top: 5vh;
 }
 
 .sidebar-nav a {

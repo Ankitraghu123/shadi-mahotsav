@@ -1,31 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Table, Form, Pagination, Image } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getPayOutByFranchise, requestPayout } from "../../Features/Franchise/FranchiseSlice";
 
 const PayoutDetails = () => {
-  // Sample data
-  const initialData = [
-    { sno: 21, amount: 1000, date: "10-02-2024", status: "Approved" },
-    { sno: 20, amount: 2000, date: "17-02-2024", status: "Approved" },
-    { sno: 19, amount: 1000, date: "09-03-2024", status: "Approved" },
-    { sno: 18, amount: 1000, date: "13-04-2024", status: "Approved" },
-    { sno: 17, amount: 1000, date: "11-05-2024", status: "Approved" },
-    { sno: 16, amount: 2000, date: "25-05-2024", status: "Approved" },
-    { sno: 15, amount: 3500, date: "08-06-2024", status: "Approved" },
-    { sno: 14, amount: 2500, date: "15-06-2024", status: "Approved" },
-    { sno: 13, amount: 3000, date: "13-07-2024", status: "Approved" },
-    { sno: 12, amount: 3000, date: "27-07-2024", status: "Approved" },
-  ];
+  const currentFranchise = useSelector(state => state.Franchise?.currentFranchise?.franchise)
 
-  // States for data, search filter, and pagination
-  const [data, setData] = useState(initialData);
+  // const {payoutRequested} =useSelector(state => state.Franchise)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if(currentFranchise?._id){
+      dispatch(getPayOutByFranchise(currentFranchise?._id))
+    }
+  },[currentFranchise])
+
+  const requestPayoutHandler = () => {
+    dispatch(requestPayout({amount:currentFranchise?.retailWallet,franchiseId:currentFranchise?._id}))
+  }
+
+  const data = useSelector(state => state.Franchise.paoutsByFranchise?.payouts)
+  // Sample data
+  // const initialData = [
+  //   { sno: 21, amount: 1000, date: "10-02-2024", status: "Approved" },
+  // ];
+
+  // // States for data, search filter, and pagination
+  // const [data, setData] = useState(initialData);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
   // Filtered data based on search
-  const filteredData = data.filter(
+  const filteredData = data?.filter(
     (item) =>
-      item.sno.toString().includes(search) ||
+      // item.sno.toString().includes(search) ||
       item.amount.toString().includes(search) ||
       item.date.includes(search) ||
       item.status.toLowerCase().includes(search.toLowerCase())
@@ -34,8 +44,8 @@ const PayoutDetails = () => {
   // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentData = filteredData.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const currentData = filteredData?.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredData?.length / itemsPerPage);
 
   // Handle page change
   const handlePageChange = (page) => {
@@ -46,6 +56,7 @@ const PayoutDetails = () => {
     <div id="margin-top" className=" mx-auto my-4">
       <div className="back_area">
         <div className="front_area">
+
           <Card className="shadow-lg">
             <Card.Header className="p-0">
               <Image
@@ -55,6 +66,9 @@ const PayoutDetails = () => {
               />
             </Card.Header>
             <Card.Body>
+      <h2 className="text-black">₹ {currentFranchise?.retailWallet || 0}</h2>
+      <button className="bg-success text-white" onClick={requestPayoutHandler}>Request Payout</button>
+
               <div className="table-responsive referrals-table">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <Form.Group controlId="entriesSelect">
@@ -92,13 +106,13 @@ const PayoutDetails = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {currentData.length > 0 ? (
-                      currentData.map((item, index) => (
+                    {currentData?.length > 0 ? (
+                      currentData?.map((item, index) => (
                         <tr key={index}>
-                          <td>{item.sno}</td>
+                          <td>{1}</td>
                           <td>{item.amount}</td>
-                          <td>{item.date}</td>
-                          <td>{item.status}</td>
+                          <td>{item.createdAt}</td>
+                          <td>{item.status ? "Approved" : "Pending"}</td>
                         </tr>
                       ))
                     ) : (
@@ -113,8 +127,8 @@ const PayoutDetails = () => {
                 <div className="d-flex justify-content-between align-items-center mt-3">
                   <p>
                     Showing {indexOfFirstItem + 1} to{" "}
-                    {Math.min(indexOfLastItem, filteredData.length)} of{" "}
-                    {filteredData.length} entries
+                    {Math.min(indexOfLastItem, filteredData?.length)} of{" "}
+                    {filteredData?.length} entries
                   </p>
                   <Pagination>
                     <Pagination.Prev
@@ -125,7 +139,7 @@ const PayoutDetails = () => {
                     >
                       Previous
                     </Pagination.Prev>
-                    {[...Array(totalPages).keys()].map((page) => (
+                    {/* {[...Array(totalPages).keys()].map((page) => (
                       <Pagination.Item
                         key={page + 1}
                         active={page + 1 === currentPage}
@@ -133,7 +147,7 @@ const PayoutDetails = () => {
                       >
                         {page + 1}
                       </Pagination.Item>
-                    ))}
+                    ))} */}
                     <Pagination.Next
                       onClick={() =>
                         currentPage < totalPages &&

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import './RegisterFranchise.css'; // Make sure to add appropriate styling
 import couple from '../images/login-couple.png'; // Import images
 import { Link, useNavigate } from 'react-router-dom';
@@ -29,6 +29,20 @@ const RegisterFranchise = () => {
     uplineId:'',
     refBy:''
   });
+
+  useEffect(() => {
+    // Extract URL parameters
+    const queryParams = new URLSearchParams(location.search);
+    const refId = queryParams.get('refId');
+    const uplineId = queryParams.get('uplineId');
+    const packageParam = queryParams.get('package');
+
+    // Set form fields from URL params if present
+    if (refId) setFormData(prev => ({ ...prev, refBy: refId }));
+    if (uplineId) setFormData(prev => ({ ...prev, uplineId }));
+    if (packageParam) setFormData(prev => ({ ...prev, package: packageParam }));
+  }, [location.search]);
+
 
   const handleCountryChange = (e) => {
     const countryIsoCode = e.target.value;
@@ -95,7 +109,7 @@ const RegisterFranchise = () => {
     dispatch(registerFranchise(formData))
       .then(() => {
         toast.success('Registration successful! Welcome aboard.');
-        navigate('/dashboard/user-profile')
+        navigate('/login-franchise')
       })
       .catch(() => {
         toast.error('Registration failed. Please try again.');
@@ -137,7 +151,7 @@ const RegisterFranchise = () => {
               <div className="rhs">
                 <div>
                   <div className="form-tit">
-                    <h4>Start for free</h4>
+                    <h4>Franchise Register</h4>
                     <h1>Sign up to Matrimony</h1>
                     <p>Already a franchise? <Link to="/login">Login</Link></p>
                   </div>

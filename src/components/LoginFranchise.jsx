@@ -29,7 +29,7 @@ const Logi = () => {
       const resultAction = await dispatch(loginFranchise(formData));
       if (loginFranchise.fulfilled.match(resultAction)) {
         toast.success('Login successful! Welcome aboard.');
-        navigate('/dashboard/user-profile');
+        navigate('/frachise');
       } else {
         throw new Error('Login failed');
       }

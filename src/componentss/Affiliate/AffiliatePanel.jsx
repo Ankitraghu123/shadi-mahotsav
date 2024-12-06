@@ -39,7 +39,7 @@ const AffiliatePanel = () => {
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>	RETAIL WALLET</span>
-            <p>₹ 54850/-</p>
+            <p>₹ {currentFranchise?.retailWallet || 0}</p>
           </div>
         </div>
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
