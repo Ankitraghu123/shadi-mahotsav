@@ -11,6 +11,7 @@ import { Route, Routes } from 'react-router';
 // import Home from './components/Home';
 // import AdminDashboard from './Admin/AdminDashboard';
 import FranchisLayout from './FranchisLayout';
+import ProtectedRoute from './ProtectedRoute';
 // import Header from './components/layouts/Nav';
 
 
@@ -25,7 +26,7 @@ function App() {
     <>
       <Routes>
         <Route path="/*"element={<MainLayout></MainLayout> }/>
-        <Route path="/frachise/*"element={<FranchisLayout></FranchisLayout> }/>
+        <Route path="/frachise/*"element={<ProtectedRoute><FranchisLayout/></ProtectedRoute> }/>
         {/* <Route path="/admin-dashboard/*" element={<AdminDashboard/>}  /> */}
       </Routes>
       {/* <MainLayout/> */}

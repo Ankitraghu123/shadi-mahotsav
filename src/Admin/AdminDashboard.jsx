@@ -24,20 +24,26 @@ import AddMember from './AddMemeber';
 import EditMember from './EditMember';
 import AllFranchise from './AllFranchise';
 import FranchiseDetail from './FranchiseDetail';
+import AdminProtectedRoute from './AdminProtectedRoutes';
 
 // import from  './AdminDashboard.css'
 function AdminDashboard() {
 
   return (
     <Container id="admin-dash" fluid className="p-0">
-      <Row className="gx-0">
+      <Row className="gx-0 mt-5">
         <Col md={3} lg={2} className="bg-dark mt-lg-5">
           <Sidebar />
         </Col>
         <Col md={9} lg={10} className="d-flex flex-column mt-lg-5">
           {/* <TopNavbar /> */}
           <main className="flex-grow-1 p-4 bg-light">
-
+          <Routes>
+              {/* Wrap the routes in AdminProtectedRoute */}
+              <Route
+                path="*"
+                element={
+                  <AdminProtectedRoute>
             <Routes>
               <Route path="main" element={<Refferal />} />
               <Route path="profile" element={<Table />} />
@@ -53,6 +59,10 @@ function AdminDashboard() {
               <Route path="members-by-date" element={<MemeberByDate />} />
               <Route path="add-member" element={<AddMember />} />
               <Route path="edit-member/:id" element={<EditMember />} />
+            </Routes>
+            </AdminProtectedRoute>
+                }
+              />
             </Routes>
           </main>
           {/* <Footer /> */}

@@ -28,7 +28,7 @@ const FranchisLayout = () => {
 
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getCurrentFranchise(singleFranchise?.id))
+    dispatch(getCurrentFranchise(singleFranchise?._id))
   },[deletedProfilePicture,editedProfilePicture,editedFranchise,payoutRequested])
 
   return (

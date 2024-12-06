@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import './RegisterFranchise.css'; // Make sure to add appropriate styling
 import couple from '../images/login-couple.png'; // Import images
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../Features/User/UserSlice';
 import { toast } from 'react-toastify';
 import { Country, State, City } from "country-state-city";
@@ -14,6 +14,7 @@ const RegisterFranchise = () => {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [showTermsModal, setShowTermsModal] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate()
  
   const [formData, setFormData] = useState({
@@ -97,6 +98,16 @@ const RegisterFranchise = () => {
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
     });
+    if (name === 'mobileNumber') {
+      if (value.length > 10) {
+        setError("Mobile number cannot exceed 10 digits.");
+      } else if (value.length < 10 && value.length > 0) {
+        setError("Mobile number must be exactly 10 digits.");
+      } else {
+        setError(""); // Clear the error if the length is exactly 10
+      }
+    }
+    
   };
 
   const handleShowTerms = (e) => {
@@ -106,13 +117,16 @@ const RegisterFranchise = () => {
 
   const handleAcceptTerms = () => {
     setShowTermsModal(false); // Close the modal
+  
     dispatch(registerFranchise(formData))
+      .unwrap() // Unwrap the result of the promise
       .then(() => {
         toast.success('Registration successful! Welcome aboard.');
-        navigate('/login-franchise')
+        navigate('/frachise');
       })
-      .catch(() => {
-        toast.error('Registration failed. Please try again.');
+      .catch((error) => {
+        // Handle any errors that occurred during registration
+        toast.error(`Registration failed: ${error.message || 'Please try again.'}`);
       });
   };
 
@@ -153,7 +167,7 @@ const RegisterFranchise = () => {
                   <div className="form-tit">
                     <h4>Franchise Register</h4>
                     <h1>Sign up to Matrimony</h1>
-                    <p>Already a franchise? <Link to="/login">Login</Link></p>
+                    <p>Already a franchise? <Link to="/login-franchise">Login</Link></p>
                   </div>
                   <div className="form-login">
                     <form onSubmit={handleShowTerms}>
@@ -194,6 +208,7 @@ const RegisterFranchise = () => {
                             onChange={handleChange}
                             required
                           />
+                          {error && <small className="text-danger">{error}</small>}
                         </div>
                       </div>
 
@@ -322,7 +337,7 @@ const RegisterFranchise = () => {
 
                       <button type="submit" className="btn btn-primary">Create Account</button>
                       <div className="form-tit">
-                        <p className="mt-3">Already a member? <Link to="/login" className="login-path">Login</Link></p>
+                        <p className="mt-3">Already a franchise? <Link to="/login-franchise" className="login-path">Login</Link></p>
                       </div>
                     </form>
                   </div>

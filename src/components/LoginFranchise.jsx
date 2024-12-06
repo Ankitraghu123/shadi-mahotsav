@@ -56,9 +56,9 @@ const Logi = () => {
               <div className="rhs">
                 <div>
                   <div className="form-tit">
-                    <h4>Start for free</h4>
+                    <h4>Login Franchise</h4>
                     <h1>Sign in to Matrimony</h1>
-                    <p>Not a member? <Link to="/register">Sign up now</Link></p>
+                    <p className='mt-3'>Not a franchise? <Link to="/register-franchise" className='login-path'>Sign up now</Link></p>
                   </div>
                   <div className="form-login">
                     <form onSubmit={handleSubmit}>
@@ -90,7 +90,7 @@ const Logi = () => {
                       </div>
                       <button type="submit" className="btn btn-primary">Sign in</button>
                       <div className="form-tit">
-                        <p className='mt-3'>Not a member? <Link to="/register" className='login-path'>Sign up now</Link></p>
+                      <p className='mt-3'>Not a franchise? <Link to="/register-franchise" className='login-path'>Sign up now</Link></p>
                       </div>
                     </form>
                   </div>

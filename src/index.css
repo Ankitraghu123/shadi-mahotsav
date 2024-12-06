@@ -190,7 +190,9 @@ margin-left: 13vmax !important;
   background-color: #007bff !important; /* Ensure it stays active on hover */
 }
 
-
+.nav{
+  margin-top: 40px;
+}
 
 /* App.css */
 .nav-link-active {

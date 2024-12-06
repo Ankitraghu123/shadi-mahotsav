@@ -2,13 +2,18 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Nav, NavDropdown, Offcanvas, Navbar } from 'react-bootstrap';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { FaHome, FaUser, FaCog, FaSignOutAlt, FaUsers } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 const AdminSidebar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const location = useLocation();
 
   const toggleSidebar = () => setShowSidebar(!showSidebar);
-
+  const logoutHandler = () => {
+    localStorage.clear();
+    toast.success('Admin Logged Out')
+     navigate('/admin-dashboard/login');
+  }
   return (
     <div>
       {/* Navbar for mobile view */}
@@ -53,7 +58,7 @@ const AdminSidebar = () => {
               <NavDropdown.Item href="/users/add">Add User</NavDropdown.Item>
               <NavDropdown.Item href="/users/list">User List</NavDropdown.Item>
             </NavDropdown>
-            <NavLink to="/logout" className="nav-link" onClick={toggleSidebar}>
+            <NavLink onClick={logoutHandler} className="nav-link">
               <FaSignOutAlt className="sidebar-icon" /> Logout
             </NavLink>
           </Nav>
@@ -103,7 +108,7 @@ const AdminSidebar = () => {
                   <NavDropdown.Item href="/users/add">Add User</NavDropdown.Item>
                   <NavDropdown.Item href="/users/list">User List</NavDropdown.Item>
                 </NavDropdown>
-                <NavLink to="/logout" className="nav-link">
+                <NavLink onClick={logoutHandler} className="nav-link">
                   <FaSignOutAlt className="sidebar-icon" /> Logout
                 </NavLink>
               </Nav>

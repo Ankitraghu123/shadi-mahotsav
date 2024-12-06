@@ -5,7 +5,7 @@ import { base_url } from '../../utils/base_url'
 const Login = async (data) => {
     const response = await axios.post(`${base_url}admin/login`,data)
     localStorage.setItem('adminToken',response.data.token)
-    localStorage.setItem('adminData', JSON.stringify(response.data.admin));
+    localStorage.setItem('adminData', JSON.stringify(response.data.Admin));
     return response.data
 }
 

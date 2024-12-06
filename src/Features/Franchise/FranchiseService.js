@@ -4,8 +4,8 @@ import { base_url } from '../../utils/base_url'
 
 const Register = async (data) => {
     const response = await axios.post(`${base_url}franchise/register`,data)
-    // localStorage.setItem('franchiseToken',response.data.token)
-    // localStorage.setItem('franchiseData', JSON.stringify(response.data.franchise));
+    localStorage.setItem('franchiseToken',response.data.token)
+    localStorage.setItem('franchiseData', JSON.stringify(response.data.franchise));
     return response.data
 }
 

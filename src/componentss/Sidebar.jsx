@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -14,6 +15,11 @@ const Sidebar = () => {
     setDropdownOpen((prevState) => !prevState);
   };
 
+  const logoutHandler = () => {
+    localStorage.clear();
+    toast.success('Admin Logged Out')
+     navigate('/login-franchise');
+  }
   return (
     <>
       <div className="menu-button">
@@ -86,7 +92,7 @@ const Sidebar = () => {
           <Link to="/frachise/referral" onClick={() => setSidebarOpen(false)}>
             <i className="fas fa-user-plus"></i> Referral Details
           </Link>
-          <Link to="/logout" onClick={() => setSidebarOpen(false)}>
+          <Link  onClick={logoutHandler}>
             <i className="fas fa-sign-out-alt"></i> Logout
           </Link>
 
