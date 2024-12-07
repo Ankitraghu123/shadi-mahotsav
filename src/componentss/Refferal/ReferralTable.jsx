@@ -6,8 +6,11 @@ const ReferralTable = () => {
   const [customers, setCustomers] = useState([]);
   const [nonPurchasers, setNonPurchasers] = useState([]);
   const currentFranchise = useSelector(state => state.Franchise?.currentFranchise?.franchise)
+  const refFranchise = useSelector(state => state.Franchise.refferedFranchise?.franchises)
 
   const dispatch = useDispatch()
+
+  
 
   useEffect(() => {
     dispatch(getRefFranchise(currentFranchise?._id))
@@ -112,39 +115,21 @@ const ReferralTable = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {customers.map((customer, index) => (
-                      <tr key={customer.id}>
+                    {refFranchise?.map((franchise, index) => (
+                      <tr key={franchise._id}>
                         <td>{index + 1}</td>
                         <td>
                           <img
-                            src={`user_pic/${customer.profile_pic}`}
-                            alt={customer.name}
+                            src={franchise.profilePicture}
+                            alt={franchise.name}
                             width="100"
                           />
                         </td>
-                        <td>{customer.name}</td>
-                        <td>{getPackageType(customer.my_earning_per)}</td>
-                        <td>{customer.email}</td>
-                        <td>{customer.cust_mobile}</td>
-                        <td>{formatDate(customer.dor)}</td>
-                      </tr>
-                    ))}
-
-                    {nonPurchasers.map((customer, index) => (
-                      <tr key={customer.id}>
-                        <td>{customers.length + index + 1}</td>
-                        <td>
-                          <img
-                            src={`user_pic/${customer.profile_pic}`}
-                            alt={customer.name}
-                            width="100"
-                          />
-                        </td>
-                        <td>{customer.name}</td>
-                        <td>Not Purchased</td>
-                        <td>{customer.email}</td>
-                        <td>{customer.cust_mobile}</td>
-                        <td>{formatDate(customer.dor)}</td>
+                        <td>{franchise.name}</td>
+                        <td>{franchise.package}</td>
+                        <td>{franchise.email}</td>
+                        <td>{franchise.mobileNumber}</td>
+                        <td>{formatDate(franchise.createdAt)}</td>
                       </tr>
                     ))}
                   </tbody>

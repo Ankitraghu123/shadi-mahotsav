@@ -77,7 +77,22 @@ const generateRegisterLink = async (data) => {
     return response.data
 }
 
+const getDirectMembers = async (id) => {
+    const response = await axios.get(`${base_url}franchise/${id}/direct-members`)
+    return response.data
+}
 
-const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise,AddMember,requestPayout,getPayOutByFranchise,generateRegisterLink}
+const getCouponMembers = async (id) => {
+    const response = await axios.get(`${base_url}franchise/${id}/coupon-members`)
+    return response.data
+}
+
+const approveKYC= async (id) => {
+    const response = await axios.put(`${base_url}franchise/${id}/approve-kyc`)
+    return response.data
+}
+
+
+const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise,AddMember,requestPayout,getPayOutByFranchise,generateRegisterLink,getDirectMembers,getCouponMembers,approveKYC}
 
 export default FranchiseService

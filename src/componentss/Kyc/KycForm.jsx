@@ -96,6 +96,9 @@ const KycForm = () => {
             <Card.Header className="bg-primary text-white text-center">
               <h3>KYC Form</h3>
             </Card.Header>
+            <div>
+              {currentFranchise?.kycId?.approved ? 'Approved' : "Pending"}
+            </div>
             <Card.Body>
               <Form id="kyc-form" onSubmit={handleSubmit} encType="multipart/form-data">
                 <Form.Group controlId="aadharCardNumber">
@@ -229,15 +232,69 @@ const KycForm = () => {
                 </Form.Group>
 
                 <Form.Group controlId="bankName">
-                  <Form.Label>Bank Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="bankName"
-                    value={formData.bankName || currentFranchise?.kycId?.bankName}
-                    onChange={handleChange}
-                    
-                  />
-                </Form.Group>
+  <Form.Label>Bank Name</Form.Label>
+  <Form.Select
+    name="bankName"
+    value={formData.bankName || currentFranchise?.kycId?.bankName}
+    onChange={handleChange}
+  >
+    <option value="">Select Bank</option>
+    {/* Public Sector Banks */}
+    <option value="State Bank of India">State Bank of India</option>
+    <option value="Punjab National Bank">Punjab National Bank</option>
+    <option value="Bank of Baroda">Bank of Baroda</option>
+    <option value="Canara Bank">Canara Bank</option>
+    <option value="Union Bank of India">Union Bank of India</option>
+    <option value="Indian Bank">Indian Bank</option>
+    <option value="UCO Bank">UCO Bank</option>
+    <option value="Bank of Maharashtra">Bank of Maharashtra</option>
+    <option value="Central Bank of India">Central Bank of India</option>
+    <option value="Indian Overseas Bank">Indian Overseas Bank</option>
+
+    {/* Private Sector Banks */}
+    <option value="HDFC Bank">HDFC Bank</option>
+    <option value="ICICI Bank">ICICI Bank</option>
+    <option value="Axis Bank">Axis Bank</option>
+    <option value="Kotak Mahindra Bank">Kotak Mahindra Bank</option>
+    <option value="IndusInd Bank">IndusInd Bank</option>
+    <option value="Yes Bank">Yes Bank</option>
+    <option value="IDFC First Bank">IDFC First Bank</option>
+    <option value="Federal Bank">Federal Bank</option>
+    <option value="South Indian Bank">South Indian Bank</option>
+    <option value="RBL Bank">RBL Bank</option>
+    <option value="Bandhan Bank">Bandhan Bank</option>
+    <option value="City Union Bank">City Union Bank</option>
+    <option value="Jammu & Kashmir Bank">Jammu & Kashmir Bank</option>
+    <option value="Karur Vysya Bank">Karur Vysya Bank</option>
+    <option value="Tamilnad Mercantile Bank">Tamilnad Mercantile Bank</option>
+    <option value="DCB Bank">DCB Bank</option>
+
+    {/* Regional Rural Banks */}
+    <option value="Andhra Pragathi Grameena Bank">Andhra Pragathi Grameena Bank</option>
+    <option value="Baroda Uttar Pradesh Gramin Bank">Baroda Uttar Pradesh Gramin Bank</option>
+    <option value="Kerala Gramin Bank">Kerala Gramin Bank</option>
+    <option value="Madhyanchal Gramin Bank">Madhyanchal Gramin Bank</option>
+    <option value="Prathama UP Gramin Bank">Prathama UP Gramin Bank</option>
+
+    {/* Cooperative Banks */}
+    <option value="Saraswat Cooperative Bank">Saraswat Cooperative Bank</option>
+    <option value="Shamrao Vithal Cooperative Bank">Shamrao Vithal Cooperative Bank</option>
+    <option value="Punjab & Maharashtra Cooperative Bank">Punjab & Maharashtra Cooperative Bank</option>
+
+    {/* Foreign Banks in India */}
+    <option value="Citi Bank">Citi Bank</option>
+    <option value="HSBC Bank">HSBC Bank</option>
+    <option value="Standard Chartered Bank">Standard Chartered Bank</option>
+    <option value="Deutsche Bank">Deutsche Bank</option>
+    <option value="DBS Bank">DBS Bank</option>
+
+    {/* Payment Banks */}
+    <option value="Paytm Payments Bank">Paytm Payments Bank</option>
+    <option value="Airtel Payments Bank">Airtel Payments Bank</option>
+    <option value="India Post Payments Bank">India Post Payments Bank</option>
+  </Form.Select>
+</Form.Group>
+
 
                 <Form.Group controlId="accountType">
                   <Form.Label>Account Type</Form.Label>

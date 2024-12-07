@@ -12,14 +12,14 @@ const AffiliatePanel = () => {
       <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>WALLET</span>
-            <p>₹ 54850/-</p>
+            <p>₹ 0/-</p>
           </div>
         </div>
 
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>UPGRADE WALLET </span>
-            <p>₹ 54850/-</p>
+            <p>₹ 0/-</p>
           </div>
         </div>
 
@@ -27,25 +27,25 @@ const AffiliatePanel = () => {
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>CFC  WALLET</span>
-            <p>₹ 54850/-</p>
+            <p>₹ 0/-</p>
           </div>
         </div>
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>CMC INCOME WALLET </span>
-            <p>₹ 54850/-</p>
+            <p>₹ 0/-</p>
           </div>
         </div>
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>	RETAIL WALLET</span>
-            <p>₹ {currentFranchise?.retailWallet || 0}</p>
+            <p>₹ {currentFranchise?.retailWallet || 0}/-</p>
           </div>
         </div>
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>	COUPANS WALLET</span>
-            <p>₹ {currentFranchise?.couponWallet}</p>
+            <p>₹ {currentFranchise?.couponWallet || 0}/-</p>
           </div>
         </div>
         {/* <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">

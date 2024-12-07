@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Nav, NavDropdown, Offcanvas, Navbar } from 'react-bootstrap';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Container, Row, Col, Nav, NavDropdown, Offcanvas, Navbar, Collapse } from 'react-bootstrap';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { FaHome, FaUser, FaCog, FaSignOutAlt, FaUsers } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 const AdminSidebar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [openMembers, setOpenMembers] = useState(false); // To handle the collapse of the members section
+  const [openFranchise, setOpenFranchise] = useState(false); // To handle the collapse of the members section
+
   const location = useLocation();
+  const navigate = useNavigate();
 
   const toggleSidebar = () => setShowSidebar(!showSidebar);
+
   const logoutHandler = () => {
     localStorage.clear();
-    toast.success('Admin Logged Out')
-     navigate('/admin-dashboard/login');
-  }
+    toast.success('Admin Logged Out');
+    navigate('/admin-dashboard/login');
+  };
+
   return (
     <div>
       {/* Navbar for mobile view */}
@@ -32,12 +38,29 @@ const AdminSidebar = () => {
             <NavLink to="/admin-dashboard/main" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={toggleSidebar}>
               <FaHome className="sidebar-icon" /> Dashboard
             </NavLink>
-            {/* <NavLink to="/admin-dashboard/profile" className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`} onClick={toggleSidebar}>
-              <FaUser className="sidebar-icon" /> Profile
-            </NavLink> */}
-            <NavLink to="/admin-dashboard/all-members" className={`nav-link ${location.pathname === '/all-members' ? 'active' : ''}`} onClick={toggleSidebar}>
-              <FaUser className="sidebar-icon" /> All Members
+            
+            {/* Members collapse section */}
+            <NavLink
+              onClick={() => setOpenMembers(!openMembers)}
+              className={`nav-link ${openMembers ? 'active' : ''}`}
+              aria-expanded={openMembers}
+            >
+              <FaUsers className="sidebar-icon" /> Members
             </NavLink>
+            <Collapse in={openMembers}>
+              <div>
+                <NavLink to="/admin-dashboard/add-member" className={`nav-link ${location.pathname === '/add-member' ? 'active' : ''}`} onClick={toggleSidebar}>
+                  Add Member
+                </NavLink>
+                <NavLink to="/admin-dashboard/all-members" className={`nav-link ${location.pathname === '/all-members' ? 'active' : ''}`} onClick={toggleSidebar}>
+                  All Members
+                </NavLink>
+                <NavLink to="/admin-dashboard/members-by-date" className={`nav-link ${location.pathname === '/members-by-date' ? 'active' : ''}`} onClick={toggleSidebar}>
+                  Members By Date
+                </NavLink>
+              </div>
+            </Collapse>
+
             <NavLink to="/admin-dashboard/all-franchises" className={`nav-link ${location.pathname === '/all-franchises' ? 'active' : ''}`} onClick={toggleSidebar}>
               <FaUser className="sidebar-icon" /> All Franchises
             </NavLink>
@@ -51,8 +74,6 @@ const AdminSidebar = () => {
             <NavLink to="/admin-dashboard/member" className={`nav-link ${location.pathname === '/settings' ? 'active' : ''}`} onClick={toggleSidebar}>
               <FaCog className="sidebar-icon" /> Member Detail
             </NavLink>
-
-           
 
             <NavDropdown title="Manage Users" id="nav-dropdown" className="nav-link">
               <NavDropdown.Item href="/users/add">Add User</NavDropdown.Item>
@@ -76,33 +97,56 @@ const AdminSidebar = () => {
                 <NavLink to="/admin-dashboard/main" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
                   <FaHome className="sidebar-icon" /> Dashboard
                 </NavLink>
-                {/* <NavLink to="/admin-dashboard/profile" className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`}>
-                  <FaUser className="sidebar-icon" /> Profile
-                </NavLink> */}
-                 <NavLink to="/admin-dashboard/all-members" className={`nav-link ${location.pathname === '/all-members' ? 'active' : ''}`}>
-              <FaUser className="sidebar-icon" /> All Members
-            </NavLink>
 
-            <NavLink to="/admin-dashboard/all-franchises" className={`nav-link ${location.pathname === '/all-franchises' ? 'active' : ''}`}>
-              <FaUser className="sidebar-icon" /> All Franchises
-            </NavLink>
+                {/* Members collapse section */}
+                <NavLink
+                  onClick={() => setOpenMembers(!openMembers)}
+                  className={`nav-link ${openMembers ? 'active' : ''}`}
+                  aria-expanded={openMembers}
+                >
+                  <FaUsers className="sidebar-icon" /> Members
+                </NavLink>
+                <Collapse in={openMembers}>
+                  <div>
+                    <NavLink to="/admin-dashboard/add-member" className={`nav-link ${location.pathname === '/add-member' ? 'active' : ''}`}>
+                      Add Member
+                    </NavLink>
+                    <NavLink to="/admin-dashboard/all-members" className={`nav-link ${location.pathname === '/all-members' ? 'active' : ''}`}>
+                      All Members
+                    </NavLink>
+                    <NavLink to="/admin-dashboard/members-by-date" className={`nav-link ${location.pathname === '/members-by-date' ? 'active' : ''}`}>
+                      Members By Date
+                    </NavLink>
+                  </div>
+                </Collapse>
+                <NavLink
+                  onClick={() => setOpenFranchise(!openFranchise)}
+                  className={`nav-link ${openFranchise ? 'active' : ''}`}
+                  aria-expanded={openFranchise}
+                >
+                  <FaUsers className="sidebar-icon" /> Franchise
+                </NavLink>
+                <Collapse in={openFranchise}>
+                  <div>
+                  <NavLink to="/admin-dashboard/all-franchises" className={`nav-link ${location.pathname === '/all-franchises' ? 'active' : ''}`}>
+                   All Franchises
+                </NavLink>
+                <NavLink to="/admin-dashboard/kyc-pending" className={`nav-link ${location.pathname === '/kyc-pending' ? 'active' : ''}`}>
+                   Kyc Pending
+                </NavLink>
+                   
+                  </div>
+                </Collapse>
 
-            <NavLink to="/admin-dashboard/members-by-date" className={`nav-link ${location.pathname === '/all-enquiries' ? 'active' : ''}`}>
-              <FaUser className="sidebar-icon" /> Members By Date
-            </NavLink>
-
-            <NavLink to="/admin-dashboard/add-member" className={`nav-link ${location.pathname === '/add-member' ? 'active' : ''}`}>
-              <FaUser className="sidebar-icon" /> Add Memeber
-            </NavLink>
-
-            <NavLink to="/admin-dashboard/all-enquiries" className={`nav-link ${location.pathname === '/all-enquiries' ? 'active' : ''}`}>
-              <FaUser className="sidebar-icon" /> All Enquiries
-            </NavLink>
+                
+                <NavLink to="/admin-dashboard/all-enquiries" className={`nav-link ${location.pathname === '/all-enquiries' ? 'active' : ''}`}>
+                  <FaUser className="sidebar-icon" /> All Enquiries
+                </NavLink>
                 <NavLink to="/admin-dashboard/settings" className={`nav-link ${location.pathname === '/settings' ? 'active' : ''}`}>
                   <FaCog className="sidebar-icon" /> Settings
                 </NavLink>
                 <NavLink to="/admin-dashboard/member" className={`nav-link ${location.pathname === '/settings' ? 'active' : ''}`}>
-                  <FaCog className="sidebar-icon" /> Member Details
+                  <FaCog className="sidebar-icon" /> Member Detail
                 </NavLink>
                 <NavDropdown title="Manage Users" id="nav-dropdown" className="nav-link">
                   <NavDropdown.Item href="/users/add">Add User</NavDropdown.Item>
@@ -127,18 +171,18 @@ const AdminSidebar = () => {
 
       {/* Additional Styles */}
       <style jsx>{`
+        .admin-logo {
+          margin-left: 1vmax;
+          color: white !important;
+          text-align: center;
+        }
 
-      .admin-logo{
-      margin-left:1vmax;
-      color:white !important;
-      text-align:center
-      }
+        .admin-logo span {
+          color: #FFEEB2;
+          font-weight: 700;
+          text-style: italic;
+        }
 
-      .admin-logo span{
-      color:#FFEEB2;
-      font-weight:700;
-      text-style:italic;
-      }
         .sidebar {
           position: fixed;
           top: 0;
@@ -164,7 +208,7 @@ const AdminSidebar = () => {
         }
 
         .sidebar .nav-link {
-        margin-top:.2vmax;
+          margin-top: .2vmax;
           color: #333;
           padding: 10px;
           display: flex;
@@ -176,48 +220,11 @@ const AdminSidebar = () => {
         }
 
         .sidebar .nav-link.active {
-        border-radius:10px;
-         box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.3s ease !important;
-          background-color:#FFEEB2;
-          color: white;
+          background-color: #d1e7fd;
         }
 
         .sidebar .sidebar-icon {
           margin-right: 10px;
-        }
-
-        .main-content {
-          margin-left: 250px;
-          padding: 20px;
-        }
-
-        .main-content h2 {
-          margin-top: 20px;
-        }
-
-        /* Styles for Mobile Offcanvas */
-        @media (max-width: 992px) {
-          .main-content {
-            margin-left: 0;
-          }
-
-          .offcanvas-sidebar .nav-link {
-            display: flex;
-            align-items: center;
-            color: #333;
-            padding: 10px;
-          }
-
-          .offcanvas-sidebar .nav-link:hover,
-          .offcanvas-sidebar .nav-link.active {
-            background-color: #007bff;
-            color: white;
-          }
-
-          .offcanvas-sidebar .sidebar-icon {
-            margin-right: 10px;
-          }
         }
       `}</style>
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { getSingleFranchise } from "../Features/Franchise/FranchiseSlice";
+import { approveKYC, getSingleFranchise } from "../Features/Franchise/FranchiseSlice";
 import { Container, Row, Col, Card, Image } from "react-bootstrap";
 
 const FranchiseDetail = () => {
@@ -17,6 +17,10 @@ const FranchiseDetail = () => {
 
   if (!franchiseDetail) {
     return <p>Loading franchise details...</p>;
+  }
+
+  const approvekyc = () => {
+    dispatch(approveKYC(franchiseDetail._id))
   }
 
   const {
@@ -85,6 +89,7 @@ const FranchiseDetail = () => {
         <Card className="mb-4">
           <Card.Body>
             <h3 className="mb-3">KYC Details</h3>
+            <button onClick={approvekyc}>approve kyc</button>
             <p>
               <strong>Aadhar Card Number:</strong> {kycId.aadharCardNumber}
             </p>

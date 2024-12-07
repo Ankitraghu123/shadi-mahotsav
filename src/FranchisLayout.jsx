@@ -21,6 +21,8 @@ import CfcWallet from "./componentss/Refferal/Wallet/CfcWallet";
 import { getCurrentFranchise } from './Features/Franchise/FranchiseSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import AddMember from './componentss/AddMemeber/AddMemeber';
+import DirectMembers from './componentss/Memebers/DirectMembers';
+import CouponMembers from './componentss/Memebers/CouponMembers';
 
 const FranchisLayout = () => {
   const singleFranchise = JSON.parse(localStorage.getItem("franchiseData"));
@@ -64,6 +66,8 @@ const FranchisLayout = () => {
           <Route path="/cfcwalltet" element={<CfcWallet />} />
           <Route path="/edit-profile" element={<EditProfilePage />} />
           <Route path="/add-member" element={<AddMember />} />
+          <Route path="/direct-member" element={<DirectMembers />} />
+          <Route path="/coupon-member" element={<CouponMembers />} />
           <Route path="/logout" element={<div>Logout Page</div>} />
         </Routes>
       </main>

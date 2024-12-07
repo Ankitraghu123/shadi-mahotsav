@@ -25,6 +25,7 @@ import EditMember from './EditMember';
 import AllFranchise from './AllFranchise';
 import FranchiseDetail from './FranchiseDetail';
 import AdminProtectedRoute from './AdminProtectedRoutes';
+import KycPending from './KycPending';
 
 // import from  './AdminDashboard.css'
 function AdminDashboard() {
@@ -49,6 +50,7 @@ function AdminDashboard() {
               <Route path="profile" element={<Table />} />
               <Route path="all-members" element={<AllMembers />} />
               <Route path="all-franchises" element={<AllFranchise />} />
+              <Route path="kyc-pending" element={<KycPending />} />
               <Route path="franchise-detail/:id" element={<FranchiseDetail />} />
               <Route path="all-enquiries" element={<AllEnquiries />} />
               <Route path="settings" element={<UserForm />} />

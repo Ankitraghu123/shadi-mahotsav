@@ -194,6 +194,10 @@ margin-left: 13vmax !important;
   margin-top: 40px;
 }
 
+#table-margin-top{
+  margin-top: 80px !important;
+}
+
 /* App.css */
 .nav-link-active {
 background-color: #e0e0e0 !important; /* Background color for active link */

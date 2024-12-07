@@ -116,7 +116,29 @@ export const generateRegisterLink = createAsyncThunk('franchise/generate-registe
     }
 })
 
+export const getDirectMembers = createAsyncThunk('franchise/get-direct-members',async(id,thunkApi)=>{
+    try{
+        return await FranchiseService.getDirectMembers(id)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
 
+export const getCouponMembers = createAsyncThunk('franchise/get-coupon-members',async(id,thunkApi)=>{
+    try{
+        return await FranchiseService.getCouponMembers(id)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const approveKYC = createAsyncThunk('franchise/approve-kyc',async(id,thunkApi)=>{
+    try{
+        return await FranchiseService.approveKYC(id)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
 
 const initialState = {
     franchise:'',
@@ -343,6 +365,50 @@ export const FranchiseSlice = createSlice({
             state.registerLink = null
         })
 
+        .addCase(getDirectMembers.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(getDirectMembers.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.directMembers = action.payload
+        })
+        .addCase(getDirectMembers.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.directMembers = null
+        })
+
+        .addCase(getCouponMembers.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(getCouponMembers.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.couponMembers = action.payload
+        })
+        .addCase(getCouponMembers.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.couponMembers = null
+        })
+
+        .addCase(approveKYC.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(approveKYC.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.kycApproved = action.payload
+        })
+        .addCase(approveKYC.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.kycApproved = null
+        })
     }
 })
 

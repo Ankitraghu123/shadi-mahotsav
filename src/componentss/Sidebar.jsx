@@ -68,18 +68,24 @@ const Sidebar = () => {
           <Link to="/frachise/achievement" onClick={() => setSidebarOpen(false)}>
             <i className="fas fa-book"></i> My Achievements
           </Link>
-          <Link to="/frachise/leaderboard" onClick={() => setSidebarOpen(false)}>
+          {/* <Link to="/frachise/leaderboard" onClick={() => setSidebarOpen(false)}>
             <i className="fas fa-certificate"></i> Leaderboard
-          </Link>
+          </Link> */}
           <Link to="/frachise/payout" onClick={() => setSidebarOpen(false)}>
             <i className="fas fa-users"></i> Payout Details
           </Link>
           <Link to="/frachise/add-member" onClick={() => setSidebarOpen(false)}>
             <i className="fas fa-users"></i> Add Member
           </Link>
-          <Link to="/frachise/leads" onClick={() => setSidebarOpen(false)}>
-            <i className="fas fa-arrow-up"></i> Leads Details
+          <Link to="/frachise/direct-member" onClick={() => setSidebarOpen(false)}>
+            <i className="fas fa-users"></i> Direct Member
           </Link>
+          <Link to="/frachise/coupon-member" onClick={() => setSidebarOpen(false)}>
+            <i className="fas fa-users"></i> Coupon Member
+          </Link>
+          {/* <Link to="/frachise/leads" onClick={() => setSidebarOpen(false)}>
+            <i className="fas fa-arrow-up"></i> Leads Details
+          </Link> */}
           <Link to="/frachise/kyc" onClick={() => setSidebarOpen(false)}>
             <i className="fas fa-id-card"></i> KYC Details
           </Link>
