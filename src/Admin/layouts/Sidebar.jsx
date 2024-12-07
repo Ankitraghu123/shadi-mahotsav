@@ -17,7 +17,9 @@ const AdminSidebar = () => {
   const logoutHandler = () => {
     localStorage.clear();
     toast.success('Admin Logged Out');
-    navigate('/admin-dashboard/login');
+    setTimeout(() => {
+      navigate('/admin-dashboard/login')
+    },100)
   };
 
   return (
@@ -141,6 +143,9 @@ const AdminSidebar = () => {
                 
                 <NavLink to="/admin-dashboard/all-enquiries" className={`nav-link ${location.pathname === '/all-enquiries' ? 'active' : ''}`}>
                   <FaUser className="sidebar-icon" /> All Enquiries
+                </NavLink>
+                <NavLink to="/admin-dashboard/all-payouts" className={`nav-link ${location.pathname === '/all-payouts' ? 'active' : ''}`}>
+                  <FaUser className="sidebar-icon" />Payout Requests
                 </NavLink>
                 <NavLink to="/admin-dashboard/settings" className={`nav-link ${location.pathname === '/settings' ? 'active' : ''}`}>
                   <FaCog className="sidebar-icon" /> Settings

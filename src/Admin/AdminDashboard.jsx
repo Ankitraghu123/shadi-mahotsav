@@ -26,6 +26,7 @@ import AllFranchise from './AllFranchise';
 import FranchiseDetail from './FranchiseDetail';
 import AdminProtectedRoute from './AdminProtectedRoutes';
 import KycPending from './KycPending';
+import AllPayouts from './AllPayouts';
 
 // import from  './AdminDashboard.css'
 function AdminDashboard() {
@@ -61,6 +62,7 @@ function AdminDashboard() {
               <Route path="members-by-date" element={<MemeberByDate />} />
               <Route path="add-member" element={<AddMember />} />
               <Route path="edit-member/:id" element={<EditMember />} />
+              <Route path="all-payouts" element={<AllPayouts />} />
             </Routes>
             </AdminProtectedRoute>
                 }

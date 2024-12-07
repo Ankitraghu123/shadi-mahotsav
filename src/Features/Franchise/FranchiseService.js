@@ -92,7 +92,18 @@ const approveKYC= async (id) => {
     return response.data
 }
 
+const allPayouts= async () => {
+    const response = await axios.get(`${base_url}franchise/all-payouts`)
+    return response.data
+}
 
-const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise,AddMember,requestPayout,getPayOutByFranchise,generateRegisterLink,getDirectMembers,getCouponMembers,approveKYC}
+const updatePayoutStatus= async (id) => {
+    const response = await axios.put(`${base_url}franchise/${id}/status`)
+    return response.data
+}
+
+
+
+const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise,AddMember,requestPayout,getPayOutByFranchise,generateRegisterLink,getDirectMembers,getCouponMembers,approveKYC,allPayouts,updatePayoutStatus}
 
 export default FranchiseService

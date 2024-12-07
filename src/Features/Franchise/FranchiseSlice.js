@@ -140,6 +140,22 @@ export const approveKYC = createAsyncThunk('franchise/approve-kyc',async(id,thun
     }
 })
 
+export const allPayouts = createAsyncThunk('franchise/all-payouts',async(thunkApi)=>{
+    try{
+        return await FranchiseService.allPayouts()
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const updatePayoutStatus = createAsyncThunk('franchise/update-payout',async(id,thunkApi)=>{
+    try{
+        return await FranchiseService.updatePayoutStatus(id)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
 const initialState = {
     franchise:'',
     isError:false,
@@ -408,6 +424,36 @@ export const FranchiseSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.kycApproved = null
+        })
+
+        .addCase(allPayouts.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(allPayouts.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.allPayouts = action.payload
+        })
+        .addCase(allPayouts.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.allPayouts = null
+        })
+
+        .addCase(updatePayoutStatus.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(updatePayoutStatus.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.updatedPayoutStatus = action.payload
+        })
+        .addCase(updatePayoutStatus.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.updatedPayoutStatus = null
         })
     }
 })
