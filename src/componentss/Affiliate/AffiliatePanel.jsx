@@ -12,14 +12,14 @@ const AffiliatePanel = () => {
       <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>WALLET</span>
-            <p>₹ 0/-</p>
+            <p>₹ {currentFranchise?.wallet || 0}/-</p>
           </div>
         </div>
 
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>UPGRADE WALLET </span>
-            <p>₹ 0/-</p>
+            <p>₹ {currentFranchise?.upgradeWallet || 0}/-</p>
           </div>
         </div>
 
@@ -67,7 +67,8 @@ const AffiliatePanel = () => {
             <Card className="graph-card mb-4">
               <Card.Body>
                 <Card.Title>Earning Graph</Card.Title>
-                <div className="no-data">No data available</div>
+
+                <div className="no-data">{currentFranchise?.totalEarning}</div>
               </Card.Body>
             </Card>
           </Col>
