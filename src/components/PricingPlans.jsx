@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPlans, getCurrentUser } from '../Features/User/UserSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const PricingPlans = () => {
   const profileDetails = JSON.parse(localStorage.getItem('userData'));
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const allPlans = useSelector(state => state.User.allPlans?.data);
     const currentUser = useSelector(state => state.User.currentUser); // Assuming you store currentUser in Redux
 
@@ -16,7 +17,14 @@ const PricingPlans = () => {
 
     const handleBuyNow = async (planId) => {
         // Call the backend to create an order
-        const res = await fetch('http://localhost:4000/api/plan/create-order', {
+        if (!profileDetails) {
+            // Redirect to login page if not logged in
+            setTimeout(() => {
+                navigate('/login');
+            },100)
+            return;
+        }
+        const res = await fetch('https://shadi-mahotsav-backend.vercel.app/api/plan/create-order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,7 +45,7 @@ const PricingPlans = () => {
                 order_id: data.order.id,
                 handler: function (response) {
                     // Handle successful payment
-                    fetch('http://localhost:4000/api/plan/verify-payment', {
+                    fetch('https://shadi-mahotsav-backend.vercel.app/api/plan/verify-payment', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
