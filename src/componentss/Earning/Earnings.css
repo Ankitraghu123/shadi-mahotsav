@@ -1,0 +1,43 @@
+.earnings-page {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.earnings-title {
+  font-weight: bold;
+  color: #333;
+}
+
+.earnings-card {
+  border-radius: 12px;
+  text-align: center;
+}
+
+.earnings-card .card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.earnings-card .card-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.table {
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.card-header {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.table-light th {
+  font-size: 1rem;
+  font-weight: bold;
+}
