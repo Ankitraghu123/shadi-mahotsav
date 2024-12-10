@@ -196,6 +196,22 @@ export const updatePayoutStatus = createAsyncThunk('franchise/update-payout',asy
     }
 })
 
+export const getFranchiseTeam = createAsyncThunk('franchise/get-franchise-team',async(code,thunkApi)=>{
+    try{
+        return await FranchiseService.getFranchiseTeam(code)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const getUplineTree = createAsyncThunk('franchise/get-upline-tree',async(id,thunkApi)=>{
+    try{
+        return await FranchiseService.getUplineTree(id)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
 const initialState = {
     franchise:'',
     isError:false,
@@ -570,6 +586,36 @@ export const FranchiseSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.updatedPayoutStatus = null
+        })
+
+        .addCase(getFranchiseTeam.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(getFranchiseTeam.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.franchiseTeam = action.payload
+        })
+        .addCase(getFranchiseTeam.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.franchiseTeam = null
+        })
+
+        .addCase(getUplineTree.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(getUplineTree.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.uplineTree = action.payload
+        })
+        .addCase(getUplineTree.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.uplineTree = null
         })
     }
 })

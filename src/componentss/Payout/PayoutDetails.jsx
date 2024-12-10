@@ -75,7 +75,7 @@ const PayoutDetails = () => {
               />
             </Card.Header>
             <Card.Body>
-              <h2 className="text-black">₹ {currentFranchise?.retailWallet || 0}</h2>
+              <h2 className="text-black">₹ {currentFranchise?.wallet || 0}</h2>
               {currentFranchise?.kycId?.approved == "Approved" ? (
                 <button className="bg-success text-white" onClick={handleRequestPayout}>Request Payout</button>
               ) : (

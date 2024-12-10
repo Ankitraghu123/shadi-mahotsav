@@ -30,7 +30,7 @@ const Sidebar = () => {
           </button>
         </div>
       </div>
-      <aside className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
+      <aside className={`sidebar ${isSidebarOpen ? "open" : ""} overflow-x-scroll`} style={{marginBottom:"10px"}}>
         <nav className="sidebar-nav">
           <Link to="/frachise/*" onClick={() => setSidebarOpen(false)}>
             <i className="fas fa-user"></i> Dashboard
@@ -98,11 +98,18 @@ const Sidebar = () => {
           <Link to="/frachise/referral" onClick={() => setSidebarOpen(false)}>
             <i className="fas fa-user-plus"></i> Referral Details
           </Link>
-          <Link  onClick={logoutHandler}>
+          <Link to="/frachise/team" onClick={() => setSidebarOpen(false)}>
+            <i className="fas fa-user-plus"></i> All Team
+          </Link>
+          <Link to="/frachise/tree-view" onClick={() => setSidebarOpen(false)}>
+            <i className="fas fa-user-plus"></i> Tree View
+          </Link>
+          <Link  onClick={logoutHandler} style={{marginBottom:"40px"}}>
             <i className="fas fa-sign-out-alt"></i> Logout
           </Link>
 
           {/* Wallet Dropdown */}
+        
 
         </nav>
       </aside>

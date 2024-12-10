@@ -23,6 +23,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import AddMember from './componentss/AddMemeber/AddMemeber';
 import DirectMembers from './componentss/Memebers/DirectMembers';
 import CouponMembers from './componentss/Memebers/CouponMembers';
+import TeamTable from './componentss/Team/TeamTable';
+import TreeView from './componentss/TreeView/TreeView';
+import TeamDetail from './componentss/TeamDetail/TeamDetail';
 
 const FranchisLayout = () => {
   const singleFranchise = JSON.parse(localStorage.getItem("franchiseData"));
@@ -60,14 +63,17 @@ const FranchisLayout = () => {
           <Route path="/nominee" element={<NomineeForm />} />
           <Route path="/link-generator" element={<LinkGenerator />} />
           <Route path="/referral" element={<ReferralTable />} />
+          <Route path="/team" element={<TeamTable />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/upgrade" element={<UpgradeWallet />} />
           <Route path="/cmcwalltet" element={<CmcWallet />} />
           <Route path="/cfcwalltet" element={<CfcWallet />} />
           <Route path="/edit-profile" element={<EditProfilePage />} />
           <Route path="/add-member" element={<AddMember />} />
+          <Route path="/team-detail/:id" element={<TeamDetail />} />
           <Route path="/direct-member" element={<DirectMembers />} />
           <Route path="/coupon-member" element={<CouponMembers />} />
+          <Route path="/tree-view" element={<TreeView />} />
           <Route path="/logout" element={<div>Logout Page</div>} />
         </Routes>
       </main>

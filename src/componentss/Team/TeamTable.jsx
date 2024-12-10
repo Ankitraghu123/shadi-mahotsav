@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRefFranchise } from "../../Features/Franchise/FranchiseSlice";
+import { getFranchiseTeam, getRefFranchise } from "../../Features/Franchise/FranchiseSlice";
+import { Link } from "react-router-dom";
 
-const ReferralTable = ({banner}) => {
+const TeamTable = () => {
   const [customers, setCustomers] = useState([]);
   const [nonPurchasers, setNonPurchasers] = useState([]);
   const currentFranchise = useSelector(state => state.Franchise?.currentFranchise?.franchise)
-  const refFranchise = useSelector(state => state.Franchise.refferedFranchise?.franchises)
+  const refFranchise = useSelector(state => state.Franchise.franchiseTeam?.team)
 
   const dispatch = useDispatch()
 
   
 
   useEffect(() => {
-    dispatch(getRefFranchise(currentFranchise?._id))
+    dispatch(getFranchiseTeam(currentFranchise?.code))
   },[currentFranchise?._id])
 
   useEffect(() => {
@@ -83,11 +84,8 @@ const ReferralTable = ({banner}) => {
         <div className="front_area">
           <div className="card">
             <div className="card-header our_courses_bg p-0">
-             
-                {
-                  banner ? "" : 
-                  <div className="achivementimage mb_30 position-relative">
-                  <div className="row">
+              <div className="achivementimage mb_30 position-relative">
+                <div className="row">
                   <div className="col-12">
                     <img
                       src="https://skillsikhar.com/user/img/refferal.jpg"
@@ -96,9 +94,7 @@ const ReferralTable = ({banner}) => {
                     />
                   </div>
                 </div>
-                </div>
-                }
-             
+              </div>
             </div>
 
             <div className="card-body">
@@ -124,11 +120,11 @@ const ReferralTable = ({banner}) => {
                       <tr key={franchise._id}>
                         <td>{index + 1}</td>
                         <td>
-                          <img
+                          <Link to={`/frachise/team-detail/${franchise?._id}`}><img
                             src={franchise.profilePicture}
                             alt={franchise.name}
                             width="100"
-                          />
+                          /></Link>
                         </td>
                         <td>{franchise.name}</td>
                         <td>{franchise.package}</td>
@@ -148,4 +144,4 @@ const ReferralTable = ({banner}) => {
   );
 };
 
-export default ReferralTable;
+export default TeamTable;

@@ -66,6 +66,16 @@ const AdminSidebar = () => {
             <NavLink to="/admin-dashboard/all-franchises" className={`nav-link ${location.pathname === '/all-franchises' ? 'active' : ''}`} onClick={toggleSidebar}>
               <FaUser className="sidebar-icon" /> All Franchises
             </NavLink>
+            <NavLink to="/admin-dashboard/all-leads" className={`nav-link ${location.pathname === '/all-leads' ? 'active' : ''}`} onClick={toggleSidebar}>
+              <FaUser className="sidebar-icon" /> All Leads
+            </NavLink>
+            <NavLink to="/admin-dashboard/coupons" className={`nav-link ${location.pathname === '/coupons' ? 'active' : ''}`} onClick={toggleSidebar}>
+              <FaUser className="sidebar-icon" /> Coupons
+            </NavLink>
+
+            <NavLink to="/admin-dashboard/allot-coupons" className={`nav-link ${location.pathname === '/allot-coupons' ? 'active' : ''}`} onClick={toggleSidebar}>
+              <FaUser className="sidebar-icon" /> Allot Coupons
+            </NavLink>
             <NavLink to="/admin-dashboard/all-enquiries" className={`nav-link ${location.pathname === '/all-enquiries' ? 'active' : ''}`} onClick={toggleSidebar}>
               <FaUser className="sidebar-icon" /> All Enquiries
             </NavLink>
@@ -139,8 +149,17 @@ const AdminSidebar = () => {
                    
                   </div>
                 </Collapse>
+                <NavLink to="/admin-dashboard/all-leads" className={`nav-link ${location.pathname === '/all-leads' ? 'active' : ''}`}>
+                  <FaUser className="sidebar-icon" /> All Leads
+                </NavLink>
+                <NavLink to="/admin-dashboard/coupons" className={`nav-link ${location.pathname === '/coupons' ? 'active' : ''}`}>
+                  <FaUser className="sidebar-icon" /> Coupons
+                </NavLink>
 
-                
+                <NavLink to="/admin-dashboard/allot-coupons" className={`nav-link ${location.pathname === '/allot-coupons' ? 'active' : ''}`}>
+                  <FaUser className="sidebar-icon" /> Allot Coupons
+                </NavLink>
+               
                 <NavLink to="/admin-dashboard/all-enquiries" className={`nav-link ${location.pathname === '/all-enquiries' ? 'active' : ''}`}>
                   <FaUser className="sidebar-icon" /> All Enquiries
                 </NavLink>

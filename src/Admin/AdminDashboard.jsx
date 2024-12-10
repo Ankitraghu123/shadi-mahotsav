@@ -27,6 +27,9 @@ import FranchiseDetail from './FranchiseDetail';
 import AdminProtectedRoute from './AdminProtectedRoutes';
 import KycPending from './KycPending';
 import AllPayouts from './AllPayouts';
+import AllLeads from './AllLeads';
+import Coupons from './Coupons';
+import AllotCoupons from './AllotCoupons';
 
 // import from  './AdminDashboard.css'
 function AdminDashboard() {
@@ -63,6 +66,9 @@ function AdminDashboard() {
               <Route path="add-member" element={<AddMember />} />
               <Route path="edit-member/:id" element={<EditMember />} />
               <Route path="all-payouts" element={<AllPayouts />} />
+              <Route path="all-leads" element={<AllLeads />} />
+              <Route path="coupons" element={<Coupons />} />
+              <Route path="allot-coupons" element={<AllotCoupons />} />
             </Routes>
             </AdminProtectedRoute>
                 }

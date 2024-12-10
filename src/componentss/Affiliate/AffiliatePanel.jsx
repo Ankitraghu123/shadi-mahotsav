@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col, Table, Card, ProgressBar, Button } from "react-bootstrap";
 import "./AffiliatePanel.css";
 import { useSelector } from "react-redux";
+import ReferralTable from "../Refferal/ReferralTable";
 
 const AffiliatePanel = () => {
     const currentFranchise = useSelector(state => state.Franchise?.currentFranchise?.franchise)
@@ -9,14 +10,14 @@ const AffiliatePanel = () => {
     <>
 
       <Row id="margin-top" className="mb-4 background pt-5 pb-5 p-3">
-      <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
+      <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>WALLET</span>
             <p>₹ {currentFranchise?.wallet || 0}/-</p>
           </div>
         </div>
 
-        <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
+        <div className="col-xl-3  col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>UPGRADE WALLET </span>
             <p>₹ {currentFranchise?.upgradeWallet || 0}/-</p>
@@ -24,36 +25,42 @@ const AffiliatePanel = () => {
         </div>
 
 
-        <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
+        <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>CFC  WALLET</span>
             <p>₹ 0/-</p>
           </div>
         </div>
-        <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
+        <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>CMC INCOME WALLET </span>
             <p>₹ 0/-</p>
           </div>
         </div>
-        <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
+        <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>	RETAIL WALLET</span>
             <p>₹ {currentFranchise?.retailWallet || 0}/-</p>
           </div>
         </div>
-        <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
+        <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>	COUPANS WALLET</span>
             <p>₹ {currentFranchise?.couponWallet || 0}/-</p>
           </div>
         </div>
-        {/* <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
+        <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>All Time Earnings</span>
-            <p>₹ 54850/-</p>
+            <p>₹ 0/-</p>
           </div>
-        </div> */}
+        </div>
+        <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
+          <div className="das_prof">
+            <span>All Time Cash</span>
+            <p>₹ 0/-</p>
+          </div>
+        </div>
       </Row>
 
 
@@ -76,13 +83,15 @@ const AffiliatePanel = () => {
             <Card className="referral-card mb-4">
               <Card.Body>
                 <Card.Title>Total Referrals</Card.Title>
-                <div className="no-data">No data available</div>
+                <div className="no-data">{currentFranchise?.refTo?.length}</div>
               </Card.Body>
             </Card>
           </Col>
         </Row>
+        <Card.Title>Your Recent Referrals</Card.Title>
+        <ReferralTable banner={true}/>
 
-        <Row>
+        {/* <Row>
           <Col md={12}>
             <Card className="recent-referrals mb-4">
               <Card.Body>
@@ -114,9 +123,9 @@ const AffiliatePanel = () => {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
 
-        <Row>
+        {/* <Row>
           <Col md={12}>
             <Card className="leaderboard mb-4">
               <Card.Body>
@@ -147,7 +156,7 @@ const AffiliatePanel = () => {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
       </Container>
     </>
 

@@ -1,0 +1,68 @@
+/* Tree Container */
+.tree-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    width: 100%;
+  }
+  
+  /* Node Styling */
+  .tree-node {
+    text-align: center;
+    position: relative;
+    margin: 20px;
+  }
+  
+  .tree-content {
+    display: inline-block;
+    text-align: center;
+  }
+  
+  .tree-avatar {
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+  }
+  
+  .tree-text {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  /* Connecting Lines */
+  .tree-line-horizontal-long {
+    width: 70%;
+    height: 2px;
+    background-color: black;
+    position: relative;
+    margin: 0 auto;
+    top: 10px; /* Adjust this to align the line with the nodes */
+    z-index: 2;
+  }
+  
+  .tree-line-vertical {
+    width: 2px;
+    height: 20px;
+    background-color: black;
+    margin: 0 auto;
+  }
+  
+  /* Children Layout */
+  .tree-children {
+    position: relative;
+  }
+  
+  .tree-children-nodes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .tree-child {
+    margin: 0 10px;
+    position: relative;
+  }
+  
