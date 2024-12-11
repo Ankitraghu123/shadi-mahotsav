@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col, Table, Card, ProgressBar, Button } from "react-bootstrap";
 import "./AffiliatePanel.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ReferralTable from "../Refferal/ReferralTable";
+import { GetCfcMembers, GetCmcMembers } from "../../Features/Admin/AdminSlice";
 
 const AffiliatePanel = () => {
     const currentFranchise = useSelector(state => state.Franchise?.currentFranchise?.franchise)
@@ -28,13 +29,13 @@ const AffiliatePanel = () => {
         <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>CFC  WALLET</span>
-            <p>₹ 0/-</p>
+            <p>₹ {currentFranchise?.cfcWallet || 0}/-</p>
           </div>
         </div>
         <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>CMC INCOME WALLET </span>
-            <p>₹ 0/-</p>
+            <p>₹  {currentFranchise?.cmcWallet || 0}/-</p>
           </div>
         </div>
         <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">

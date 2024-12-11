@@ -26,6 +26,7 @@ import CouponMembers from './componentss/Memebers/CouponMembers';
 import TeamTable from './componentss/Team/TeamTable';
 import TreeView from './componentss/TreeView/TreeView';
 import TeamDetail from './componentss/TeamDetail/TeamDetail';
+import DailyReport from './componentss/DailyReport/DailyReport';
 
 const FranchisLayout = () => {
   const singleFranchise = JSON.parse(localStorage.getItem("franchiseData"));
@@ -74,6 +75,7 @@ const FranchisLayout = () => {
           <Route path="/direct-member" element={<DirectMembers />} />
           <Route path="/coupon-member" element={<CouponMembers />} />
           <Route path="/tree-view" element={<TreeView />} />
+          <Route path="/daily-report" element={<DailyReport />} />
           <Route path="/logout" element={<div>Logout Page</div>} />
         </Routes>
       </main>

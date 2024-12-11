@@ -104,6 +104,9 @@ const Sidebar = () => {
           <Link to="/frachise/tree-view" onClick={() => setSidebarOpen(false)}>
             <i className="fas fa-user-plus"></i> Tree View
           </Link>
+          <Link to="/frachise/daily-report" onClick={() => setSidebarOpen(false)}>
+            <i className="fas fa-user-plus"></i> Daily Report
+          </Link>
           <Link  onClick={logoutHandler} style={{marginBottom:"40px"}}>
             <i className="fas fa-sign-out-alt"></i> Logout
           </Link>

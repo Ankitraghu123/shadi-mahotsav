@@ -73,6 +73,22 @@ export const deleteEnquiry = createAsyncThunk('admin/delete-enquiry',async(id,th
     }
 })
 
+export const GetCfcMembers = createAsyncThunk('admin/cfc-members',async(thunkApi)=>{
+    try{
+        return await AdminService.GetCfcMembers()
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const GetCmcMembers = createAsyncThunk('admin/cmc-members',async(thunkApi)=>{
+    try{
+        return await AdminService.GetCmcMembers()
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
 
 
 
@@ -226,6 +242,36 @@ export const AdminSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.deletedEnquiry = null
+        })
+
+        .addCase(GetCfcMembers.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(GetCfcMembers.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.cfcMembers = action.payload
+        })
+        .addCase(GetCfcMembers.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.cfcMembers = null
+        })
+
+        .addCase(GetCmcMembers.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(GetCmcMembers.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.cmcMembers = action.payload
+        })
+        .addCase(GetCmcMembers.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.cmcMembers = null
         })
 
     }

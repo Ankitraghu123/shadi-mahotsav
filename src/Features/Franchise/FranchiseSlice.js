@@ -212,6 +212,14 @@ export const getUplineTree = createAsyncThunk('franchise/get-upline-tree',async(
     }
 })
 
+export const getReportByDate = createAsyncThunk('franchise/get-report-by-date',async(date,thunkApi)=>{
+    try{
+        return await FranchiseService.getReportByDate(date)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
 const initialState = {
     franchise:'',
     isError:false,
@@ -616,6 +624,21 @@ export const FranchiseSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.uplineTree = null
+        })
+
+        .addCase(getReportByDate.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(getReportByDate.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.report = action.payload
+        })
+        .addCase(getReportByDate.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.report = null
         })
     }
 })

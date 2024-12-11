@@ -137,8 +137,14 @@ const getUplineTree= async (id) => {
     return response.data
 }
 
+const getReportByDate= async (date) => {
+    const response = await axios.get(`${base_url}franchise/report/${date}`)
+    return response.data
+}
 
 
-const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise,AddMember,requestPayout,getPayOutByFranchise,generateRegisterLink,getDirectMembers,getCouponMembers,approveKYC,allPayouts,updatePayoutStatus,approveAadharCard,approvePanCard,rejectAadharCard,rejectKYC,rejectPanCard,getFranchiseTeam,getUplineTree}
+
+
+const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise,AddMember,requestPayout,getPayOutByFranchise,generateRegisterLink,getDirectMembers,getCouponMembers,approveKYC,allPayouts,updatePayoutStatus,approveAadharCard,approvePanCard,rejectAadharCard,rejectKYC,rejectPanCard,getFranchiseTeam,getUplineTree,getReportByDate}
 
 export default FranchiseService

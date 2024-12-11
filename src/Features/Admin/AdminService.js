@@ -49,6 +49,16 @@ const DeleteEnquiry = async (id) => {
     return response.data
 }
 
-const AdminService = {Login,GetAllEnquiries,GetUsersWithActivePlans,GetUsersWithoutPlans,GetTodayJoinedUsers,GetUsersRegisterationByDate,AddMember,DeleteMember,DeleteEnquiry}
+const GetCfcMembers = async () => {
+    const response = await axios.get(`${base_url}admin/members/cfc`)
+    return response.data
+}
+
+const GetCmcMembers = async () => {
+    const response = await axios.get(`${base_url}admin/members/cmc`)
+    return response.data
+}
+
+const AdminService = {Login,GetAllEnquiries,GetUsersWithActivePlans,GetUsersWithoutPlans,GetTodayJoinedUsers,GetUsersRegisterationByDate,AddMember,DeleteMember,DeleteEnquiry,GetCfcMembers,GetCmcMembers}
 
 export default AdminService
