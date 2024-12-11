@@ -47,6 +47,8 @@ const ProfilePage = () => {
           <div className="text-center mt-3" id="profile-text">
             <p className="mb-0 fw-bold">{custName}</p>
             <span>{custEmail}</span>
+            <p>Code : {currentFranchise?.code}</p>
+
           </div>
         </div>
       </div>
