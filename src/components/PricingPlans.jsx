@@ -24,7 +24,7 @@ const PricingPlans = () => {
             },100)
             return;
         }
-        const res = await fetch('http://localhost:4000/api/plan/create-order', {
+        const res = await fetch('https://shadi-mahotsav-backend.vercel.app/api/plan/create-order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ const PricingPlans = () => {
                 order_id: data.order.id,
                 handler: function (response) {
                     // Handle successful payment
-                    fetch('http://localhost:4000/api/plan/verify-payment', {
+                    fetch('https://shadi-mahotsav-backend.vercel.app/api/plan/verify-payment', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

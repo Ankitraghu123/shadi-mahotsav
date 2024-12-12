@@ -126,7 +126,7 @@ const RegisterFranchise = () => {
       })
       .catch((error) => {
         // Handle any errors that occurred during registration
-        toast.error(`Registration failed: ${error.message || 'Please try again.'}`);
+        toast.error(`Registration failed: ${error.response.data.message || 'Please try again.'}`);
       });
   };
 
@@ -193,7 +193,7 @@ const RegisterFranchise = () => {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            
+                            required
                           />
                         </div>
                         <div className="form-group col-12 col-md-6">
@@ -320,6 +320,7 @@ const RegisterFranchise = () => {
             value={formData.package}
             onChange={handleChange}
             name='package'
+            required
           >
             <option value="">Select Package</option>
               <option value='silver'>
