@@ -193,7 +193,7 @@ const RegisterFranchise = () => {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            required
+                            // required
                           />
                         </div>
                         <div className="form-group col-12 col-md-6">
@@ -298,6 +298,7 @@ const RegisterFranchise = () => {
                     placeholder="Enter referring franchise ID"
                     value={formData.refBy}
                     onChange={handleChange}
+                    required
                   />
                 </div>
                 <div className="form-group col-12 col-md-6">
