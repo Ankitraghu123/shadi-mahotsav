@@ -10,7 +10,7 @@ const Logi = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: '',
+    code: '',
     password: '',
     rememberMe: false,
   });
@@ -63,14 +63,14 @@ const Logi = () => {
                   <div className="form-login">
                     <form onSubmit={handleSubmit}>
                       <div className="form-group">
-                        <label className="lb">Email:</label>
+                        <label className="lb">Code:</label>
                         <input
-                          type="email"
+                          type="text"
                           className="form-control"
-                          id="email"
-                          placeholder="Enter email"
-                          name="email"
-                          value={formData.email}
+                          id="code"
+                          placeholder="Enter Code"
+                          name="code"
+                          value={formData.code}
                           onChange={handleChange}
                           required
                         />
