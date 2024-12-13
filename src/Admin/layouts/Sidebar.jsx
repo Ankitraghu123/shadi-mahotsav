@@ -172,10 +172,10 @@ const AdminSidebar = () => {
                 <NavLink to="/admin-dashboard/member" className={`nav-link ${location.pathname === '/settings' ? 'active' : ''}`}>
                   <FaCog className="sidebar-icon" /> Member Detail
                 </NavLink>
-                <NavDropdown title="Manage Users" id="nav-dropdown" className="nav-link">
+                {/* <NavDropdown title="Manage Users" id="nav-dropdown" className="nav-link">
                   <NavDropdown.Item href="/users/add">Add User</NavDropdown.Item>
                   <NavDropdown.Item href="/users/list">User List</NavDropdown.Item>
-                </NavDropdown>
+                </NavDropdown> */}
                 <NavLink onClick={logoutHandler} className="nav-link">
                   <FaSignOutAlt className="sidebar-icon" /> Logout
                 </NavLink>

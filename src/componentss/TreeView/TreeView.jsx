@@ -52,7 +52,7 @@ const TreeView = () => {
         <strong>Franchise Code:</strong> {node?.node?.code || 'N/A'}<br />
         <strong>Name:</strong> {node?.node?.name || 'NA'}<br />
         <strong>Email:</strong> {node?.node?.email || 'NA'}<br />
-        <strong>Mobile Number:</strong> {node?.node?.mobileNumber || 'NA'}<br />
+        <strong>Mobile Number:</strong> {node?.node?.refBy == currentFranchise?._id ? node?.node?.mobileNumber : 'NA'}<br />
         <strong>Country:</strong> {node?.node?.country || 'NA'}<br />
         <strong>State:</strong> {node?.node?.state || 'NA'}<br />
         <strong>City:</strong> {node?.node?.city || 'NA'}<br />

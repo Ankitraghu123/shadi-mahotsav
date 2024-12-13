@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import achieve from '../../mykyc.jpg';
 import { useDispatch, useSelector } from "react-redux";
 import { createKyc } from "../../Features/Franchise/FranchiseSlice";
+import { toast } from "react-toastify";
 
 const KycForm = () => {
   const dispatch = useDispatch()
@@ -55,7 +56,7 @@ const KycForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
 
     // Check if formData has all the data
@@ -74,12 +75,14 @@ const KycForm = () => {
     formDataToSend.append("franchiseId", currentFranchise?._id);
 
     // Debug: Check the FormData keys and values
-    for (let pair of formDataToSend.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-    }
-
-    // Dispatch the action with formDataToSend
-    dispatch(createKyc(formDataToSend ))
+   
+      const resultAction = await dispatch(createKyc(formDataToSend));
+      if (resultAction.meta.requestStatus === "fulfilled") {
+        toast.success("KYC updated successfully!");
+      } else {
+        toast.error("Failed to update KYC. Please try again.");
+      }
+    
   };
   return (
     <>

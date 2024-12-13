@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { addMember } from "../../Features/Franchise/FranchiseSlice";
 import { Country, State, City } from "country-state-city";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const AddMember = () => {
     const currentFranchise = useSelector(state => state.Franchise?.currentFranchise?.franchise)
     const dispatch = useDispatch()
-
+    const navigate = useNavigate()
     const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+  const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
     name: '',
@@ -89,6 +91,15 @@ const AddMember = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === "mobileNumber") {
+      if (value.length > 10 || isNaN(value)) {
+        setError("Mobile number must be 10 digits and numeric.");
+      } else if (value.length < 10) {
+        setError("Mobile number should be exactly 10 digits.");
+      } else {
+        setError(""); // Clear error if validation passes
+      }
+    }
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -99,29 +110,32 @@ const AddMember = () => {
     e.preventDefault();
 
     dispatch(addMember(formData))
-    .then(() => {
-      toast.success('Member ADded Successfully');
-    })
-    .catch(() => {
-      toast.error('Error in Adding Member');
-    });
-    setFormData({
-      name: '',
-    email: '',
-    mobileNumber: '',
-    password: '',
-    agree: false,
-    gender: '',
-    religion: '',
-    country: '',
-    city: '',
-    state: '',
-    education: '',
-    dob: '',
-    maritalStatus:'',
-    couponCode: '',
-    profileFor:''
-    });
+      .unwrap()
+      .then(() => {
+        toast.success("Member added successfully!");
+        // Reset form after successful submission
+        setFormData({
+          name: "",
+          email: "",
+          mobileNumber: "",
+          password: "",
+          agree: false,
+          gender: "",
+          religion: "",
+          country: "",
+          city: "",
+          state: "",
+          education: "",
+          dob: "",
+          maritalStatus: "",
+          couponCode: "",
+          profileFor: "",
+        });
+        navigate('/frachise/direct-member')
+      })
+      .catch((error) => {
+        toast.error(`Error adding member: ${error.message}`);
+      });
   };
 
   return (
@@ -140,7 +154,7 @@ const AddMember = () => {
             value={formData.name}
             onChange={handleChange}
             style={styles.input}
-
+            required
           />
         </div>
         <div style={styles.formGroup} className="form-group col-12 col-md-6">
@@ -154,7 +168,7 @@ const AddMember = () => {
             value={formData.email}
             onChange={handleChange}
             style={styles.input}
-
+            required
           />
         </div>
         </div>
@@ -170,8 +184,10 @@ const AddMember = () => {
             value={formData.mobileNumber}
             onChange={handleChange}
             style={styles.input}
-
+            maxLength={10}
+            required
           />
+           {error && <p style={{ color: "red", marginTop: "5px" }}>{error}</p>}
         </div>
         <div style={styles.formGroup} className="form-group col-12 col-md-6">
           <label htmlFor="password" style={styles.label}>
@@ -184,7 +200,7 @@ const AddMember = () => {
             value={formData.password}
             onChange={handleChange}
             style={styles.input}
-
+            required
           />
         </div>
         </div>

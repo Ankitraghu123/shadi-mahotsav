@@ -37,9 +37,9 @@ const PlanDetails = () => {
                     </div>
                     <div className="db-plan-detil">
                       <ul>
-                        <li>Plan name: <strong>{currentUser?.plans[0].plan.name}</strong></li>
-                        <li>Purchased On: <strong>{formatDate(currentUser?.plans[0].purchaseDate)}</strong></li>
-                        <li>Valid till <strong>{formatDate(currentUser?.plans[0].expiryDate)}</strong></li>
+                        <li>Plan name: <strong>{currentUser?.plans[0]?.plan?.name}</strong></li>
+                        <li>Purchased On: <strong>{formatDate(currentUser?.plans[0]?.purchaseDate)}</strong></li>
+                        <li>Valid till <strong>{formatDate(currentUser?.plans[0]?.expiryDate)}</strong></li>
                         {/* <li><a href="#" className="cta-3">Upgrade now</a></li> */}
                       </ul>
                     </div>

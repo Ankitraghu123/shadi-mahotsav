@@ -83,7 +83,7 @@ const TeamTable = () => {
       <div className="back_area">
         <div className="front_area">
           <div className="card">
-            <div className="card-header our_courses_bg p-0">
+            {/* <div className="card-header our_courses_bg p-0">
               <div className="achivementimage mb_30 position-relative">
                 <div className="row">
                   <div className="col-12">
@@ -95,7 +95,7 @@ const TeamTable = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="card-body">
               <div className="table-responsive">
@@ -129,7 +129,7 @@ const TeamTable = () => {
                         <td>{franchise.name}</td>
                         <td>{franchise.package}</td>
                         <td>{franchise.email}</td>
-                        <td>{franchise.mobileNumber}</td>
+                        <td>{franchise?.refBy == currentFranchise?._id ?franchise.mobileNumber : "NA"}</td>
                         <td>{formatDate(franchise.createdAt)}</td>
                       </tr>
                     ))}

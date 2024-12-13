@@ -15,8 +15,8 @@ const AllFranchise = () => {
     dispatch(getAllFranchise());
   }, []);
 
-  const deleteMemberHandler = (id) => {
-    dispatch(deleteMember(id))
+  const deleteFranchiseHandler = () => {
+    dispatch()
   }
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -89,6 +89,7 @@ const AllFranchise = () => {
               <th className="text-nowrap">City</th>
               <th className="text-nowrap">Aadhar Number</th>
               <th className="text-nowrap">Pan Number</th>
+              <th className="text-nowrap">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -114,21 +115,21 @@ const AllFranchise = () => {
                 <td className="text-nowrap">{franchise?.kycId?.aadharCardNumber}</td>
                 <td className="text-nowrap">{franchise?.kycId?.panCardNumber}</td>
                 <td className="text-nowrap"  >
-                <OverlayTrigger
+                {/* <OverlayTrigger
         placement="top" // Tooltip placement
         overlay={<Tooltip id="edit-tooltip">Edit</Tooltip>} // Tooltip text
-      >
-        <Link to={`/admin-dashboard/edit-member/${franchise?._id}`} className="icon-link">
-          <MdEdit id='icon-size' className="icon edit-icon" />
-        </Link>
-      </OverlayTrigger>
+      > */}
+        {/* <Link to={`/admin-dashboard/edit-member/${franchise?._id}`} className="icon-link"> */}
+          {/* <MdEdit id='icon-size' className="icon edit-icon" /> */}
+        {/* </Link> */}
+      {/* </OverlayTrigger> */}
       
       {/* Delete Icon with Tooltip */}
       <OverlayTrigger
         placement="top" // Tooltip placement
         overlay={<Tooltip id="delete-tooltip">Delete</Tooltip>} // Tooltip text
       >
-        <Link onClick={() => deleteMemberHandler(franchise?._id)} className="icon-link">
+        <Link onClick={() => deleteFranchiseHandler(franchise?._id)} className="icon-link">
           <MdDelete id='icon-size' className="icon delete-icon" />
         </Link>
       </OverlayTrigger>

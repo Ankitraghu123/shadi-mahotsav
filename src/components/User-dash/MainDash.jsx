@@ -115,15 +115,15 @@ const MainDash = () => {
                 <div className="col-md-12 col-lg-6 col-xl-4 db-sec-com">
                   <h2 className="db-tit">Plan details</h2>
                   <div className="db-pro-stat">
-                    <h6 className="tit-top-curv">{currentUser?.plans[0].plan.name}</h6> 
+                    <h6 className="tit-top-curv">{currentUser?.plans[0]?.plan?.name}</h6> 
                     <div className="db-plan-card">
                       <img src={dash1} alt="" />
                     </div>
                     <div className="db-plan-detil">
                       <ul>
-                        <li>Plan name: <strong>{currentUser?.plans[0].plan.name}</strong></li>
-                        <li>plan bought on: <strong>{formatDate(currentUser?.plans[0].purchaseDate)}</strong></li>
-                        <li>Valid till: <strong>{formatDate(currentUser?.plans[0].expiryDate)}</strong></li>
+                        <li>Plan name: <strong>{currentUser?.plans[0]?.plan?.name}</strong></li>
+                        <li>plan bought on: <strong>{formatDate(currentUser?.plans[0]?.purchaseDate)}</strong></li>
+                        <li>Valid till: <strong>{formatDate(currentUser?.plans[0]?.expiryDate)}</strong></li>
                         {/* <li><a href="#" className="cta-3">Upgrade now</a></li> */}
                       </ul>
                     </div>

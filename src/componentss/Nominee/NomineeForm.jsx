@@ -3,6 +3,7 @@ import { Form, Button, Container, Card, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { createKyc } from '../../Features/Franchise/FranchiseSlice';
 import achieve from '../../nominee.jpg';
+import { toast } from 'react-toastify';
 
 const NomineeForm = () => {
   const currentFranchise = useSelector((state) => state.Franchise.currentFranchise?.franchise);
@@ -24,7 +25,7 @@ const NomineeForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
 
     // Create a FormData object to send data
@@ -36,11 +37,12 @@ const NomineeForm = () => {
     formData.append('nomineeRelationship', nomineeRelationship);
     formData.append('nomineeDob', nomineeDob);
 
-    // Dispatch the createKYC action with formData
-    dispatch(createKyc(formData));
-
-    // Optionally reset the form and alert the user
-    alert('Form submitted successfully!');
+    const resultAction = await dispatch(createKyc(formData));
+          if (resultAction.meta.requestStatus === "fulfilled") {
+            toast.success("Nominee updated successfully!");
+          } else {
+            toast.error("Failed to update Nominee. Please try again.");
+          }
   };
 
   return (

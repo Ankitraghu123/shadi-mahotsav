@@ -28,7 +28,7 @@ const AdminLogin = () => {
       const resultAction = await dispatch(loginAdmin(formData));
       if (loginAdmin.fulfilled.match(resultAction)) {
         toast.success('Login successful! Welcome aboard.');
-        navigate('/admin-dashboard');
+        navigate('/admin-dashboard/main');
       } else {
         throw new Error('Login failed');
       }

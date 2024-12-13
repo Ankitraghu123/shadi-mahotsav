@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editProfile, getProfile } from '../Features/User/UserSlice';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import { toast } from 'react-toastify';
 
 const EditMember = () => {
   const {id} = useParams()
   const userData = useSelector((state) => state.User?.userProfile);
   const { editedProfile } = useSelector((state) => state.User);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     name: '',
@@ -77,10 +79,25 @@ const EditMember = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(editProfile({ id: userData?._id, formData }));
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    // Dispatch the action with user ID and formData
+    const resultAction = await dispatch(
+      editProfile({ id: userData?._id, formData })
+    ).unwrap(); // Ensures it resolves or throws
+
+    // Success
+    toast.success("Profile updated successfully!");
+    navigate("/admin-dashboard/all-members");
+  } catch (error) {
+    // Error handling
+    console.error("Error updating profile:", error);
+
+    // Show appropriate toast message
+    toast.error(error || "Failed to update profile. Please try again.");
+  }
+};
 
   return (
     <section>

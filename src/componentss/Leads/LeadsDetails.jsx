@@ -3,12 +3,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Country, State, City } from "country-state-city";
 import { useDispatch, useSelector } from "react-redux";
 import { addLead, allLeadsByFranchise, editLead } from "../../Features/Lead/LeadSlice";  // Assuming updateLead exists in your redux slice
+import { toast } from "react-toastify";
 
 const LeadsDetails = () => {
   const dispatch = useDispatch();
   const currentFranchise = useSelector((state) => state.Franchise?.currentFranchise?.franchise);
   const allLeads = useSelector((state) => state.Lead?.allFranchiseLeads?.leads);
   const { lead,editedLead } = useSelector((state) => state.Lead);
+  const [error,setError] = useState("")
   
   const [formData, setFormData] = useState({
     name: "",
@@ -46,7 +48,7 @@ const LeadsDetails = () => {
     if (currentFranchise?._id) {
       dispatch(allLeadsByFranchise(currentFranchise._id));
     }
-  }, [dispatch, lead,editedLead]);
+  }, [dispatch,editedLead,lead,currentFranchise?._id]);
 
   const handleCountryChange = (e) => {
     const selectedCountry = e.target.value;
@@ -70,9 +72,19 @@ const LeadsDetails = () => {
   };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "mobileNumber") {
+      if (value.length > 10 || isNaN(value)) {
+        setError("Mobile number must be 10 digits and numeric.");
+      } else if (value.length < 10) {
+        setError("Mobile number should be exactly 10 digits.");
+      } else {
+        setError("");
+      }
+    }
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
@@ -102,9 +114,19 @@ const LeadsDetails = () => {
     setShowModal(true);
   };
 
-  // Pagination logic
+  useEffect(() => {
+    if (editedLead) {
+      toast.success("Lead updated successfully!"); // Show success message
+    }
+    if (error) {
+      toast.error(`Failed to update lead: ${error}`); // Show error message
+    }
+  }, [editedLead, error]);
+
   const totalItems = allLeads?.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  
 
   const handleItemsPerPageChange = (e) => {
     setItemsPerPage(parseInt(e.target.value));
@@ -132,6 +154,7 @@ const LeadsDetails = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
+                  required
                 />
               </div>
 
@@ -162,7 +185,10 @@ const LeadsDetails = () => {
                   name="mobileNumber"
                   value={formData.mobileNumber}
                   onChange={handleChange}
+                  maxLength={10}
+                  required
                 />
+                {error && <p style={{ color: "red", marginTop: "5px" }}>{error}</p>}
               </div>
 
               {/* Country */}
@@ -347,6 +373,7 @@ const LeadsDetails = () => {
                           name="name"
                           value={formData.name}
                           onChange={handleChange}
+                          required
                         />
                       </div>
                       <div className="mb-3">
@@ -374,7 +401,10 @@ const LeadsDetails = () => {
                   name="mobileNumber"
                   value={formData.mobileNumber}
                   onChange={handleChange}
+                  maxLength={10}
+                  required
                 />
+                {error && <p style={{ color: "red", marginTop: "5px" }}>{error}</p>}
               </div>
 
               {/* Country */}
