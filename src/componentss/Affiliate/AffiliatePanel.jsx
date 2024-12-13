@@ -14,14 +14,14 @@ const AffiliatePanel = () => {
       <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>WALLET</span>
-            <p>₹ {currentFranchise?.wallet || 0}/-</p>
+            <p>₹ {currentFranchise?.wallet?.toFixed(2) || 0}/-</p>
           </div>
         </div>
 
         <div className="col-xl-3  col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>UPGRADE WALLET </span>
-            <p>₹ {currentFranchise?.upgradeWallet || 0}/-</p>
+            <p>₹ {currentFranchise?.upgradeWallet?.toFixed(2) || 0}/-</p>
           </div>
         </div>
 
@@ -29,13 +29,13 @@ const AffiliatePanel = () => {
         <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>CFC  WALLET</span>
-            <p>₹ {currentFranchise?.cfcWallet || 0}/-</p>
+            <p>₹ {currentFranchise?.cfcWallet?.toFixed(2) || 0}/-</p>
           </div>
         </div>
         <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>CMC INCOME WALLET </span>
-            <p>₹  {currentFranchise?.cmcWallet || 0}/-</p>
+            <p>₹  {currentFranchise?.cmcWallet?.toFixed(2) || 0}/-</p>
           </div>
         </div>
         <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
@@ -53,7 +53,7 @@ const AffiliatePanel = () => {
         <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>	Downline Income</span>
-            <p>₹ {currentFranchise?.totalDownlineIncome || 0}/-</p>
+            <p>₹ {currentFranchise?.totalDownlineIncome?.toFixed(2) || 0}/-</p>
           </div>
         </div>
         {/* <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
