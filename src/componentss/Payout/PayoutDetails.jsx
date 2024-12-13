@@ -35,7 +35,7 @@ const PayoutDetails = () => {
     if (isConfirmed) {
       // Proceed with the payout request if confirmed
       dispatch(requestPayout({
-        amount: currentFranchise?.retailWallet,
+        amount: currentFranchise?.wallet,
         franchiseId: currentFranchise?._id
       }));
       setIsPayoutRequested(true);
