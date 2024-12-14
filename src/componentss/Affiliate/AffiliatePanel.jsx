@@ -53,7 +53,7 @@ const AffiliatePanel = () => {
         <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
             <span>	Downline Income</span>
-            <p>₹ {currentFranchise?.totalDownlineIncome?.toFixed(2) || 0}/-</p>
+            <p>₹ { currentFranchise?.totalDownlineIncome?.toFixed(2)|| 0}/-</p>
           </div>
         </div>
         {/* <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
@@ -64,8 +64,8 @@ const AffiliatePanel = () => {
         </div> */}
         <div className="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 mt-4">
           <div className="das_prof">
-            <span>All Time Cash</span>
-            <p>₹ 0/-</p>
+            <span>AutoPoolIncome</span>
+            <p>₹ { currentFranchise?.totalAutopoolIncome?.toFixed(2)|| 0}/-</p>
           </div>
         </div>
       </Row>
