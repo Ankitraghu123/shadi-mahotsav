@@ -148,10 +148,11 @@ const addMemberToCoupon= async (data) => {
     return response.data
 }
 
+const allAutoPools= async () => {
+    const response = await axios.get(`${base_url}franchise/all-autopools`)
+    return response.data
+}
 
-
-
-
-const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise,AddMember,requestPayout,getPayOutByFranchise,generateRegisterLink,getDirectMembers,getCouponMembers,approveKYC,allPayouts,updatePayoutStatus,approveAadharCard,approvePanCard,rejectAadharCard,rejectKYC,rejectPanCard,getFranchiseTeam,getUplineTree,getReportByDate,addMemberToCoupon}
+const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise,AddMember,requestPayout,getPayOutByFranchise,generateRegisterLink,getDirectMembers,getCouponMembers,approveKYC,allPayouts,updatePayoutStatus,approveAadharCard,approvePanCard,rejectAadharCard,rejectKYC,rejectPanCard,getFranchiseTeam,getUplineTree,getReportByDate,addMemberToCoupon,allAutoPools}
 
 export default FranchiseService

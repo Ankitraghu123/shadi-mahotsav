@@ -228,6 +228,14 @@ export const addMemberToCoupon = createAsyncThunk('franchise/add-member-to-coupo
     }
 })
 
+export const allAutoPools = createAsyncThunk('franchise/all-autopools',async(thunkApi)=>{
+    try{
+        return await FranchiseService.allAutoPools()
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
 const initialState = {
     franchise:'',
     isError:false,
@@ -662,6 +670,21 @@ export const FranchiseSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.addedCouponToMember = null
+        })
+
+        .addCase(allAutoPools.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(allAutoPools.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.allAutoPoolsFranchise = action.payload
+        })
+        .addCase(allAutoPools.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.allAutoPoolsFranchise = null
         })
     }
 })

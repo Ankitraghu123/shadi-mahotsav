@@ -30,6 +30,7 @@ import AllPayouts from './AllPayouts';
 import AllLeads from './AllLeads';
 import Coupons from './Coupons';
 import AllotCoupons from './AllotCoupons';
+import AllAutoPoolsFranchises from './AllAutoPoolsFranchise';
 
 // import from  './AdminDashboard.css'
 function AdminDashboard() {
@@ -69,6 +70,7 @@ function AdminDashboard() {
               <Route path="all-leads" element={<AllLeads />} />
               <Route path="coupons" element={<Coupons />} />
               <Route path="allot-coupons" element={<AllotCoupons />} />
+              <Route path="all-autopool-franchise" element={<AllAutoPoolsFranchises />} />
             </Routes>
             </AdminProtectedRoute>
                 }

@@ -143,6 +143,9 @@ const AdminSidebar = () => {
                   <NavLink to="/admin-dashboard/all-franchises" className={`nav-link ${location.pathname === '/all-franchises' ? 'active' : ''}`}>
                    All Franchises
                 </NavLink>
+                <NavLink to="/admin-dashboard/all-autopool-franchise" className={`nav-link ${location.pathname === '/all-autopool-franchise' ? 'active' : ''}`}>
+                   All Autopools
+                </NavLink>
                 <NavLink to="/admin-dashboard/kyc-pending" className={`nav-link ${location.pathname === '/kyc-pending' ? 'active' : ''}`}>
                    Kyc Pending
                 </NavLink>

@@ -134,7 +134,9 @@ const AddMember = () => {
         navigate('/frachise/direct-member')
       })
       .catch((error) => {
-        toast.error(`Error adding member: ${error.message}`);
+
+        // console.log(error)
+        toast.error(`Error adding member: ${error.response.data.message}`);
       });
   };
 
