@@ -14,7 +14,9 @@ const DirectMembers = () => {
 //   const members = useSelector((state) => state.User.allProfiles);
   const members = useSelector(state => state.Franchise?.directMembers?.data)
   useEffect(() => {
-    dispatch(getDirectMembers(currentFranchise?._id));
+    if(currentFranchise?._id){
+      dispatch(getDirectMembers(currentFranchise?._id));
+    }
   }, [dispatch,currentFranchise?._id]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -167,8 +169,8 @@ const DirectMembers = () => {
                 <td className="text-nowrap">
                     {activePlan ? (
                       <>
-                        <div>Plan Name: {activePlan.plan.name}</div>
-                        <div>Expiry: {new Date(activePlan.expiryDate).toLocaleDateString()}</div>
+                        <div>Plan Name: {activePlan?.plan?.name}</div>
+                        <div>Expiry: {new Date(activePlan?.expiryDate).toLocaleDateString()}</div>
                       </>
                     ) : (
                       <span>No Active Plan</span>

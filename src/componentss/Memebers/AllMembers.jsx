@@ -4,21 +4,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProfiles } from '../../Features/User/UserSlice';
 import { addMemberToCoupon } from '../../Features/Franchise/FranchiseSlice';
 import { GetUsersWithoutPlans } from '../../Features/Admin/AdminSlice';
+import { toast, ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 const AllMembers = () => {
   const currentFranchise = useSelector((state) => state.Franchise?.currentFranchise?.franchise);
   const members = useSelector((state) => state.Admin?.usersWithoutPlans);
   const dispatch = useDispatch();
+  const {addedCouponToMember} = useSelector(state => state.Franchise)
 
   useEffect(() => {
     dispatch(GetUsersWithoutPlans());
-  }, [dispatch]);
+  }, [dispatch,addedCouponToMember]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage, setEntriesPerPage] = useState(5);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchActivePlan, setSearchActivePlan] = useState('');
   const [selectedCoupons, setSelectedCoupons] = useState({}); // To store selected coupon for each user
+  const [loading, setLoading] = useState({}); // To manage loading state for each user
 
   const isPlanActive = (plan) => {
     const currentDate = new Date();
@@ -54,17 +58,27 @@ const AllMembers = () => {
     }));
   };
 
-  const handleAddCoupon = (userId) => {
+  const handleAddCoupon = async (userId) => {
     const couponCode = selectedCoupons[userId];
     if (couponCode) {
-      dispatch(addMemberToCoupon({ memberId: userId, couponCode }));
+      setLoading((prev) => ({ ...prev, [userId]: true })); // Set loading for the user
+      try {
+        await dispatch(addMemberToCoupon({ memberId: userId, couponCode }));
+        toast.success('Coupon successfully added!');
+      } catch (error) {
+        toast.error('Failed to add coupon. Please try again.');
+      } finally {
+        setLoading((prev) => ({ ...prev, [userId]: false })); // Reset loading state
+      }
     } else {
-      alert('Please select a coupon before saving.');
+      toast.error('Please select a coupon before saving.');
     }
   };
 
   return (
     <div id="margin-top" className="card-body">
+      {/* Toast Container */}
+      <ToastContainer />
       <div className="mt-5">
         {/* Search Bar */}
         <div className="mb-3">
@@ -131,8 +145,9 @@ const AllMembers = () => {
                     <button
                       className="btn btn-primary"
                       onClick={() => handleAddCoupon(user?._id)}
+                      disabled={loading[user?._id]} // Disable button while loading
                     >
-                      Save Coupon
+                      {loading[user?._id] ? 'Saving...' : 'Save Coupon'}
                     </button>
                   </td>
                 </tr>
