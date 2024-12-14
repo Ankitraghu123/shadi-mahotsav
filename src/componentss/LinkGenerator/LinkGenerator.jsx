@@ -53,7 +53,7 @@ const LinkGenerator = () => {
             <Row className="mb-3 align-items-center">
               <Col xs={12} md={9}>
                 <Form.Group controlId="franchiseCode">
-                  <Form.Label>Franchise Code (refId):</Form.Label>
+                  <Form.Label>Franchise Id (refId):</Form.Label>
                   <Form.Control
                     type="text"
                     value={formData.franchiseCode}
@@ -79,7 +79,7 @@ const LinkGenerator = () => {
                     name="uplineId"
                     value={formData.uplineId}
                     onChange={handleInputChange}
-                    placeholder="Optional (defaults to Franchise Code)"
+                    placeholder="Optional (defaults to Franchise Id)"
                   />
                 </Form.Group>
               </Col>

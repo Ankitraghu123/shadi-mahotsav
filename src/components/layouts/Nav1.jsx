@@ -8,6 +8,8 @@ import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/esm/Button';
 import logo from '../../assets/download.png';
+import { FaUser } from "react-icons/fa";
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 function NavScrollExample() {
   const dispatch = useDispatch();
@@ -149,11 +151,41 @@ function NavScrollExample() {
               <p className='ms-2' id='mb0'>Go To Franchise Pannel</p>
             </Link>
           ) : (
-            <Button className='px-4'>
-              <Link to="/login" onClick={handleNavLinkClick} className="text-white text-decoration-none">
-                Login / Register
-              </Link>
+            <>
+            <OverlayTrigger
+        placement="bottom"
+        overlay={<Tooltip id="tooltip-franchise">Franchise Login/Register</Tooltip>}
+      >
+        
+          <Link
+            to="/login-franchise"
+            onClick={handleNavLinkClick}
+            className="text-white text-decoration-none"
+          >
+            <Button className="px-4 bg-danger">
+            <FaUser />
             </Button>
+          </Link>
+        
+      </OverlayTrigger>
+
+      <OverlayTrigger
+        placement="bottom"
+        overlay={<Tooltip id="tooltip-member">Member Login/Register</Tooltip>}
+      >
+       
+          <Link
+            to="/login"
+            onClick={handleNavLinkClick}
+            className="text-white text-decoration-none"
+          >
+             <Button className="px-4 ms-2">
+            <FaUser />
+            </Button>
+          </Link>
+        
+      </OverlayTrigger>
+            </>
           )}
         </Navbar.Collapse>
       </Container>

@@ -83,6 +83,9 @@ const Sidebar = () => {
           <Link to="/frachise/coupon-member" onClick={() => setSidebarOpen(false)}>
             <i className="fas fa-users"></i> Coupon Member
           </Link>
+          <Link to="/frachise/all-members" onClick={() => setSidebarOpen(false)}>
+            <i className="fas fa-users"></i> All Members
+          </Link>
           <Link to="/frachise/leads" onClick={() => setSidebarOpen(false)}>
             <i className="fas fa-arrow-up"></i> Leads Details
           </Link>

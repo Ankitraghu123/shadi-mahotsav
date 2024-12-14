@@ -46,7 +46,7 @@ const PlanDetails = () => {
                   </div>
                 </div>
 
-                {/* Invoice Table Section */}
+                {/* Invoice Table Section
                 <div id="radio" className="col-md-8 db-sec-com">
                   <h2 className="db-tit">All invoice</h2>
                   <div className="db-invoice">
@@ -81,7 +81,7 @@ const PlanDetails = () => {
                       </tbody>
                     </table>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Plan Cancellation Section */}
                 <div className="col-md-12 db-sec-com">

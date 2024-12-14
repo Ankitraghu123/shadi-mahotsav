@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPlans, getCurrentUser } from '../Features/User/UserSlice';
 import { Link, useNavigate } from 'react-router-dom';
+import { base_url } from '../utils/base_url';
 
 const PricingPlans = () => {
   const profileDetails = JSON.parse(localStorage.getItem('userData'));
@@ -24,7 +25,7 @@ const PricingPlans = () => {
             },100)
             return;
         }
-        const res = await fetch('https://shadi-mahotsav-backend.vercel.app/api/plan/create-order', {
+        const res = await fetch(`${base_url}plan/create-order`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ const PricingPlans = () => {
                 order_id: data.order.id,
                 handler: function (response) {
                     // Handle successful payment
-                    fetch('https://shadi-mahotsav-backend.vercel.app/api/plan/verify-payment', {
+                    fetch(`${base_url}plan/verify-payment`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -115,11 +116,10 @@ const PricingPlans = () => {
                                                 </Link>
                                                 <span className="pri-cou"><b>{plan?.price}₹</b></span>
                                                 <ol>
-                                                    <li><i className="fa fa-close close" aria-hidden="true"></i> 5 Premium Profiles view /mo</li>
-                                                    <li><i className="fa fa-check" aria-hidden="true"></i>Free user profile can view</li>
-                                                    <li><i className="fa fa-close close" aria-hidden="true"></i>View contact details</li>
-                                                    <li><i className="fa fa-close close" aria-hidden="true"></i>Send interest</li>
-                                                    <li><i className="fa fa-close close" aria-hidden="true"></i>Start Chat</li>
+                                                    <li><i className="fa fa-close close" aria-hidden="true"></i>UNLIMITED PREMIUM/FREE PROFILE VIEW.</li>
+                                                    <li><i className="fa fa-check" aria-hidden="true"></i>SEND INTEREST</li>
+                                                    <li><i className="fa fa-close close" aria-hidden="true"></i>START CHAT</li>
+                                                    <li><i className="fa fa-close close" aria-hidden="true"></i>VIEW CONTACT DETAILS (AFTER ACCEPTING INTEREST)</li>
                                                 </ol>
                                             </div>
                                         </li>

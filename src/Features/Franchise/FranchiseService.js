@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { base_url } from '../../utils/base_url'
+import { addMember } from './FranchiseSlice'
 
 
 const Register = async (data) => {
@@ -142,9 +143,15 @@ const getReportByDate= async (date) => {
     return response.data
 }
 
+const addMemberToCoupon= async (data) => {
+    const response = await axios.post(`${base_url}user/add-coupon`,data)
+    return response.data
+}
 
 
 
-const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise,AddMember,requestPayout,getPayOutByFranchise,generateRegisterLink,getDirectMembers,getCouponMembers,approveKYC,allPayouts,updatePayoutStatus,approveAadharCard,approvePanCard,rejectAadharCard,rejectKYC,rejectPanCard,getFranchiseTeam,getUplineTree,getReportByDate}
+
+
+const FranchiseService = {Register,Login,getCurrentFranchise,editFranchise,editProfilePicture,deleteProfilePicture,createKyc,getRefFranchise,getAllFranchise,AddMember,requestPayout,getPayOutByFranchise,generateRegisterLink,getDirectMembers,getCouponMembers,approveKYC,allPayouts,updatePayoutStatus,approveAadharCard,approvePanCard,rejectAadharCard,rejectKYC,rejectPanCard,getFranchiseTeam,getUplineTree,getReportByDate,addMemberToCoupon}
 
 export default FranchiseService

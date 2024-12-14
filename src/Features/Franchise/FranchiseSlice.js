@@ -220,6 +220,14 @@ export const getReportByDate = createAsyncThunk('franchise/get-report-by-date',a
     }
 })
 
+export const addMemberToCoupon = createAsyncThunk('franchise/add-member-to-coupon',async(data,thunkApi)=>{
+    try{
+        return await FranchiseService.addMemberToCoupon(data)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
 const initialState = {
     franchise:'',
     isError:false,
@@ -639,6 +647,21 @@ export const FranchiseSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.report = null
+        })
+
+        .addCase(addMemberToCoupon.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(addMemberToCoupon.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.addedCouponToMember = action.payload
+        })
+        .addCase(addMemberToCoupon.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.addedCouponToMember = null
         })
     }
 })

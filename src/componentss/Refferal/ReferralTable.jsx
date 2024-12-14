@@ -111,11 +111,13 @@ const ReferralTable = ({banner}) => {
                   <thead>
                     <tr>
                       <th>Sr. No.</th>
-                      <th>Photo</th>
+                      {/* <th>Photo</th> */}
                       <th>Name</th>
+                      <th>Referral Id</th>
+                      <th>Upline Id</th>
                       <th>Current Package</th>
-                      <th>Email</th>
-                      <th>Phone</th>
+                      {/* <th>Email</th>
+                      <th>Phone</th> */}
                       <th>Joining Date</th>
                     </tr>
                   </thead>
@@ -123,17 +125,19 @@ const ReferralTable = ({banner}) => {
                     {refFranchise?.map((franchise, index) => (
                       <tr key={franchise._id}>
                         <td>{index + 1}</td>
-                        <td>
+                        {/* <td>
                           <img
                             src={franchise.profilePicture}
                             alt={franchise.name}
                             width="100"
                           />
-                        </td>
+                        </td> */}
                         <td>{franchise.name}</td>
+                        <td>{franchise.refBy?.code}</td>
+                        <td>{franchise.uplineOf?.code}</td>
                         <td>{franchise.package}</td>
-                        <td>{franchise.email}</td>
-                        <td>{franchise.mobileNumber}</td>
+                        {/* <td>{franchise.email}</td> */}
+                        {/* <td>{franchise.mobileNumber}</td> */}
                         <td>{formatDate(franchise.createdAt)}</td>
                       </tr>
                     ))}

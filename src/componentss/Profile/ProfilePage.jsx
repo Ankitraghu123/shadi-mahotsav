@@ -47,7 +47,7 @@ const ProfilePage = () => {
           <div className="text-center mt-3" id="profile-text">
             <p className="mb-0 fw-bold">{custName}</p>
             <span>{custEmail}</span>
-            <p>Code : {currentFranchise?.code}</p>
+            <p>ID : {currentFranchise?.code}</p>
 
           </div>
         </div>
@@ -87,6 +87,34 @@ const ProfilePage = () => {
                         <b>State</b>
                       </td>
                       <td>{custState}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </Accordion.Body>
+            </Accordion.Item>
+
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>Coupon Details</Accordion.Header>
+              <Accordion.Body>
+                <Table bordered responsive>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <b>1 Month Coupon</b>
+                      </td>
+                      <td>{currentFranchise?.couponOneMonth}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>2 Month Coupon</b>
+                      </td>
+                      <td>{currentFranchise?.couponThreeMonth}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>1 Year Coupon</b>
+                      </td>
+                      <td>{currentFranchise?.couponOneYear}</td>
                     </tr>
                   </tbody>
                 </Table>

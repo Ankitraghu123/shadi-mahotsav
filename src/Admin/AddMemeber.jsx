@@ -352,7 +352,7 @@ const AddMember = () => {
 
                           >
                             <option value="">Select Marital Status</option>
-                            <option value="unmarried">Un Married</option>
+                            <option value="unmarried">Unmarried</option>
                             <option value="widow">Widow</option>
                             <option value="divorced">Divorced</option>
                             <option value="other">Other</option>

@@ -63,7 +63,7 @@ const Logi = () => {
                   <div className="form-login">
                     <form onSubmit={handleSubmit}>
                       <div className="form-group">
-                        <label className="lb">Code:</label>
+                        <label className="lb">Franchise ID:</label>
                         <input
                           type="text"
                           className="form-control"
